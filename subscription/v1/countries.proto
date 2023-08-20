@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+option go_package = "api/resub/v1";
+
+package com.sgstel.rbt.subscription.countries.v1;
+
+import "google/protobuf/empty.proto";
+
+// Countries management service.
+service Countries {
+  // Gets a country by its code.
+  rpc GetCountryByCode(GetCountryByCodeRequest) returns (GetCountryByCodeResponse);
+
+  // Gets a list of countries by their ISO code.
+  rpc GetCountriesByIsoCode(GetCountriesByIsoCodeRequest) returns (GetCountriesByIsoCodeResponse);
+
+  // Adds a new country.
+  rpc AddCountry(AddCountryRequest) returns (AddCountryResponse);
+
+  // Removes a country by its code.
+  rpc RemoveCountryByCode(RemoveCountryByCodeRequest) returns (google.protobuf.Empty);
+
+  // Sets a country's ISO code.
+  rpc SetCountryIsoCode(SetCountryIsoCodeRequest) returns (google.protobuf.Empty);
+
+  // Sets a country's name.
+  rpc SetCountryName(SetCountryNameRequest) returns (google.protobuf.Empty);
+}
+
+message GetCountryByCodeRequest {
+  int32 code = 1;
+}
+
+message GetCountryByCodeResponse {
+  Country country = 1;
+}
+
+message GetCountriesByIsoCodeRequest {
+  string iso_code = 1;
+}
+
+message GetCountriesByIsoCodeResponse {
+  repeated Country countries = 1;
+}
+
+message AddCountryRequest {
+  Country country = 1;
+}
+
+message AddCountryResponse {
+  Country country = 1;
+}
+
+message RemoveCountryByCodeRequest {
+  int32 code = 1;
+}
+
+message SetCountryIsoCodeRequest {
+  int32 code = 1;
+  string iso_code = 2;
+}
+
+message SetCountryNameRequest {
+  int32 code = 1;
+  string name = 2;
+}
+
+message Country {
+  int32 code      = 1;
+  string iso_code = 2;
+  string name     = 3;
+}
