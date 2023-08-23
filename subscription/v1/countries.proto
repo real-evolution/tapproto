@@ -5,26 +5,53 @@ option go_package = "api/resub/v1";
 package rbt.subscription.countries.v1;
 
 import "google/protobuf/empty.proto";
+import "google/api/http.proto";
 
 // Countries management service.
 service Countries {
   // Gets a country by its code.
-  rpc GetCountryByCode(GetCountryByCodeRequest) returns (GetCountryByCodeResponse);
+  rpc GetCountryByCode(GetCountryByCodeRequest) returns (GetCountryByCodeResponse) {
+    option (google.api.http) = {
+      get: "/v1/countries/{code}"
+    };
+  }
 
   // Gets a list of countries by their ISO code.
-  rpc GetCountriesByIsoCode(GetCountriesByIsoCodeRequest) returns (GetCountriesByIsoCodeResponse);
+  rpc GetCountriesByIsoCode(GetCountriesByIsoCodeRequest) returns (GetCountriesByIsoCodeResponse) {
+    option (google.api.http) = {
+      get: "/v1/countries/iso/{code}"
+    };
+  }
 
   // Adds a new country.
-  rpc AddCountry(AddCountryRequest) returns (AddCountryResponse);
+  rpc AddCountry(AddCountryRequest) returns (AddCountryResponse) {
+    option (google.api.http) = {
+      post: "/v1/countries"
+    };
+  }
 
   // Removes a country by its code.
-  rpc RemoveCountryByCode(RemoveCountryByCodeRequest) returns (google.protobuf.Empty);
+  rpc RemoveCountryByCode(RemoveCountryByCodeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/countries/{code}"
+    };
+  }
 
   // Sets a country's ISO code.
-  rpc SetCountryIsoCode(SetCountryIsoCodeRequest) returns (google.protobuf.Empty);
+  rpc SetCountryIsoCode(SetCountryIsoCodeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/countries/{code}/isoCode"
+      body: "iso_code"
+    };
+  }
 
   // Sets a country's name.
-  rpc SetCountryName(SetCountryNameRequest) returns (google.protobuf.Empty);
+  rpc SetCountryName(SetCountryNameRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/countries/{code}/name"
+      body: "name"
+    };
+  }
 }
 
 message GetCountryByCodeRequest {
