@@ -5,7 +5,7 @@ option go_package = "api/resub/v1";
 package rbt.subscription.countries.v1;
 
 import "google/protobuf/empty.proto";
-import "google/api/http.proto";
+import "google/api/annotations.proto";
 
 // Countries management service.
 service Countries {
