@@ -1,12 +1,18 @@
 version: v1
 
+# module name
+name: buf.build/void/rbt
+
+# dependencies
 deps:
   - buf.build/googleapis/googleapis
 
+# breaking rules
 breaking:
   use:
     - FILE
 
+# linting rules
 lint:
   use:
     - DEFAULT
