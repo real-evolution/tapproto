@@ -2,13 +2,12 @@ syntax = "proto3";
 
 option go_package = "api/resub/v1";
 
-package rbt.subscription.countries.v1;
+package rbt.subscription.v1;
 
-import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
 // Countries management service.
-service Countries {
+service CountriesService {
   // Gets a country by its code.
   rpc GetCountryByCode(GetCountryByCodeRequest) returns (GetCountryByCodeResponse) {
     option (google.api.http) = {
@@ -31,14 +30,14 @@ service Countries {
   }
 
   // Removes a country by its code.
-  rpc RemoveCountryByCode(RemoveCountryByCodeRequest) returns (google.protobuf.Empty) {
+  rpc RemoveCountryByCode(RemoveCountryByCodeRequest) returns (RemoveCountryByCodeResponse) {
     option (google.api.http) = {
       delete: "/v1/countries/{code}"
     };
   }
 
   // Sets a country's ISO code.
-  rpc SetCountryIsoCode(SetCountryIsoCodeRequest) returns (google.protobuf.Empty) {
+  rpc SetCountryIsoCode(SetCountryIsoCodeRequest) returns (SetCountryIsoCodeResponse) {
     option (google.api.http) = {
       put: "/v1/countries/{code}/isoCode"
       body: "iso_code"
@@ -46,7 +45,7 @@ service Countries {
   }
 
   // Sets a country's name.
-  rpc SetCountryName(SetCountryNameRequest) returns (google.protobuf.Empty) {
+  rpc SetCountryName(SetCountryNameRequest) returns (SetCountryNameResponse) {
     option (google.api.http) = {
       put: "/v1/countries/{code}/name"
       body: "name"
@@ -82,14 +81,23 @@ message RemoveCountryByCodeRequest {
   int32 code = 1;
 }
 
+message RemoveCountryByCodeResponse {
+}
+
 message SetCountryIsoCodeRequest {
   int32 code = 1;
   string iso_code = 2;
 }
 
+message SetCountryIsoCodeResponse {
+}
+
 message SetCountryNameRequest {
   int32 code = 1;
   string name = 2;
+}
+
+message SetCountryNameResponse {
 }
 
 message Country {
