@@ -6,6 +6,7 @@ name: buf.build/void/rbt
 # dependencies
 deps:
   - buf.build/googleapis/googleapis
+  - buf.build/bufbuild/protovalidate
 
 # breaking rules
 breaking:

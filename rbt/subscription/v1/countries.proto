@@ -3,6 +3,7 @@ syntax = "proto3";
 package rbt.subscription.v1;
 
 import "google/api/annotations.proto";
+import "buf/validate/validate.proto";
 
 // Countries management service.
 service CountriesService {
@@ -44,7 +45,7 @@ service CountriesService {
 }
 
 message GetCountryByCodeRequest {
-  int32 code = 1;
+  int32 code = 1 [(buf.validate.field).int32.gt = 0]
 }
 
 message GetCountryByCodeResponse {
@@ -52,7 +53,7 @@ message GetCountryByCodeResponse {
 }
 
 message GetCountriesByIsoCodeRequest {
-  string iso_code = 1;
+  string iso_code = 2 [(buf.valudate.field).string.length = 2]
 }
 
 message GetCountriesByIsoCodeResponse {
@@ -68,27 +69,27 @@ message AddCountryResponse {
 }
 
 message RemoveCountryByCodeRequest {
-  int32 code = 1;
+  int32 code = 1 [(buf.validate.field).int32.gt = 0]
 }
 
 message RemoveCountryByCodeResponse {}
 
 message SetCountryIsoCodeRequest {
-  int32 code = 1;
-  string iso_code = 2;
+  int32 code = 1 [(buf.validate.field).int32.gt = 0]
+  string iso_code = 2 [(buf.valudate.field).string.length = 2]
 }
 
 message SetCountryIsoCodeResponse {}
 
 message SetCountryNameRequest {
-  int32 code = 1;
+  int32 code = 1 [(buf.validate.field).int32.gt = 0]
   string name = 2;
 }
 
 message SetCountryNameResponse {}
 
 message Country {
-  int32 code = 1;
+  int32 code = 1 [(buf.validate.field).int32.gt = 0]
   string iso_code = 2;
   string name = 3;
 }
