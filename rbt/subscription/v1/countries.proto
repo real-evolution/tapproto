@@ -79,14 +79,18 @@ message SetCountryIsoCodeRequest {
   string iso_code = 2 [(buf.valudate.field).string.length = 2]
 }
 
-message SetCountryIsoCodeResponse {}
+message SetCountryIsoCodeResponse {
+  Country country = 1;
+}
 
 message SetCountryNameRequest {
   int32 code = 1 [(buf.validate.field).int32.gt = 0]
   string name = 2;
 }
 
-message SetCountryNameResponse {}
+message SetCountryNameResponse {
+  Country country = 1;
+}
 
 message Country {
   int32 code = 1 [(buf.validate.field).int32.gt = 0]
