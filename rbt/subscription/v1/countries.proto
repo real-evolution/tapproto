@@ -35,7 +35,7 @@ service CountriesService {
   }
 
   // Deletes a country.
-  rpc DeleteCountry(DeleteCountryRequest) returns (google.protobuf.Empty) {
+  rpc DeleteCountry(DeleteCountryRequest) returns (DeleteCountryResponse) {
     option (google.api.http) = { delete: "/v1/countries/{code}" };
   }
 }
@@ -108,6 +108,9 @@ message DeleteCountryRequest {
   // The code of the country to delete.
   int32 code = 1 [(buf.validate.field).int32.gt = 0];
 }
+
+// The response message for the DeleteCountry method.
+message DeleteCountryResponse {}
 
 // A message to represent a country
 message Country {
