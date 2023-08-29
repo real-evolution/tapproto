@@ -46,12 +46,12 @@ message ListCountriesRequest {
   optional string iso_code = 1 [(buf.validate.field).string.pattern = "[A-Z]{2}"];
 
   // The page token to use to retrieve a specific page of results.
-  optional int32 after_code = 2 [(buf.validate.field).int32.gt = 0];
-  
+  optional int32 after_code = 2 [(buf.validate.field).int32.gte = 0];
+
   // The maximum number of countries to return per page.
   optional int32 page_size = 3 [
     (buf.validate.field).int32.gt = 0,
-    (buf.validate.field).int32.lt = 101
+    (buf.validate.field).int32.lte = 100
   ];
 }
 
