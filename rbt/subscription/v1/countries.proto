@@ -75,8 +75,14 @@ message GetCountryResponse {
 
 // The request message for the CreateCountry method.
 message CreateCountryRequest {
-  // The country to create.
-  Country country = 1;
+  // The country code
+  int32 code = 1 [(buf.validate.field).int32.gt = 0];
+
+  // The ISO code of the country
+  string iso_code = 2 [(buf.validate.field).string.pattern = "^[A-Z]{2}$"];
+
+  // The name of the country
+  string display_name = 3;
 }
 
 // The response message for the CreateCountry method.
