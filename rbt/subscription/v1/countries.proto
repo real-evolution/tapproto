@@ -25,7 +25,10 @@ service CountriesService {
 
   // Creates a new country.
   rpc CreateCountry(CreateCountryRequest) returns (CreateCountryResponse) {
-    option (google.api.http) = { post: "/v1/countries" };
+    option (google.api.http) = {
+      post: "/v1/countries"
+      body: "*"
+    };
   }
 
   // Updates a country.
@@ -45,7 +48,7 @@ message ListCountriesRequest {
   optional string iso_code = 1 [(buf.validate.field).string.pattern = "[A-Z]{2}"];
 
   // The page token to use to retrieve a specific page of results.
-  optional int32 after_code = 2 [(buf.validate.field).int32.gte = 0];
+  optional int32 after_code = 2 [(buf.validate.field).int32.gt = 0];
 
   // The maximum number of countries to return per page.
   optional int32 page_size = 3 [
