@@ -4,6 +4,8 @@ package rbt.subscription.v1;
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
 import "buf/validate/validate.proto";
 
 // The countries service definition.
@@ -117,4 +119,10 @@ message Country {
 
   // The name of the country
   string display_name = 3;
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 4;
+
+  // The last update timestamp
+  google.protobuf.Timestamp update_time = 5;
 }
