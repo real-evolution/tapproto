@@ -3,7 +3,6 @@ syntax = "proto3";
 package rbt.subscription.v1;
 
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 import "buf/validate/validate.proto";
