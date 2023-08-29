@@ -84,7 +84,7 @@ message CreateCountryRequest {
   string iso_code = 2 [(buf.validate.field).string.pattern = "^[A-Z]{2}$"];
 
   // The name of the country
-  string display_name = 3;
+  string display_name = 3 [(buf.validate.field).required = true];
 }
 
 // The response message for the CreateCountry method.
