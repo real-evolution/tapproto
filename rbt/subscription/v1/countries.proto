@@ -78,7 +78,7 @@ message CreateCountryRequest {
   string iso_code = 1 [(buf.validate.field).string.pattern = "[A-Z]{2}"];
 
   // The phone number code of the country.
-  string country_code = 2 [(buf.validate.field).int32.gt = 0];
+  int32 country_code = 2 [(buf.validate.field).int32.gt = 0];
 
   // The name of the country
   string display_name = 3 [(buf.validate.field).required = true];
