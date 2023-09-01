@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package rbt.subscription.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+import "buf/validate/validate.proto";
+
+// Providers service definition.
+service ProvidersService {
+  // Returns the list of providers matching the given filter.
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse) {
+    option (google.api.http) = {
+      get: "/v1/providers"
+    };
+  }
+
+  // Gets a provider by id.
+  rpc GetProvider(GetProviderRequest) returns (GetProviderResponse) {
+    option (google.api.http) = {
+      get: "/v1/providers/{id}"
+    };
+  }
+
+  // Creates a provider.
+  rpc CreateProvider(CreateProviderRequest) returns (CreateProviderResponse) {
+    option (google.api.http) = {
+      post: "/v1/providers"
+      body: "*"
+    };
+  }
+
+  // Updates a provider.
+  rpc UpdateProvider(UpdateProviderRequest) returns (UpdateProviderResponse) {
+    option (google.api.http) = {
+      put: "/v1/providers/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes a provider.
+  rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
+    option (google.api.http) = {
+      delete: "/v1/providers/{id}"
+    };
+  }
+}
+
+// The request message for the GetProvider method.
+message ListProvidersRequest {
+  // Optional filter to restrict the providers returned by state
+  optional ProviderState state = 1 [(buf.validate.field).enum.defined_only = true];
+
+  // Timestamp after which to query for providers.
+  google.protobuf.Timestamp update_time = 2;
+
+  // Filter providers by their status.
+  int32 page_size = 3;
+}
+
+// The response message for the ListProviders method.
+message ListProvidersResponse {
+  // The list of providers.
+  repeated Provider providers = 1;
+}
+
+// The request message for the GetProvider method.
+message GetProviderRequest {
+  // The provider's identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// The response message for the GetProvider method.
+message GetProviderResponse {
+  // The provider.
+  Provider provider = 1;
+}
+
+// The request message for the CreateProvider method.
+message CreateProviderRequest {
+  // The provider's identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The provider's state
+  ProviderState state = 2 [(buf.validate.field).enum.defined_only = true];
+
+  // The provider's display name
+  string display_name = 3 [(buf.validate.field).required = true];
+}
+
+// The response message for the CreateProvider method.
+message CreateProviderResponse {
+  // The created provider.
+  Provider provider = 1;
+}
+
+// The request message for the UpdateProvider method.
+message UpdateProviderRequest {
+  // The provider's identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The provider's state
+  optional ProviderState state = 2 [(buf.validate.field).enum.defined_only = true];
+
+  // The provider's display name
+  optional string display_name = 3;
+}
+
+// The response message for the UpdateProvider method.
+message UpdateProviderResponse {
+  // The updated provider.
+  Provider provider = 1;
+}
+
+// The response message for the DeleteProvider method.
+message DeleteProviderRequest {
+  // The provider's identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// The response message for the DeleteProvider method.
+message DeleteProviderResponse {}
+
+// An enum representing the state of a provider.
+enum ProviderState {
+  PROVIDER_STATE_UNSPECIFIED = 0;
+  PROVIDER_STATE_ENABLED     = 1; // The provider is enabled and can be used.
+  PROVIDER_STATE_DISABLED    = 2; // The provider is disabled and cannot be used.
+  PROVIDER_STATE_SUSPENDED   = 3; // The provider is suspended and cannot be used.
+}
+
+// A message to represent a provider.
+message Provider {
+  // The provider's identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The provider's state
+  ProviderState state = 2 [(buf.validate.field).enum.defined_only = true];
+
+  // The provider's display name
+  string display_name = 3 [(buf.validate.field).required = true];
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 4;
+
+  // The last update timestamp
+  google.protobuf.Timestamp update_time = 5;
+}
