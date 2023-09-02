@@ -56,7 +56,7 @@ message ListProvidersRequest {
   optional google.protobuf.Timestamp before_timestamp = 2;
 
   // Filter providers by their status.
-  int32 page_size = 3;
+  optional int32 page_size = 3;
 }
 
 // The response message for the ListProviders method.
