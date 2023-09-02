@@ -79,14 +79,11 @@ message GetProviderResponse {
 
 // The request message for the CreateProvider method.
 message CreateProviderRequest {
-  // The provider's identifier
-  string id = 1 [(buf.validate.field).string.uuid = true];
-
   // The provider's state
-  ProviderState state = 2 [(buf.validate.field).enum.defined_only = true];
+  ProviderState state = 1 [(buf.validate.field).enum.defined_only = true];
 
   // The provider's display name
-  string display_name = 3 [(buf.validate.field).required = true];
+  string display_name = 2 [(buf.validate.field).required = true];
 }
 
 // The response message for the CreateProvider method.
