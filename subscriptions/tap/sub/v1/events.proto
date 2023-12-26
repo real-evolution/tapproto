@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package tap.sub.v1;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+// The events service.
+service EventsService {
+  // Gets a batch of events.
+  rpc GetEventBatch(GetEventBatchRequest) returns (GetEventBatchResponse);
+
+  // Commits an event.
+  rpc CommitEvent(CommitEventRequest) returns (CommitEventResponse);
+
+  // Reverts an event.
+  rpc RevertEvent(RevertEventRequest) returns (RevertEventResponse);
+}
+
+// A request to get a batch of events.
+message GetEventBatchRequest {
+  // The ID of the site to get events for.
+  string site_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The maximum number of events to return in the batch.
+  int32 max_events = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).int32.gte = 1,
+    (buf.validate.field).int32.lte = 128
+  ];
+}
+
+// The response to a stream events request.
+message GetEventBatchResponse {
+  // The events in the batch.
+  repeated Event events = 1;
+}
+
+message CommitEventRequest {
+  // The ID of the site to get events for.
+  string site_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The ID of the event.
+  int64 event_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).int64.gte = 0
+  ];
+}
+
+// The response to a commit event request.
+message CommitEventResponse {}
+
+message RevertEventRequest {
+  // The ID of the site to get events for.
+  string site_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The ID of the event.
+  int64 event_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).int64.gte = 0
+  ];
+}
+
+// The response to a commit event request.
+message RevertEventResponse {}
+
+// An event.
+message Event {
+  enum Type {
+    // Unspecified event type.
+    TYPE_UNSPECIFIED = 0;
+
+    // Event type A.
+    TYPE_ACTIVATE = 1;
+
+    // Event type B.
+    TYPE_DEACTIVATE = 2;
+  }
+
+  // The ID of the event.
+  int64 id = 1;
+
+  // The ID of site event occurred on.
+  int64 phone = 2;
+
+  // The event type.
+  Event.Type type = 3;
+
+  // The timestamp of the event.
+  google.protobuf.Timestamp timestamp = 4;
+}

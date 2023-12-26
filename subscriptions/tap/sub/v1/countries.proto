@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package tap.sub.v1;
+
+import "buf/validate/validate.proto";
+
+// The countries service definition.
+service CountriesService {
+  // Returns a list of countries.
+  rpc ListCountries(ListCountriesRequest) returns (ListCountriesResponse);
+
+  // Gets a country by its iso 3166-1 code.
+  rpc GetCountry(GetCountryRequest) returns (GetCountryResponse);
+
+  // Updates a country.
+  rpc UpdateCountry(UpdateCountryRequest) returns (UpdateCountryResponse);
+}
+
+// The request message for the ListCountries method.
+message ListCountriesRequest {
+  // The page to retrieve. Defaults to 0.
+  optional int32 page = 1 [(buf.validate.field).int32.gte = 0];
+
+  // The maximum number of countries to return per page.
+  optional int32 page_size = 2 [
+    (buf.validate.field).int32.gt = 0,
+    (buf.validate.field).int32.lte = 100
+  ];
+}
+
+// The response message for the ListCountries method.
+message ListCountriesResponse {
+  // The list of countries that match the request.
+  repeated Country countries = 1;
+}
+
+// The request message for the GetCountry method.
+message GetCountryRequest {
+  // The ISO 3166-1 alpha 2 code of the country to retrieve.
+  string iso2 = 1 [(buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"];
+}
+
+// The response message for the GetCountry method.
+message GetCountryResponse {
+  // The country.
+  Country country = 1;
+}
+
+// The request message for the UpdateCountry method.
+message UpdateCountryRequest {
+  // The ISO 3166-1 alpha 2 code of the country to update.
+  string iso2 = 1 [(buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"];
+
+  // If set, the new display name of the country.
+  optional string display_name = 2;
+}
+
+// The response message for the UpdateCountry method.
+message UpdateCountryResponse {
+  // The updated country.
+  Country country = 1;
+}
+
+// A message to represent a country
+message Country {
+  // The ISO 3166-1 alpha 2 code
+  string iso2 = 1;
+
+  // The name of the country
+  string display_name = 2;
+
+  // The country phone code
+  int32 phone_code = 3;
+}

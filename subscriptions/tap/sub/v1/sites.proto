@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package tap.sub.v1;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+// Provider sites management service definition.
+service SitesService {
+  // Lists provider sites.
+  rpc ListSites(ListSitesRequest) returns (ListSitesResponse);
+
+  // Gets provider site.
+  rpc GetSite(GetSiteRequest) returns (GetSiteResponse);
+
+  // Creates provider site.
+  rpc CreateSite(CreateSiteRequest) returns (CreateSiteResponse);
+
+  // Updates provider site.
+  rpc UpdateSite(UpdateSiteRequest) returns (UpdateSiteResponse);
+
+  // Deletes provider site.
+  rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse);
+}
+
+// Request message for `ListSites`.
+message ListSitesRequest {
+  // The ID of the provider to list sites for.
+  optional string provider_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // Filter provider sites by their status.
+  optional string country_iso2 = 2 [
+    (buf.validate.field).string.pattern = "[a-zA-Z]{2}"
+  ];
+
+  // Filter provider sites by their status.
+  optional bool is_enabled = 3;
+
+  // Get only provider sites compatible with the given phone number.
+  optional int64 phone = 4 [
+    (buf.validate.field).int64.gte = 1000,
+    (buf.validate.field).int64.lte = 9999999999999999
+  ];
+
+  // Timestamp after which to query for providers.
+  optional google.protobuf.Timestamp before_timestamp = 5;
+
+  // Filter providers by their status.
+  optional int32 page_size = 6;
+}
+
+// Response message for `ListSites`.
+message ListSitesResponse {
+  // The list of provider sites.
+  repeated Site sites = 1;
+}
+
+// Request message for `GetSite`.
+message GetSiteRequest {
+  // The ID of the provider site to get.
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// Response message for `GetSite`.
+message GetSiteResponse {
+  // The provider site.
+  Site site = 1;
+}
+
+// Request message for `CreateSite`.
+message CreateSiteRequest {
+  option (buf.validate.message).cel = {
+    id: "gt_min_phone"
+    message: "max_phone must be greater than min_phone"
+    expression: "this.max_phone > this.min_phone"
+  };
+
+  // The ID of the provider to create a site for.
+  string provider_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The provider site's name
+  string display_name = 2 [(buf.validate.field).required = true];
+
+  // The minimum phone number this provider site accepts
+  int64 min_phone = 3 [(buf.validate.field).int64.gte = 0000000000001000];
+
+  // The maximum phone number this provider site accepts
+  int64 max_phone = 4 [(buf.validate.field).int64.lte = 9999999999999999];
+
+  // The provider site's ISO code
+  string country_iso2 = 5 [
+    (buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"
+  ];
+    
+  // The provider site's status
+  bool is_enabled = 6;
+}
+
+// Response message for `CreateSite`.
+message CreateSiteResponse {
+  // The created provider site.
+  Site site = 1;
+}
+
+// Request message for `UpdateSite`.
+message UpdateSiteRequest {
+  // The ID of the provider site to update.
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The new provider site's name.
+  optional string display_name = 2;
+
+  // The new provider site's status.
+  optional bool is_enabled = 3;
+}
+
+// Response message for `UpdateSite`.
+message UpdateSiteResponse {
+  // The updated provider site.
+  Site site = 1;
+}
+
+// Request message for `DeleteSite`.
+message DeleteSiteRequest {
+  // The ID of the provider site to delete.
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// Response message for `DeleteSite`.
+message DeleteSiteResponse {}
+
+// A message to represent a provider site.
+message Site {
+  // The provider site's identifier
+  string id = 1;
+
+  // The provider site's display name
+  string display_name = 2;
+
+  // The minimum phone number this provider site accepts
+  int64 min_phone = 3;
+
+  // The maximum phone number this provider site accepts
+  int64 max_phone = 4;
+
+  // The provider site's ISO code
+  string country_iso2 = 5;
+
+  // The id of the provider site's owner
+  string provider_id = 6;
+
+  // The provider site's status
+  bool is_enabled = 7;
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 8;
+
+  // The last update timestamp
+  google.protobuf.Timestamp update_time = 9;
+}
