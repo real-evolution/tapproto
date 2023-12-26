@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package tap.sub.v1;
 
-import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
 
 // Subscribers' subscriptions management service.
 service SubscriptionsService {
