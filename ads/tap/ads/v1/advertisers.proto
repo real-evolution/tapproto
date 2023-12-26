@@ -4,7 +4,6 @@ package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // The advertisers service definition.
 service AdvertisersService {
@@ -45,7 +44,7 @@ message ListAdvertisersResponse {
 // The request message for the GetAdvertiser method.
 message GetAdvertiserRequest {
   // The ID of the advertiser to retrieve.
-  tap.types.v1.Uuid id = 1;
+  AdvertiserID id = 1;
 }
 
 // The response message for the GetAdvertiser method.
@@ -57,7 +56,7 @@ message GetAdvertiserResponse {
 // The request message for the CreateAdvertiser method.
 message CreateAdvertiserRequest {
   // The ID of the advertiser to create.
-  tap.types.v1.Uuid id = 1;
+  AdvertiserID id = 1;
 
   // The display name of the advertiser.
   string display_name = 2;
@@ -75,7 +74,7 @@ message CreateAdvertiserResponse {
 // The request message for the UpdateAdvertiser method.
 message UpdateAdvertiserRequest {
   // The ID of the advertiser to update.
-  tap.types.v1.Uuid id = 1;
+  AdvertiserID id = 1;
 
   // The display name of the advertiser.
   optional string display_name = 2;
@@ -93,16 +92,22 @@ message UpdateAdvertiserResponse {
 // The request message for the DeleteAdvertiser method.
 message DeleteAdvertiserRequest {
   // The ID of the advertiser to delete.
-  tap.types.v1.Uuid id = 1;
+  AdvertiserID id = 1;
 }
 
 // The response message for the DeleteAdvertiser method.
 message DeleteAdvertiserResponse {}
 
+// A message to represent a advertiser ID.
+message AdvertiserID {
+  // The ID of the advertiser.
+  string value = 1;
+}
+
 // A message to represent a advertiser
 message Advertiser {
   // The ID of the advertiser.
-  tap.types.v1.Uuid id = 1;
+  AdvertiserID id = 1;
 
   // The display name of the advertiser.
   string display_name = 2;

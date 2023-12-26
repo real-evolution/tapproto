@@ -4,7 +4,6 @@ package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // The documents service definition.
 service DocumentsService {
@@ -21,10 +20,10 @@ service DocumentsService {
 // The request message for the ListDocuments method.
 message ListDocumentsRequest {
   // Filter by requirement ID.
-  optional int32 requirement_id = 1;
+  optional tap.ads.v1.RequirementID requirement_id = 1;
 
   // Filter by advertiser ID.
-  optional tap.types.v1.Uuid advertiser_id = 2;
+  optional tap.ads.v1.AdvertiserID advertiser_id = 2;
 
   // Pagination parameters.
   tap.types.v1.Page page = 3;
@@ -42,7 +41,7 @@ message ListDocumentsResponse {
 // The request message for the GetDocument method.
 message GetDocumentRequest {
   // The ID of the document to retrieve.
-  int32 id = 1;
+  DocumentID id = 1;
 }
 
 // The response message for the GetDocument method.
@@ -57,10 +56,10 @@ message CreateDocumentRequest {
   google.protobuf.Timestamp expires_at = 1;
 
   // The identifier of the requirement that the document satisfies.
-  int32 requirement_id = 2;
+  tap.ads.v1.RequirementID requirement_id = 2;
 
   // The identifier of the advertiser that owns the document.
-  tap.types.v1.Uuid advertiser_id = 3;
+  tap.ads.v1.AdvertiserID advertiser_id = 3;
 
   // The identofier of the verification ticket of the document.
   tap.types.v1.Uuid ticket_id = 4;
@@ -75,19 +74,25 @@ message CreateDocumentResponse {
   Document document = 1;
 }
 
+// A message to represent a document ID.
+message DocumentID {
+  // The identifier of the document.
+  int32 id = 1;
+}
+
 // A message to represent a document
 message Document {
   // The identifier of the document.
-  int32 id = 1;
+  DocumentID id = 1;
 
   // The timestamp when the document expires.
   google.protobuf.Timestamp expires_at = 2;
 
   // The identifier of the requirement that the document satisfies.
-  int32 requirement_id = 3;
+  tap.ads.v1.RequirementID requirement_id = 3;
 
   // The identifier of the advertiser that owns the document.
-  tap.types.v1.Uuid advertiser_id = 4;
+  tap.ads.v1.AdvertiserID advertiser_id = 4;
 
   // The identofier of the verification ticket of the document.
   tap.types.v1.Uuid ticket_id = 5;

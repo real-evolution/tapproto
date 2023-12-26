@@ -47,10 +47,16 @@ message CreateRequirementResponse {
   Requirement requirement = 1;
 }
 
+// A message to represent a requirement ID.
+message RequirementID {
+  // The identifier of the requirement.
+  int32 id = 1;
+}
+
 // A message to represent a requirement
 message Requirement {
   // The identifier of the requirement.
-  int32 id = 1;
+  RequirementID id = 1;
 
   // The display name of the requirement.
   string display_name = 2;
