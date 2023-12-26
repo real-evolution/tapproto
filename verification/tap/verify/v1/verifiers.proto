@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package tap.verify.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+import "tap/verify/v1/tags.proto";
+
+// Verifier's management service
+service VerifiersService {
+  // Lists verifiers
+  rpc ListVerifiers(ListVerifiersRequest) returns (ListVerifiersResponse);
+
+  // Gets a verifier
+  rpc GetVerifier(GetVerifierRequest) returns (GetVerifierResponse);
+
+  // Create a verifier
+  rpc CreateVerifier(CreateVerifierRequest) returns (CreateVerifierResponse);
+
+  // Updates a verifier
+  rpc UpdateVerifier(UpdateVerifierRequest) returns (UpdateVerifierResponse);
+
+  // Deletes a verifier
+  rpc DeleteVerifier(DeleteVerifierRequest) returns (DeleteVerifierResponse);
+
+  // Add a tag
+  rpc AddVerifierTags(AddVerifierTagsRequest) returns (AddVerifierTagsResponse);
+
+  // List tags
+  rpc ListVerifierTags(ListVerifierTagsRequest) returns (ListVerifierTagsResponse);
+
+  // Remove tags
+  rpc DeleteVerifierTags(DeleteVerifierTagsRequest) returns (DeleteVerifierTagsResponse);
+}
+
+
+// Request message for `CreateVerifier`
+message CreateVerifierRequest {
+  // The verifier identifier
+  VerifierID id = 1;
+  
+  // The verifier display name
+  string display_name = 2;
+}
+
+// Response message for `CreateVerifier`
+message CreateVerifierResponse {
+  Verifier verifier = 1;
+}
+
+// Request message for `ListVerifiers`
+message ListVerifiersRequest {
+  // Filter by display name
+  optional string display_name = 1;
+
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 2;
+
+  // The maximum number of products to return
+  optional int32 page_size = 3;
+}
+
+// Request message for `ListVerifiers`
+message ListVerifiersResponse {
+  // The verifiers
+  repeated Verifier verifiers = 1;
+}
+
+// Request message for `GetVerifier`
+message GetVerifierRequest {
+  // The Id of the verifier to get 
+  VerifierID id = 1;
+}
+
+// Response message for `GetVerifier`
+message GetVerifierResponse {
+  // The verifier
+  Verifier verifier = 1;
+}
+
+// Request message for `UpdateVerifier`
+message UpdateVerifierRequest {
+  // The id of the verifier to update 
+  VerifierID id = 1;
+
+  // The display name
+  optional string display_name = 2;
+}
+
+// Response message for `UpdateVerifier`
+message UpdateVerifierResponse {
+  // The verifier
+  Verifier verifier = 1;
+}
+
+// Request message for `DeleteVerifier`
+message DeleteVerifierRequest {
+  // The id of the verifier to delete
+  VerifierID id = 1;
+}
+
+// Response message for `DeleteVerifier`
+message DeleteVerifierResponse {}
+
+// Request message for `AddTag`
+message AddVerifierTagsRequest {
+  // The id of the Verifier to add a tag to.
+  VerifierID verifier_id = 1;
+
+  // The codes of the tag to add. 
+  repeated tap.verify.v1.TagCode tag_codes = 2;
+}
+
+// Response message for `AddTag`
+message AddVerifierTagsResponse {
+  // The id of the verifier to add a tag to.
+  VerifierID verifier_id = 1;
+  
+  // The codes of the tags added. 
+  repeated tap.verify.v1.TagCode tag_codes = 2;
+}
+
+// Request message for `RemoveTags`
+message DeleteVerifierTagsRequest {
+  // The id of the Verifier to remove a tag from.
+  VerifierID verifier_id = 1;
+
+  // The codes of the tag to remove. 
+  repeated tap.verify.v1.TagCode tag_codes = 2;
+}
+
+// Response message for `RemoveTags`
+message DeleteVerifierTagsResponse {
+  // The id of the verifier to remove a tag from.
+  VerifierID verifier_id = 1;
+  
+  // The codes of the tags removed. 
+  repeated tap.verify.v1.TagCode tag_codes = 2;
+}
+
+// Request message for `ListTags`
+message ListVerifierTagsRequest {
+  // The id of the Verifier to list tags for.
+  VerifierID verifier_id = 1;
+  
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 2;
+
+  // The maximum number of products to return
+  optional int32 page_size = 3;
+}
+
+// Response message for `ListTags`
+message ListVerifierTagsResponse {
+  // The tags
+  repeated tap.verify.v1.TagCode tag_codes = 1;
+}
+
+// A message representing a verifier identifier.
+message VerifierID {
+  // The verifier identifier
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// a message representing a verifier
+message Verifier {
+  // The verifier identifier
+  VerifierID id = 1;
+
+  // The verifier display name
+  string display_name = 2;
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 3;
+
+  // The last update timestamp
+  google.protobuf.Timestamp update_time = 4;
+}

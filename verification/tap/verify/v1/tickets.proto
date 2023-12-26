@@ -1,0 +1,265 @@
+syntax = "proto3";
+
+package tap.verify.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+import "tap/verify/v1/verifiers.proto";
+import "tap/verify/v1/tags.proto";
+
+// Ticket's management service
+service TicketService {
+  // Lists tickets
+  rpc ListTickets(ListTicketsRequest) returns (ListTicketsResponse);
+
+  // Gets a ticket
+  rpc GetTicket(GetTicketRequest) returns (GetTicketResponse);
+
+  // Create a ticket
+  rpc CreateTicket(CreateTicketRequest) returns (CreateTicketResponse);
+
+  // Updates a ticket
+  rpc UpdateTicket(UpdateTicketRequest) returns (UpdateTicketResponse);
+
+  // Deletes a ticket
+  rpc DeleteTicket(DeleteTicketRequest) returns (DeleteTicketResponse);
+  
+  // Add tags
+  rpc AddTicketTags(AddTicketTagsRequest) returns (AddTicketTagsResponse);
+
+  // List tags
+  rpc ListTicketTags(ListTicketTagsRequest) returns (ListTicketTagsResponse);
+
+  // Remove tags
+  rpc DeleteTicketTags(DeleteTicketTagsRequest) returns (DeleteTicketTagsResponse);
+
+  // Verify a ticket
+  rpc Verify(VerifyRequest) returns (VerifyResponse);
+  
+  // List ticket verifications
+  rpc ListTicketVerifications(ListTicketVerificationsRequest) returns (ListTicketVerificationsResponse);
+
+  // check whether a ticket is approved
+  rpc IsApproved(IsApprovedRequest) returns (IsApprovedResponse);
+}
+
+// Request message for `ListTickets`
+message ListTicketsRequest {
+  // Filter by title
+  optional string title = 1;
+
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 2;
+
+  // The maximum number of products to return
+  optional int32 page_size = 3;
+}
+
+// Response message for `ListTickets`
+message ListTicketsResponse {
+  // The tickets
+  repeated Ticket tickets = 1;
+}
+
+// Request message for `GetTicket`
+message GetTicketRequest {
+  // The id of the ticket
+  TicketID id = 1;
+}
+
+// Response message for `GetTicket`
+message GetTicketResponse {
+  // The ticket
+  Ticket ticket = 1;
+}
+
+// Request message for `CreateTicket`
+message CreateTicketRequest {
+  // The title of the ticket
+  string title = 1;
+}
+
+// Response message for `CreateTicket`
+message CreateTicketResponse {
+  // The created ticket
+  Ticket ticket = 1;
+}
+
+// Request message for `UpdateTicket`
+message UpdateTicketRequest {
+  // The id of the ticket
+  TicketID id = 1;
+
+  // The title of the ticket
+  optional string title = 2;
+}
+
+// Response message for `UpdateTicket`
+message UpdateTicketResponse {
+  // The updated ticket
+  Ticket ticket = 1;
+}
+
+// Request message for `DeleteTicket`
+message DeleteTicketRequest {
+  // The id of the ticket
+  TicketID id = 1;
+}
+
+// Response message for `DeleteTicket`
+message DeleteTicketResponse {}
+
+// Request message for `AddTicketTag`
+message AddTicketTagsRequest {
+  // The id of the ticket to add a tag to.
+  TicketID ticket_id = 1;
+
+  // The codes of the tag to add. 
+  tap.verify.v1.TagCode tag_code = 2;
+
+  // Whether the tag is optional or not.
+  bool optional = 3;
+}
+
+// Response message for `AddTicketTag`
+message AddTicketTagsResponse {
+  // The ticket tag
+  TicketTag ticket_tag = 1;
+}
+
+// Request message for `ListTicketTags`
+message ListTicketTagsRequest {
+  // The id of the ticket to list tags for.
+  TicketID ticket_id = 1;
+  
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 2;
+
+  // The maximum number of products to return
+  optional int32 page_size = 3;
+}
+
+// Response message for `ListTicketTags`
+message ListTicketTagsResponse {
+  // The tags
+  repeated TicketTag ticket_tags = 1;
+}
+
+// Request message for `RemoveTicketTags`
+message DeleteTicketTagsRequest {
+  // The id of the ticket to remove a tag from.
+  TicketID ticket_id = 1;
+
+  // The codes of the tag to remove. 
+  repeated string tag_codes = 2;
+}
+
+// Response message for `RemoveTicketTags`
+message DeleteTicketTagsResponse {
+  // The tags 
+  repeated TicketTag ticket_tags = 1;
+}
+
+// Request message for `VerifyTicket`
+message VerifyRequest {
+  // The id of the ticket to verify.
+  TicketID ticket_id = 1;
+
+  // The code of the tag to verify.
+  tap.verify.v1.TagCode tag_code = 2;
+
+  // Whether the ticket is approved or not.
+  bool approved = 3;
+
+  // Note
+  optional string note = 4;
+}
+
+// Response message for `VerifyTicket`
+message VerifyResponse {
+}
+
+// Request message for `ListTicketVerifications`
+message ListTicketVerificationsRequest {
+  // The id of the ticket to list verifications for.
+  TicketID ticket_id = 1;
+  
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 2;
+
+  // The maximum number of products to return
+  optional int32 page_size = 3;
+}
+
+// Response message for `ListTicketVerifications`
+message ListTicketVerificationsResponse {
+  // The verified tickets
+  repeated VerifiedTicket verified_tickets = 1;
+}
+
+// Request message for `IsApproved`
+message IsApprovedRequest {
+  // The id of the ticket to check.
+  TicketID ticket_id = 1;
+
+  // additional optional tags
+  repeated tap.verify.v1.TagCode tag_codes = 2;
+}
+
+// Response message for `IsApproved`
+message IsApprovedResponse {
+  // Whether the ticket is approved or not.
+  bool approved = 1;
+}
+
+// A message representing a ticket ID
+message TicketID {
+  // The ID of the ticket
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// A message representing a ticket
+message Ticket {
+  // The id of the ticket
+  TicketID id = 1;
+
+  // The title of the ticket
+  string title = 2;
+
+  // The date the ticket was created
+  google.protobuf.Timestamp created_at = 3;
+
+  // The date the ticket was last updated
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+// a message representing a ticketTag
+message TicketTag {
+  // The id of the ticket 
+  TicketID ticket_id = 1;
+
+  // The code of the tag
+  tap.verify.v1.TagCode tag_code = 2;
+
+  // Whether the tag is optional or not.
+  bool optional = 3;
+}
+
+// A message representing a verified ticket
+message VerifiedTicket {
+  // The id of the ticket
+  TicketID ticket_id = 1;
+
+  // The verifier Id
+  tap.verify.v1.VerifierID verifier_id = 2;
+
+  // The code of the tag
+  tap.verify.v1.TagCode tag_code = 3;
+
+  // Whether the ticket is approved or not.
+  bool approved = 4;
+
+  // Note
+  optional string note = 5;
+}
