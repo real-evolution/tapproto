@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package tap.types.v1;
+
+/// A pagination message for paginating through a list of items.
+message Page {
+  /// A cursor to get the items starting from.
+  optional bytes cursor = 1;
+
+  /// The number of results to return per page. If not specified, the default
+  /// value is 64.
+  optional int32 limit = 2;
+}
