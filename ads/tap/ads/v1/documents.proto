@@ -3,6 +3,10 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+
+import "tap/ads/v1/advertisers.proto";
+import "tap/ads/v1/requirements.proto";
+import "tap/verify/v1/tickets.proto";
 import "tap/types/v1/pagination.proto";
 
 // The documents service definition.
@@ -62,7 +66,7 @@ message CreateDocumentRequest {
   tap.ads.v1.AdvertiserID advertiser_id = 3;
 
   // The identofier of the verification ticket of the document.
-  tap.types.v1.Uuid ticket_id = 4;
+  tap.verify.v1.TicketID ticket_id = 4;
 
   // The identifier of the document content.
   string content_id = 5;
@@ -95,7 +99,7 @@ message Document {
   tap.ads.v1.AdvertiserID advertiser_id = 4;
 
   // The identofier of the verification ticket of the document.
-  tap.types.v1.Uuid ticket_id = 5;
+  tap.verify.v1.TicketID ticket_id = 5;
 
   // The identifier of the document content.
   string content_id = 6;

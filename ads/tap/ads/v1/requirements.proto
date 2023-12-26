@@ -3,6 +3,8 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+
+import "tap/verify/v1/tags.proto";
 import "tap/types/v1/pagination.proto";
 
 // The requirements service definition.
@@ -38,7 +40,7 @@ message CreateRequirementRequest {
   optional string description = 2;
 
   // Required verification tags of the requirement.
-  repeated string required_tags = 3;
+  repeated tap.verify.v1.TagCode required_tags = 3;
 }
 
 // The response message for the CreateRequirement method.
@@ -65,7 +67,7 @@ message Requirement {
   optional string description = 3;
 
   // Required verification tags of the requirement.
-  repeated string required_tags = 4;
+  repeated tap.verify.v1.TagCode required_tags = 4;
 
   // The creation time of the requirement.
   google.protobuf.Timestamp create_time = 5;

@@ -3,6 +3,7 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+
 import "tap/types/v1/pagination.proto";
 
 // The advertisers service definition.
