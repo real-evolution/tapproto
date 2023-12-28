@@ -1,0 +1,19 @@
+version: v1
+
+managed:
+  enabled: true
+
+plugins:
+  ## rust
+  - plugin: prost
+    out: lib/rust/src/gen
+    opt:
+      - file_descriptor_set
+  - plugin: tonic
+    out: lib/rust/src/gen
+  - plugin: prost-crate
+    out: lib/rust
+    strategy: all
+    opt:
+      - include_file=src/gen/mod.rs
+      - gen_crate=lib/rust/Cargo.toml
