@@ -62,14 +62,8 @@ message CreateDocumentRequest {
   // The identifier of the requirement that the document satisfies.
   tap.ads.v1.RequirementID requirement_id = 2;
 
-  // The identifier of the advertiser that owns the document.
-  tap.ads.v1.AdvertiserID advertiser_id = 3;
-
-  // The identofier of the verification ticket of the document.
-  tap.verify.v1.TicketID ticket_id = 4;
-
   // The identifier of the document content.
-  string content_id = 5;
+  string content_id = 4;
 }
 
 // The response message for the CreateDocument method.
