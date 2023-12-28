@@ -2,6 +2,6 @@
 
 # generate api protobuf files
 proto:
-	buf generate proto
+	buf generate --include-imports --include-wkt proto
 
 .PHONY: proto

@@ -9,8 +9,11 @@ plugins:
     out: lib/rust/src/gen
     opt:
       - file_descriptor_set
+      - compile_well_known_types
   - plugin: tonic
     out: lib/rust/src/gen
+    opt:
+      - compile_well_known_types
   - plugin: prost-crate
     out: lib/rust
     strategy: all

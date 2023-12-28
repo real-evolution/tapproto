@@ -117,10 +117,10 @@ pub struct Advertiser {
     pub is_active: bool,
     /// The creation time of the advertiser.
     #[prost(message, optional, tag="4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update time of the advertiser.
     #[prost(message, optional, tag="5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// The request message for the ListRequirements method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -189,10 +189,10 @@ pub struct Requirement {
     pub required_tags: ::prost::alloc::vec::Vec<super::super::verify::v1::TagCode>,
     /// The creation time of the requirement.
     #[prost(message, optional, tag="5")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update time of the requirement.
     #[prost(message, optional, tag="6")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// The request message for the ListDocuments method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -241,7 +241,7 @@ pub struct GetDocumentResponse {
 pub struct CreateDocumentRequest {
     /// The timestamp when the document expires.
     #[prost(message, optional, tag="1")]
-    pub expires_at: ::core::option::Option<::prost_types::Timestamp>,
+    pub expires_at: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The identifier of the requirement that the document satisfies.
     #[prost(message, optional, tag="2")]
     pub requirement_id: ::core::option::Option<RequirementId>,
@@ -280,7 +280,7 @@ pub struct Document {
     pub id: ::core::option::Option<DocumentId>,
     /// The timestamp when the document expires.
     #[prost(message, optional, tag="2")]
-    pub expires_at: ::core::option::Option<::prost_types::Timestamp>,
+    pub expires_at: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The identifier of the requirement that the document satisfies.
     #[prost(message, optional, tag="3")]
     pub requirement_id: ::core::option::Option<RequirementId>,
@@ -295,10 +295,10 @@ pub struct Document {
     pub content_id: ::prost::alloc::string::String,
     /// The creation time of the document.
     #[prost(message, optional, tag="7")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update time of the document.
     #[prost(message, optional, tag="8")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Encoded file descriptor set for the `tap.ads.v1` package
 pub const FILE_DESCRIPTOR_SET: &[u8] = &[

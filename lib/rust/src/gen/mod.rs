@@ -1,4 +1,26 @@
 // @generated
+pub mod buf {
+    #[cfg(feature = "buf-validate")]
+    // @@protoc_insertion_point(attribute:buf.validate)
+    pub mod validate {
+        include!("buf.validate.rs");
+        // @@protoc_insertion_point(buf.validate)
+        #[cfg(feature = "buf-validate-priv")]
+        // @@protoc_insertion_point(attribute:buf.validate.priv)
+        pub mod r#priv {
+            include!("buf.validate.priv.rs");
+            // @@protoc_insertion_point(buf.validate.priv)
+        }
+    }
+}
+pub mod google {
+    #[cfg(feature = "google-protobuf")]
+    // @@protoc_insertion_point(attribute:google.protobuf)
+    pub mod protobuf {
+        include!("google.protobuf.rs");
+        // @@protoc_insertion_point(google.protobuf)
+    }
+}
 pub mod tap {
     pub mod ads {
         #[cfg(feature = "tap-ads-v1")]

@@ -131,7 +131,7 @@ pub struct Event {
     pub r#type: i32,
     /// The timestamp of the event.
     #[prost(message, optional, tag="4")]
-    pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Nested message and enum types in `Event`.
 pub mod event {
@@ -177,7 +177,7 @@ pub struct ListProvidersRequest {
     pub state: ::core::option::Option<i32>,
     /// Timestamp after which to query for providers.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// Filter providers by their status.
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -278,10 +278,10 @@ pub struct Provider {
     pub display_name: ::prost::alloc::string::String,
     /// The creation timestamp
     #[prost(message, optional, tag="4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update timestamp
     #[prost(message, optional, tag="5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// An enum representing the state of a provider.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -337,7 +337,7 @@ pub struct ListSitesRequest {
     pub phone: ::core::option::Option<i64>,
     /// Timestamp after which to query for providers.
     #[prost(message, optional, tag="5")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// Filter providers by their status.
     #[prost(int32, optional, tag="6")]
     pub page_size: ::core::option::Option<i32>,
@@ -459,10 +459,10 @@ pub struct Site {
     pub is_enabled: bool,
     /// The creation timestamp
     #[prost(message, optional, tag="8")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update timestamp
     #[prost(message, optional, tag="9")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Request message for `ListSubscriptions`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -479,7 +479,7 @@ pub struct ListSubscriptionsRequest {
     pub site_id: ::core::option::Option<::prost::alloc::string::String>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="4")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of subscriptions to return.
     #[prost(int32, optional, tag="5")]
     pub page_size: ::core::option::Option<i32>,
@@ -552,10 +552,10 @@ pub struct Subscription {
     pub site_id: ::prost::alloc::string::String,
     /// The creation timestamp
     #[prost(message, optional, tag="4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update timestamp
     #[prost(message, optional, tag="5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Encoded file descriptor set for the `tap.sub.v1` package
 pub const FILE_DESCRIPTOR_SET: &[u8] = &[

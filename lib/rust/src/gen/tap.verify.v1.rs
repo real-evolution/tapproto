@@ -8,7 +8,7 @@ pub struct ListTagsRequest {
     pub code: ::core::option::Option<::prost::alloc::string::String>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -102,10 +102,10 @@ pub struct Tag {
     pub code: ::prost::alloc::string::String,
     /// The creation time of the tag.
     #[prost(message, optional, tag="2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update time of the tag.
     #[prost(message, optional, tag="3")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Request message for `CreateVerifier`
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -134,7 +134,7 @@ pub struct ListVerifiersRequest {
     pub display_name: ::core::option::Option<::prost::alloc::string::String>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -248,7 +248,7 @@ pub struct ListVerifierTagsRequest {
     pub verifier_id: ::core::option::Option<VerifierId>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -281,10 +281,10 @@ pub struct Verifier {
     pub display_name: ::prost::alloc::string::String,
     /// The creation timestamp
     #[prost(message, optional, tag="3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub create_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The last update timestamp
     #[prost(message, optional, tag="4")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub update_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// Request message for `ListTickets`
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -295,7 +295,7 @@ pub struct ListTicketsRequest {
     pub title: ::core::option::Option<::prost::alloc::string::String>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -403,7 +403,7 @@ pub struct ListTicketTagsRequest {
     pub ticket_id: ::core::option::Option<TicketId>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -466,7 +466,7 @@ pub struct ListTicketVerificationsRequest {
     pub ticket_id: ::core::option::Option<TicketId>,
     /// Creation timestamp after which to query.
     #[prost(message, optional, tag="2")]
-    pub before_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    pub before_timestamp: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The maximum number of products to return
     #[prost(int32, optional, tag="3")]
     pub page_size: ::core::option::Option<i32>,
@@ -518,10 +518,10 @@ pub struct Ticket {
     pub title: ::prost::alloc::string::String,
     /// The date the ticket was created
     #[prost(message, optional, tag="3")]
-    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+    pub created_at: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
     /// The date the ticket was last updated
     #[prost(message, optional, tag="4")]
-    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
+    pub updated_at: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
 }
 /// a message representing a ticketTag
 #[allow(clippy::derive_partial_eq_without_eq)]
