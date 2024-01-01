@@ -78,6 +78,9 @@ message GetTicketResponse {
 message CreateTicketRequest {
   // The title of the ticket
   string title = 1;
+
+  // Ticket initial tags.
+  repeated TicketTag tags = 2;
 }
 
 // Response message for `CreateTicket`
@@ -116,17 +119,11 @@ message AddTicketTagsRequest {
   TicketID ticket_id = 1;
 
   // The codes of the tag to add. 
-  tap.verify.v1.TagCode tag_code = 2;
-
-  // Whether the tag is optional or not.
-  bool optional = 3;
+  repeated TicketTag ticket_tags = 2;
 }
 
 // Response message for `AddTicketTag`
-message AddTicketTagsResponse {
-  // The ticket tag
-  TicketTag ticket_tag = 1;
-}
+message AddTicketTagsResponse {}
 
 // Request message for `ListTicketTags`
 message ListTicketTagsRequest {
@@ -236,14 +233,11 @@ message Ticket {
 
 // a message representing a ticketTag
 message TicketTag {
-  // The id of the ticket 
-  TicketID ticket_id = 1;
-
   // The code of the tag
-  tap.verify.v1.TagCode tag_code = 2;
+  tap.verify.v1.TagCode tag_code = 1;
 
   // Whether the tag is optional or not.
-  bool optional = 3;
+  bool optional = 2;
 }
 
 // A message representing a verified ticket
