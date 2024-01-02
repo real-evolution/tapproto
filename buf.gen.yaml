@@ -8,6 +8,7 @@ plugins:
   - plugin: prost
     out: lib/rust/src/gen
     opt:
+      - bytes=.
       - file_descriptor_set
       - compile_well_known_types
   - plugin: tonic
