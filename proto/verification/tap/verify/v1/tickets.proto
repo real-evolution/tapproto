@@ -213,7 +213,7 @@ message IsApprovedResponse {
 // A message representing a ticket ID
 message TicketID {
   // The ID of the ticket
-  string id = 1 [(buf.validate.field).string.uuid = true];
+  string value = 1 [(buf.validate.field).string.uuid = true];
 }
 
 // A message representing a ticket

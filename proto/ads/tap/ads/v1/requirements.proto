@@ -52,7 +52,7 @@ message CreateRequirementResponse {
 // A message to represent a requirement ID.
 message RequirementID {
   // The identifier of the requirement.
-  int32 id = 1;
+  int32 value = 1;
 }
 
 // A message to represent a requirement

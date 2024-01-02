@@ -160,7 +160,7 @@ message ListVerifierTagsResponse {
 // A message representing a verifier identifier.
 message VerifierID {
   // The verifier identifier
-  string id = 1 [(buf.validate.field).string.uuid = true];
+  string value = 1 [(buf.validate.field).string.uuid = true];
 }
 
 // a message representing a verifier

@@ -75,7 +75,7 @@ message CreateDocumentResponse {
 // A message to represent a document ID.
 message DocumentID {
   // The identifier of the document.
-  int32 id = 1;
+  int32 value = 1;
 }
 
 // A message to represent a document

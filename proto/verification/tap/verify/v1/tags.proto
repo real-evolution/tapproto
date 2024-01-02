@@ -92,7 +92,7 @@ message DeleteTagResponse {}
 // A message representing a tag code.
 message TagCode {
   // The code of the tag.
-  string code = 1 [(buf.validate.field).required = true];
+  string value = 1 [(buf.validate.field).required = true];
 }
 
 // A message representing a tag.
