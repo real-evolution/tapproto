@@ -62,6 +62,9 @@ message CreateDocumentRequest {
   // The identifier of the requirement that the document satisfies.
   tap.ads.v1.RequirementID requirement_id = 2;
 
+  // The document content.
+  bytes content = 3;
+
   // The identifier of the document content.
   string content_id = 4;
 }
