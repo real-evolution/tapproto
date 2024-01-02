@@ -1134,8 +1134,8 @@ pub struct UninterpretedOption {
     pub negative_int_value: ::core::option::Option<i64>,
     #[prost(double, optional, tag="6")]
     pub double_value: ::core::option::Option<f64>,
-    #[prost(bytes="vec", optional, tag="7")]
-    pub string_value: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="7")]
+    pub string_value: ::core::option::Option<::prost::bytes::Bytes>,
     #[prost(string, optional, tag="8")]
     pub aggregate_value: ::core::option::Option<::prost::alloc::string::String>,
 }

@@ -2149,8 +2149,8 @@ pub struct BytesRules {
     ///    bytes value = 1 [(buf.validate.field).bytes.const = "\x01\x02\x03\x04"];
     /// }
     /// ```
-    #[prost(bytes="vec", optional, tag="1")]
-    pub r#const: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="1")]
+    pub r#const: ::core::option::Option<::prost::bytes::Bytes>,
     /// `len` requires the field value to have the specified length in bytes.
     /// If the field value doesn't match, an error message is generated.
     ///
@@ -2210,8 +2210,8 @@ pub struct BytesRules {
     ///    optional bytes value = 1 [(buf.validate.field).bytes.prefix = "\x01\x02"];
     /// }
     /// ```
-    #[prost(bytes="vec", optional, tag="5")]
-    pub prefix: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="5")]
+    pub prefix: ::core::option::Option<::prost::bytes::Bytes>,
     /// `suffix` requires the field value to have the specified bytes at the end
     /// of the string.
     /// If the field value doesn't meet the requirement, an error message is generated.
@@ -2222,8 +2222,8 @@ pub struct BytesRules {
     ///    optional bytes value = 1 [(buf.validate.field).bytes.suffix = "\x03\x04"];
     /// }
     /// ```
-    #[prost(bytes="vec", optional, tag="6")]
-    pub suffix: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="6")]
+    pub suffix: ::core::option::Option<::prost::bytes::Bytes>,
     /// `contains` requires the field value to have the specified bytes anywhere in
     /// the string.
     /// If the field value doesn't meet the requirement, an error message is generated.
@@ -2234,8 +2234,8 @@ pub struct BytesRules {
     ///    optional bytes value = 1 [(buf.validate.field).bytes.contains = "\x02\x03"];
     /// }
     /// ```
-    #[prost(bytes="vec", optional, tag="7")]
-    pub contains: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="7")]
+    pub contains: ::core::option::Option<::prost::bytes::Bytes>,
     /// `in` requires the field value to be equal to one of the specified
     /// values. If the field value doesn't match any of the specified values, an
     /// error message is generated.
@@ -2246,8 +2246,8 @@ pub struct BytesRules {
     ///    optional bytes value = 1 [(buf.validate.field).bytes.in = {"\x01\x02", "\x02\x03", "\x03\x04"}];
     /// }
     /// ```
-    #[prost(bytes="vec", repeated, tag="8")]
-    pub r#in: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", repeated, tag="8")]
+    pub r#in: ::prost::alloc::vec::Vec<::prost::bytes::Bytes>,
     /// `not_in` requires the field value to be not equal to any of the specified
     /// values.
     /// If the field value matches any of the specified values, an error message is
@@ -2259,8 +2259,8 @@ pub struct BytesRules {
     ///    optional bytes value = 1 [(buf.validate.field).bytes.not_in = {"\x01\x02", "\x02\x03", "\x03\x04"}];
     /// }
     /// ```
-    #[prost(bytes="vec", repeated, tag="9")]
-    pub not_in: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", repeated, tag="9")]
+    pub not_in: ::prost::alloc::vec::Vec<::prost::bytes::Bytes>,
     /// WellKnown rules provide advanced constraints against common byte
     /// patterns
     #[prost(oneof="bytes_rules::WellKnown", tags="10, 11, 12")]

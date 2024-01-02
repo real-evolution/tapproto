@@ -4,8 +4,8 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Page {
     /// / A cursor to get the items starting from.
-    #[prost(bytes="vec", optional, tag="1")]
-    pub cursor: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes="bytes", optional, tag="1")]
+    pub cursor: ::core::option::Option<::prost::bytes::Bytes>,
     /// / The number of results to return per page. If not specified, the default
     /// / value is 64.
     #[prost(int32, optional, tag="2")]
