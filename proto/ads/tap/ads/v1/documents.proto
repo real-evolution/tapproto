@@ -64,9 +64,6 @@ message CreateDocumentRequest {
 
   // The document content.
   bytes content = 3;
-
-  // The identifier of the document content.
-  string content_id = 4;
 }
 
 // The response message for the CreateDocument method.
