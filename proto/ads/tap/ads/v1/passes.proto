@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package tap.ads.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "tap/types/v1/pagination.proto";
+
+service PassesService {
+  rpc ListPasses(ListPassesRequest) returns (ListPassesResponse);
+  rpc GetPass(GetPassRequest) returns (GetPassResponse);
+  rpc CreatePass(CreatePassRequest) returns (CreatePassResponse);
+  rpc UpdatePass(UpdatePassRequest) returns (UpdatePassResponse);
+  rpc DeletePass(DeletePassRequest) returns (DeletePassResponse);
+}
+
+message ListPassesRequest {
+  reserved 1 to 14;
+
+  tap.types.v1.Page page = 15;
+}
+
+message ListPassesResponse {
+  repeated Pass items = 1;
+  optional string next_cursor = 2;
+}
+
+message GetPassRequest {
+  PassID id =1;
+}
+
+message GetPassResponse {
+  Pass pass = 1;
+}
+
+message CreatePassRequest {
+  string display_name = 1;
+  string description = 2;
+  google.protobuf.Duration valid_for = 3;
+}
+
+message CreatePassResponse {
+  Pass pass = 1;
+}
+
+message UpdatePassRequest {
+  PassID id = 1;
+  optional string display_name = 2;
+  optional string description = 3;
+  optional google.protobuf.Duration valid_for = 4;
+}
+
+message UpdatePassResponse {
+  Pass pass = 1;
+}
+
+message DeletePassRequest {
+  PassID id = 1;
+}
+
+message DeletePassResponse {}
+
+message PassID {
+  int32 value = 1;
+}
+
+message Pass {
+  PassID id = 1;
+  string display_name = 2;
+  string description = 3;
+  google.protobuf.Duration  valid_for = 4;
+  google.protobuf.Timestamp create_time = 5;
+  google.protobuf.Timestamp update_time = 6;
+}
