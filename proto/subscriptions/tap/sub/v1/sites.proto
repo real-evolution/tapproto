@@ -29,9 +29,7 @@ message ListSitesRequest {
   optional string provider_id = 1 [(buf.validate.field).string.uuid = true];
 
   // Filter provider sites by their status.
-  optional string country_iso2 = 2 [
-    (buf.validate.field).string.pattern = "[a-zA-Z]{2}"
-  ];
+  optional string country_iso2 = 2 [(buf.validate.field).string.pattern = "[a-zA-Z]{2}"];
 
   // Filter provider sites by their status.
   optional bool is_enabled = 3;
@@ -88,10 +86,8 @@ message CreateSiteRequest {
   int64 max_phone = 4 [(buf.validate.field).int64.lte = 9999999999999999];
 
   // The provider site's ISO code
-  string country_iso2 = 5 [
-    (buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"
-  ];
-    
+  string country_iso2 = 5 [(buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"];
+
   // The provider site's status
   bool is_enabled = 6;
 }

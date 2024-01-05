@@ -4,7 +4,6 @@ package tap.verify.v1;
 
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
-
 import "tap/verify/v1/tags.proto";
 
 // Verifier's management service
@@ -34,12 +33,11 @@ service VerifiersService {
   rpc DeleteVerifierTags(DeleteVerifierTagsRequest) returns (DeleteVerifierTagsResponse);
 }
 
-
 // Request message for `CreateVerifier`
 message CreateVerifierRequest {
   // The verifier identifier
   VerifierID id = 1;
-  
+
   // The verifier display name
   string display_name = 2;
 }
@@ -69,7 +67,7 @@ message ListVerifiersResponse {
 
 // Request message for `GetVerifier`
 message GetVerifierRequest {
-  // The Id of the verifier to get 
+  // The Id of the verifier to get
   VerifierID id = 1;
 }
 
@@ -81,7 +79,7 @@ message GetVerifierResponse {
 
 // Request message for `UpdateVerifier`
 message UpdateVerifierRequest {
-  // The id of the verifier to update 
+  // The id of the verifier to update
   VerifierID id = 1;
 
   // The display name
@@ -108,7 +106,7 @@ message AddVerifierTagsRequest {
   // The id of the Verifier to add a tag to.
   VerifierID verifier_id = 1;
 
-  // The codes of the tag to add. 
+  // The codes of the tag to add.
   repeated tap.verify.v1.TagCode tag_codes = 2;
 }
 
@@ -116,8 +114,8 @@ message AddVerifierTagsRequest {
 message AddVerifierTagsResponse {
   // The id of the verifier to add a tag to.
   VerifierID verifier_id = 1;
-  
-  // The codes of the tags added. 
+
+  // The codes of the tags added.
   repeated tap.verify.v1.TagCode tag_codes = 2;
 }
 
@@ -126,7 +124,7 @@ message DeleteVerifierTagsRequest {
   // The id of the Verifier to remove a tag from.
   VerifierID verifier_id = 1;
 
-  // The codes of the tag to remove. 
+  // The codes of the tag to remove.
   repeated tap.verify.v1.TagCode tag_codes = 2;
 }
 
@@ -134,8 +132,8 @@ message DeleteVerifierTagsRequest {
 message DeleteVerifierTagsResponse {
   // The id of the verifier to remove a tag from.
   VerifierID verifier_id = 1;
-  
-  // The codes of the tags removed. 
+
+  // The codes of the tags removed.
   repeated tap.verify.v1.TagCode tag_codes = 2;
 }
 
@@ -143,7 +141,7 @@ message DeleteVerifierTagsResponse {
 message ListVerifierTagsRequest {
   // The id of the Verifier to list tags for.
   VerifierID verifier_id = 1;
-  
+
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 2;
 

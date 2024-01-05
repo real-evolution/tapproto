@@ -3,9 +3,8 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
-
-import "tap/verify/v1/tags.proto";
 import "tap/types/v1/pagination.proto";
+import "tap/verify/v1/tags.proto";
 
 // The requirements service definition.
 service RequirementsService {

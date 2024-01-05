@@ -101,9 +101,9 @@ message DeleteProviderResponse {}
 // An enum representing the state of a provider.
 enum ProviderState {
   PROVIDER_STATE_UNSPECIFIED = 0;
-  PROVIDER_STATE_ENABLED     = 1; // The provider is enabled and can be used.
-  PROVIDER_STATE_DISABLED    = 2; // The provider is disabled and cannot be used.
-  PROVIDER_STATE_SUSPENDED   = 3; // The provider is suspended and cannot be used.
+  PROVIDER_STATE_ENABLED = 1; // The provider is enabled and can be used.
+  PROVIDER_STATE_DISABLED = 2; // The provider is disabled and cannot be used.
+  PROVIDER_STATE_SUSPENDED = 3; // The provider is suspended and cannot be used.
 }
 
 // A message to represent a provider.

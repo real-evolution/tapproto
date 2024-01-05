@@ -4,9 +4,8 @@ package tap.verify.v1;
 
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
-
-import "tap/verify/v1/verifiers.proto";
 import "tap/verify/v1/tags.proto";
+import "tap/verify/v1/verifiers.proto";
 
 // Ticket's management service
 service TicketService {
@@ -24,7 +23,7 @@ service TicketService {
 
   // Deletes a ticket
   rpc DeleteTicket(DeleteTicketRequest) returns (DeleteTicketResponse);
-  
+
   // Add tags
   rpc AddTicketTags(AddTicketTagsRequest) returns (AddTicketTagsResponse);
 
@@ -36,7 +35,7 @@ service TicketService {
 
   // Verify a ticket
   rpc Verify(VerifyRequest) returns (VerifyResponse);
-  
+
   // List ticket verifications
   rpc ListTicketVerifications(ListTicketVerificationsRequest) returns (ListTicketVerificationsResponse);
 
@@ -118,7 +117,7 @@ message AddTicketTagsRequest {
   // The id of the ticket to add a tag to.
   TicketID ticket_id = 1;
 
-  // The codes of the tag to add. 
+  // The codes of the tag to add.
   repeated TicketTag ticket_tags = 2;
 }
 
@@ -129,7 +128,7 @@ message AddTicketTagsResponse {}
 message ListTicketTagsRequest {
   // The id of the ticket to list tags for.
   TicketID ticket_id = 1;
-  
+
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 2;
 
@@ -148,13 +147,13 @@ message DeleteTicketTagsRequest {
   // The id of the ticket to remove a tag from.
   TicketID ticket_id = 1;
 
-  // The codes of the tag to remove. 
+  // The codes of the tag to remove.
   repeated string tag_codes = 2;
 }
 
 // Response message for `RemoveTicketTags`
 message DeleteTicketTagsResponse {
-  // The tags 
+  // The tags
   repeated TicketTag ticket_tags = 1;
 }
 
@@ -174,14 +173,13 @@ message VerifyRequest {
 }
 
 // Response message for `VerifyTicket`
-message VerifyResponse {
-}
+message VerifyResponse {}
 
 // Request message for `ListTicketVerifications`
 message ListTicketVerificationsRequest {
   // The id of the ticket to list verifications for.
   TicketID ticket_id = 1;
-  
+
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 2;
 
