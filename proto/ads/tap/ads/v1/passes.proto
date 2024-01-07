@@ -22,7 +22,7 @@ message ListPassesRequest {
 
 message ListPassesResponse {
   repeated Pass items = 1;
-  optional string next_cursor = 2;
+  optional bytes next_cursor = 2;
 }
 
 message GetPassRequest {
