@@ -3,7 +3,7 @@ syntax = "proto3";
 package tap.types.v1;
 
 message Interval {
-  uint32 years = 1;
+  uint32 months = 1;
   uint32 days = 2;
   uint64 microseconds = 3;
 }
