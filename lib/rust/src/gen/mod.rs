@@ -30,6 +30,14 @@ pub mod tap {
             // @@protoc_insertion_point(tap.ads.v1)
         }
     }
+    pub mod points {
+        #[cfg(feature = "tap-points-v1")]
+        // @@protoc_insertion_point(attribute:tap.points.v1)
+        pub mod v1 {
+            include!("tap.points.v1.rs");
+            // @@protoc_insertion_point(tap.points.v1)
+        }
+    }
     pub mod sub {
         #[cfg(feature = "tap-sub-v1")]
         // @@protoc_insertion_point(attribute:tap.sub.v1)
