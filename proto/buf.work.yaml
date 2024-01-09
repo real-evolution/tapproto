@@ -5,4 +5,5 @@ directories:
   - shared
   - subscriptions
   - verification
+  - points
   - ads
