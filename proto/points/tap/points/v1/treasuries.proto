@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package tap.points.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/types/v1/pagination.proto";
+
+// The treasuries service definition.
+service TreasuriesService {
+  // Lists treasuries.
+  rpc ListTreasuries(ListTreasuriesRequest) returns (ListTreasuriesResponse);
+
+  // Gets a treasury.
+  rpc GetTreasury(GetTreasuryRequest) returns (GetTreasuryResponse);
+
+  // Creates a treasury.
+  rpc CreateTreasury(CreateTreasuryRequest) returns (CreateTreasuryResponse);
+
+  // Updates a treasury.
+  rpc UpdateTreasury(UpdateTreasuryRequest) returns (UpdateTreasuryResponse);
+
+  // Deletes a treasury.
+  rpc DeleteTreasury(DeleteTreasuryRequest) returns (DeleteTreasuryResponse);
+}
+
+// The request message for the ListTreasuries method.
+message ListTreasuriesRequest {
+  // Pagination parameters.
+  types.Page page = 1;
+}
+
+// The response message for the ListTreasuries method.
+message ListTreasuriesResponse {
+  // The treasuries.
+  repeated Treasury items = 1;
+
+  // The next page cursor.
+  optional bytes next_cursor = 2;
+}
+
+// The request message for the GetTreasury method.
+message GetTreasuryRequest {
+  // The ID of the treasury to retrieve.
+  int32 id = 1;
+}
+
+// The response message for the GetTreasury method.
+message GetTreasuryResponse {
+  // The treasury.
+  Treasury treasury = 1;
+}
+
+// The request message for the CreateTreasury method.
+message CreateTreasuryRequest {
+  // The display name of the treasury.
+  string display_name = 1;
+}
+
+// The response message for the CreateTreasury method.
+message CreateTreasuryResponse {
+  // The treasury.
+  Treasury treasury = 1;
+}
+
+// The request message for the UpdateTreasury method.
+message UpdateTreasuryRequest {
+  // The ID of the treasury to update.
+  int32 id = 1;
+
+  // The display name of the treasury.
+  optional string display_name = 2;
+}
+
+// The response message for the UpdateTreasury method.
+message UpdateTreasuryResponse {
+  // The updated treasury.
+  Treasury treasury = 1;
+}
+
+// The request message for the DeleteTreasury method.
+message DeleteTreasuryRequest {
+  // The ID of the treasury to delete.
+  int32 id = 1;
+}
+
+// The response message for the DeleteTreasury method.
+message DeleteTreasuryResponse {}
+
+// A message to represent a treasury
+message Treasury {
+  // The ID of the treasury.
+  int32 id = 1;
+
+  // The display name of the treasury.
+  string display_name = 2;
+
+  // The creation time of the treasury.
+  google.protobuf.Timestamp create_time = 3;
+
+  // The last update time of the treasury.
+  google.protobuf.Timestamp update_time = 4;
+}

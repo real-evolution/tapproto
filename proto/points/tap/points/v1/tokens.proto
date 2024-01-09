@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package tap.points.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/types/v1/pagination.proto";
+import "tap/types/v1/uuid.proto";
+
+// The tokens service definition.
+service TokensService {
+  // List tokens.
+  rpc ListTokens(ListTokensRequest) returns (ListTokensResponse);
+
+  // Gets a token.
+  rpc GetToken(GetTokenRequest) returns (GetTokenResponse);
+
+  // Creates a token.
+  rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
+
+  // Updates a token.
+  rpc UpdateToken(UpdateTokenRequest) returns (UpdateTokenResponse);
+
+  // Deletes a token.
+  rpc DeleteToken(DeleteTokenRequest) returns (DeleteTokenResponse);
+}
+
+// The request message for the ListTokens method.
+message ListTokensRequest {
+  // Filter tokens by mintable status.
+  optional bool is_mintable = 1;
+
+  // Filter tokens by treasury.
+  optional int32 treasury_id = 2;
+
+  // Filter tokens by operator.
+  optional types.Uuid operator_id = 3;
+
+  // Pagination parameters.
+  types.Page page = 4;
+}
+
+// The response message for the ListTokens method.
+message ListTokensResponse {
+  // The tokens.
+  repeated Token items = 1;
+
+  // The next page cursor.
+  optional bytes next_cursor = 2;
+}
+
+// The request message for the GetToken method.
+message GetTokenRequest {
+  // The token ID.
+  string code = 1;
+}
+
+// The response message for the GetToken method.
+message GetTokenResponse {
+  // The token.
+  Token token = 1;
+}
+
+// The request message for the CreateToken method.
+message CreateTokenRequest {
+  // The code of the token to create.
+  string code = 1;
+
+  // The display name of the token to create.
+  string display_name = 2;
+
+  // Whether the token is mintable or not.
+  bool is_mintable = 3;
+
+  // The treasury ID the token belongs to.
+  int32 treasury_id = 4;
+
+  // The identifier of the user that operates the token.
+  types.Uuid operator_id = 5;
+}
+
+// The response message for the CreateToken method.
+message CreateTokenResponse {
+  // The created token.
+  Token token = 1;
+}
+
+// The request message for the UpdateToken method.
+message UpdateTokenRequest {
+  // The token ID.
+  string code = 1;
+
+  // The new display name of the token.
+  optional string display_name = 2;
+}
+
+// The response message for the UpdateToken method.
+message UpdateTokenResponse {
+  // The updated token.
+  Token token = 1;
+}
+
+// The request message for the DeleteToken method.
+message DeleteTokenRequest {
+  // The token ID.
+  string code = 1;
+}
+
+// The response message for the DeleteToken method.
+message DeleteTokenResponse {}
+
+// A message to represent a token.
+message Token {
+  // The token code.
+  string code = 1;
+
+  // The display name of the token.
+  string display_name = 2;
+
+  // Whether the token is mintable or not.
+  bool is_mintable = 3;
+
+  // The treasury ID the token belongs to.
+  int32 treasury_id = 4;
+
+  // The identifier of the user that operates the token.
+  types.Uuid operator_id = 5;
+
+  // The creation time of the treasury.
+  google.protobuf.Timestamp create_time = 6;
+
+  // The last update time of the treasury.
+  google.protobuf.Timestamp update_time = 7;
+}

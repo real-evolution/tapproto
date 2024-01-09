@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package tap.points.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/types/v1/pagination.proto";
+
+// Mint transactions service defintion.
+service MintsService {
+  // Lists mint transactions.
+  rpc ListMints(ListMintsRequest) returns (ListMintsResponse);
+
+  // Gets a mint transaction by id.
+  rpc GetMint(GetMintRequest) returns (GetMintResponse);
+
+  // Mints tokens with the given parameters.
+  rpc Mint(MintRequest) returns (MintResponse);
+}
+
+// Request message for `ListMints`
+message ListMintsRequest {
+  // Filter by account
+  optional int64 account_id = 1;
+
+  // Filter by token.
+  optional string token_code = 2;
+
+  // Filter b minted amount upper bound.
+  optional string amount_less_than = 3;
+
+  // Filter b minted amount upper bound.
+  optional string amount_greater_than = 4;
+
+  // Pagination parameters.
+  types.Page page = 5;
+}
+
+// Response message for `ListMints`
+message ListMintsResponse {
+  // The mint transactions.
+  repeated Mint items = 1;
+
+  // The next page cursor.
+  optional bytes next_cursor = 2;
+}
+
+// Request message for `GetMint`
+message GetMintRequest {
+  // The identifier of the mint transaction to get.
+  int64 id = 1;
+}
+
+// Request message for `GetMint`
+message GetMintResponse {
+  // The mint transaction.
+  Mint mint = 1;
+}
+
+// Request message for `Mint`
+message MintRequest {
+  // The identifier of the account to mint into.
+  int64 account_id = 1;
+
+  // The number of token points to mint.
+  string amount = 2;
+
+  // Optional note.
+  optional string note = 3;
+}
+
+// Response message for `Mint`
+message MintResponse {
+  // The created mint transaction.
+  Mint mint = 1;
+}
+
+// A message to represent a token mint.
+message Mint {
+  // The mint identifier.
+  int64 id = 1;
+
+  // The number of token points that were minted.
+  string amount = 2;
+
+  // The identifier of the account that was minted into.
+  int64 account_id = 3;
+
+  // Optional notes.
+  optional string note = 4;
+
+  // The timestamp at which the mint was minted.
+  google.protobuf.Timestamp create_time = 8;
+}

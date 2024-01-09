@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package tap.points.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/types/v1/pagination.proto";
+import "tap/types/v1/uuid.proto";
+
+// The openings service definition.
+service OpeningsService {
+  // Lsts openings.
+  rpc ListOpenings(ListOpeningsRequest) returns (ListOpeningsResponse);
+
+  // Gets an opening.
+  rpc GetOpening(GetOpeningRequest) returns (GetOpeningResponse);
+
+  // Checks if there is an active opening.
+  rpc HasActiveOpening(HasActiveOpeningRequest) returns (HasActiveOpeningResponse);
+
+  // Creates an opening.
+  rpc CreateOpening(CreateOpeningRequest) returns (CreateOpeningResponse);
+
+  // Cancels an opening.
+  rpc CancelOpening(CancelOpeningRequest) returns (CancelOpeningResponse);
+}
+
+// Request message for `ListOpenings`.
+message ListOpeningsRequest {
+  // Filter by treasury id.
+  optional int32 treasury_id = 1;
+
+  // Filter by source token code.
+  optional string src_token_code = 2;
+
+  // Filter by destination token code.
+  optional string dst_token_code = 3;
+
+  // Filter by cancel status.
+  optional google.protobuf.Timestamp canceled_before = 4;
+
+  // Filter by expiry status.
+  optional google.protobuf.Timestamp expired_before = 5;
+
+  // Pagination paramseters.
+  types.Page page = 6;
+}
+
+// Response message for `ListOpenings`.
+message ListOpeningsResponse {
+  // The openings.
+  repeated Opening items = 1;
+
+  // The next page cursor.
+  optional bytes next_cursor = 2;
+}
+
+// Request message for `GetOpening`.
+message GetOpeningRequest {
+  // The opening id.
+  int64 id = 1;
+}
+
+// Response message for `GetOpening`.
+message GetOpeningResponse {
+  Opening opening = 1;
+}
+
+// Request message for `HasActiveOpening`.
+message HasActiveOpeningRequest {
+  // Opening source token code.
+  string src_token_code = 1;
+
+  // Opening destination token code.
+  string dst_token_code = 2;
+
+  // Opening open time.
+  optional google.protobuf.Timestamp open_time = 3;
+
+  // Opening close time.
+  optional google.protobuf.Timestamp close_time = 4;
+}
+
+// Response message for `HasActiveOpening`.
+message HasActiveOpeningResponse {
+  // Whether there is an active opening.
+  bool result = 1;
+}
+
+// Request message for `CreateOpening`.
+message CreateOpeningRequest {
+  // Opening optional label.
+  optional string label = 1;
+
+  // Transfers from `src_token_code` to `dst_token_code` exchange rate.
+  string exchange_rate = 2;
+
+  // Opening source token code.
+  string src_token_code = 3;
+
+  // Opening destination token code.
+  string dst_token_code = 4;
+
+  // Opening start time.
+  google.protobuf.Timestamp open_time = 5;
+
+  // Opening close time.
+  google.protobuf.Timestamp close_time = 6;
+}
+
+// Response message for `CreateOpening`.
+message CreateOpeningResponse {
+  // The opening.
+  Opening opening = 1;
+}
+
+// Request message for `CancelOpening`.
+message CancelOpeningRequest {
+  // The opening id.
+  int64 id = 1;
+}
+
+// Response message for `CancelOpening`.
+message CancelOpeningResponse {
+  // The opening.
+  Opening opening = 1;
+}
+
+// A message representing an opening.
+message Opening {
+  // The opening id.
+  int64 id = 1;
+
+  // The opening exchange rate.
+  string exchange_rate = 2;
+
+  // Opening optional label.
+  optional string label = 3;
+
+  // Opening start time.
+  optional google.protobuf.Timestamp open_time = 4;
+
+  // Opening end time.
+  optional google.protobuf.Timestamp close_time = 5;
+
+  // Opening cancel time.
+  optional google.protobuf.Timestamp cancel_time = 6;
+
+  // The source token code that is being exchanged.
+  string src_token_code = 7;
+
+  // The destination token code that is being exchanged.
+  string dst_token_code = 8;
+
+  // The time when the opening was created.
+  google.protobuf.Timestamp create_time = 9;
+}

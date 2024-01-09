@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package tap.points.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/types/v1/pes/pagination.proto";
+import "tap/types/v1/uuid.proto";
+
+// Transfers management service definition.
+service TransfersService {
+  // ListTransfers lists transfer transactions.
+  rpc ListTransfers(ListTransfersRequest) returns (ListTransfersResponse);
+
+  // MakeTransfer creates a new transfer transaction.
+  rpc MakeTransfer(MakeTransferRequest) returns (MakeTransferResponse);
+}
+
+// Request message for the ListTransfers method.
+message ListTransfersRequest {
+  // Filter by the ID of the holder of either the source or destination account.
+  optional types.Uuid holder_id = 1;
+
+  // Filter by the ID of the source account.
+  optional int64 source_account_id = 2;
+
+  // Filter by the ID of the destination account.
+  optional int64 destination_account_id = 3;
+
+  // Filter by the ID of the opening this transfer is associated with.
+  optional int64 opening_id = 4;
+
+  // Filter by the amount of the transfer.
+  optional string amount_less_than = 5;
+
+  // Filter by the amount of the transfer.
+  optional string amount_greater_than = 6;
+
+  // Pagination parameters.
+  types.Page page = 7;
+}
+
+// Response message for the ListTransfers method.
+message ListTransfersResponse {
+  // The list of transfers.
+  repeated Transfer items = 1;
+
+  // The next page cursor.
+  optional bytes next_cursor = 2;
+}
+
+// Request message for the MakeTransfer method.
+message MakeTransferRequest {
+  // The ID of the source account.
+  int64 source_account_id = 1;
+
+  // The ID of the destination account.
+  int64 destination_account_id = 2;
+
+  // The amount to transfer.
+  string amount = 3;
+
+  // Optional note.
+  optional string note = 4;
+}
+
+// Response message for the MakeTransfer method.
+message MakeTransferResponse {
+  // The transfer.
+  Transfer transfer = 1;
+}
+
+// A message to represent a transfer transaction.
+message Transfer {
+  // The ID of the transfer.
+  int64 id = 1;
+
+  // The amount to transfer.
+  string amount = 2;
+
+  // The ID of the source account.
+  int64 source_account_id = 3;
+
+  // The ID of the destination account.
+  int64 destination_account_id = 4;
+
+  // The ID of the opening this transfer is associated with.
+  int64 opening_id = 5;
+
+  // Optional note.
+  optional string note = 6;
+
+  // The date and time when the transfer was created.
+  google.protobuf.Timestamp create_time = 7;
+}
