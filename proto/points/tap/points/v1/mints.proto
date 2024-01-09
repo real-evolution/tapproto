@@ -32,7 +32,7 @@ message ListMintsRequest {
   optional string amount_greater_than = 4;
 
   // Pagination parameters.
-  types.Page page = 5;
+  tap.types.v1.Page page = 5;
 }
 
 // Response message for `ListMints`

@@ -33,10 +33,10 @@ message ListTokensRequest {
   optional int32 treasury_id = 2;
 
   // Filter tokens by operator.
-  optional types.Uuid operator_id = 3;
+  optional tap.types.v1.Uuid operator_id = 3;
 
   // Pagination parameters.
-  types.Page page = 4;
+  tap.types.v1.Page page = 4;
 }
 
 // The response message for the ListTokens method.
@@ -75,7 +75,7 @@ message CreateTokenRequest {
   int32 treasury_id = 4;
 
   // The identifier of the user that operates the token.
-  types.Uuid operator_id = 5;
+  tap.types.v1.Uuid operator_id = 5;
 }
 
 // The response message for the CreateToken method.
@@ -123,7 +123,7 @@ message Token {
   int32 treasury_id = 4;
 
   // The identifier of the user that operates the token.
-  types.Uuid operator_id = 5;
+  tap.types.v1.Uuid operator_id = 5;
 
   // The creation time of the treasury.
   google.protobuf.Timestamp create_time = 6;

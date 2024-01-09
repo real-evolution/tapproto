@@ -26,7 +26,7 @@ service TreasuriesService {
 // The request message for the ListTreasuries method.
 message ListTreasuriesRequest {
   // Pagination parameters.
-  types.Page page = 1;
+  tap.types.v1.Page page = 1;
 }
 
 // The response message for the ListTreasuries method.

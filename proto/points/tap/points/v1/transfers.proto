@@ -3,7 +3,7 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
-import "tap/types/v1/pes/pagination.proto";
+import "tap/types/v1/pagination.proto";
 import "tap/types/v1/uuid.proto";
 
 // Transfers management service definition.
@@ -18,7 +18,7 @@ service TransfersService {
 // Request message for the ListTransfers method.
 message ListTransfersRequest {
   // Filter by the ID of the holder of either the source or destination account.
-  optional types.Uuid holder_id = 1;
+  optional tap.types.v1.Uuid holder_id = 1;
 
   // Filter by the ID of the source account.
   optional int64 source_account_id = 2;
@@ -36,7 +36,7 @@ message ListTransfersRequest {
   optional string amount_greater_than = 6;
 
   // Pagination parameters.
-  types.Page page = 7;
+  tap.types.v1.Page page = 7;
 }
 
 // Response message for the ListTransfers method.

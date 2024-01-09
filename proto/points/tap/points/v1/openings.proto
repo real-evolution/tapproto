@@ -4,7 +4,6 @@ package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // The openings service definition.
 service OpeningsService {
@@ -42,7 +41,7 @@ message ListOpeningsRequest {
   optional google.protobuf.Timestamp expired_before = 5;
 
   // Pagination paramseters.
-  types.Page page = 6;
+  tap.types.v1.Page page = 6;
 }
 
 // Response message for `ListOpenings`.

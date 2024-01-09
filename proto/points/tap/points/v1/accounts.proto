@@ -31,10 +31,10 @@ message ListAccountsRequest {
   optional string token_code = 2;
 
   // Filter by holder ID.
-  optional types.Uuid holder_id = 3;
+  optional tap.types.v1.Uuid holder_id = 3;
 
   // Pagination parameters.
-  types.Page page = 4;
+  tap.types.v1.Page page = 4;
 }
 
 // Response message for `ListAccounts`.
@@ -67,7 +67,7 @@ message CreateAccountRequest {
   string token_code = 2;
 
   // The identifier of the holder of this account.
-  optional types.Uuid holder_id = 3;
+  optional tap.types.v1.Uuid holder_id = 3;
 }
 
 // Response message for `CreateAccount`.
@@ -101,7 +101,7 @@ message Account {
   string token_code = 3;
 
   // The identifier of the holder of this account.
-  types.Uuid holder_id = 4;
+  tap.types.v1.Uuid holder_id = 4;
 
   // The date and time when the account was created.
   google.protobuf.Timestamp create_time = 5;
