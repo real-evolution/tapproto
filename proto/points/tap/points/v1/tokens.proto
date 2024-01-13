@@ -3,8 +3,8 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/points/v1/treasuries.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // The tokens service definition.
 service TokensService {
@@ -30,10 +30,10 @@ message ListTokensRequest {
   optional bool is_mintable = 1;
 
   // Filter tokens by treasury.
-  optional int32 treasury_id = 2;
+  optional tap.points.v1.TreasuryID treasury_id = 2;
 
   // Filter tokens by operator.
-  optional tap.types.v1.Uuid operator_id = 3;
+  optional TokenOperatorID operator_id = 3;
 
   // Pagination parameters.
   tap.types.v1.Page page = 4;
@@ -51,7 +51,7 @@ message ListTokensResponse {
 // The request message for the GetToken method.
 message GetTokenRequest {
   // The token ID.
-  string code = 1;
+  TokenCode code = 1;
 }
 
 // The response message for the GetToken method.
@@ -63,7 +63,7 @@ message GetTokenResponse {
 // The request message for the CreateToken method.
 message CreateTokenRequest {
   // The code of the token to create.
-  string code = 1;
+  TokenCode code = 1;
 
   // The display name of the token to create.
   string display_name = 2;
@@ -72,10 +72,10 @@ message CreateTokenRequest {
   bool is_mintable = 3;
 
   // The treasury ID the token belongs to.
-  int32 treasury_id = 4;
+  tap.points.v1.TreasuryID treasury_id = 4;
 
   // The identifier of the user that operates the token.
-  tap.types.v1.Uuid operator_id = 5;
+  TokenOperatorID operator_id = 5;
 }
 
 // The response message for the CreateToken method.
@@ -87,7 +87,7 @@ message CreateTokenResponse {
 // The request message for the UpdateToken method.
 message UpdateTokenRequest {
   // The token ID.
-  string code = 1;
+  TokenCode code = 1;
 
   // The new display name of the token.
   optional string display_name = 2;
@@ -102,16 +102,26 @@ message UpdateTokenResponse {
 // The request message for the DeleteToken method.
 message DeleteTokenRequest {
   // The token ID.
-  string code = 1;
+  TokenCode code = 1;
 }
 
 // The response message for the DeleteToken method.
 message DeleteTokenResponse {}
 
+// A message to represent a token code.
+message TokenCode {
+  string value = 1;
+}
+
+// A message to represent a token operator ID.
+message TokenOperatorID {
+  string value = 1;
+}
+
 // A message to represent a token.
 message Token {
   // The token code.
-  string code = 1;
+  TokenCode code = 1;
 
   // The display name of the token.
   string display_name = 2;
@@ -120,10 +130,10 @@ message Token {
   bool is_mintable = 3;
 
   // The treasury ID the token belongs to.
-  int32 treasury_id = 4;
+  tap.points.v1.TreasuryID treasury_id = 4;
 
   // The identifier of the user that operates the token.
-  tap.types.v1.Uuid operator_id = 5;
+  TokenOperatorID operator_id = 5;
 
   // The creation time of the treasury.
   google.protobuf.Timestamp create_time = 6;

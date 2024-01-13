@@ -41,7 +41,7 @@ message ListTreasuriesResponse {
 // The request message for the GetTreasury method.
 message GetTreasuryRequest {
   // The ID of the treasury to retrieve.
-  int32 id = 1;
+  TreasuryID id = 1;
 }
 
 // The response message for the GetTreasury method.
@@ -65,7 +65,7 @@ message CreateTreasuryResponse {
 // The request message for the UpdateTreasury method.
 message UpdateTreasuryRequest {
   // The ID of the treasury to update.
-  int32 id = 1;
+  TreasuryID id = 1;
 
   // The display name of the treasury.
   optional string display_name = 2;
@@ -80,16 +80,21 @@ message UpdateTreasuryResponse {
 // The request message for the DeleteTreasury method.
 message DeleteTreasuryRequest {
   // The ID of the treasury to delete.
-  int32 id = 1;
+  TreasuryID id = 1;
 }
 
 // The response message for the DeleteTreasury method.
 message DeleteTreasuryResponse {}
 
+// A message to represent a treasury ID.
+message TreasuryID {
+  int32 value = 1;
+}
+
 // A message to represent a treasury
 message Treasury {
   // The ID of the treasury.
-  int32 id = 1;
+  TreasuryID id = 1;
 
   // The display name of the treasury.
   string display_name = 2;

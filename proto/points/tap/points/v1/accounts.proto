@@ -4,7 +4,6 @@ package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // The accounts service definition.
 service AccountsService {
@@ -23,7 +22,6 @@ service AccountsService {
 
 // Request message for `ListAccounts`.
 message ListAccountsRequest {
-
   // Filter by minting ability.
   optional bool can_mint = 1;
 
@@ -31,7 +29,7 @@ message ListAccountsRequest {
   optional string token_code = 2;
 
   // Filter by holder ID.
-  optional tap.types.v1.Uuid holder_id = 3;
+  optional AccountHolderID holder_id = 3;
 
   // Pagination parameters.
   tap.types.v1.Page page = 4;
@@ -49,7 +47,7 @@ message ListAccountsResponse {
 // Request message for `GetAccount`.
 message GetAccountRequest {
   // The ID of the account.
-  int64 id = 1;
+  AccountID id = 1;
 }
 
 // Response message for `GetAccount`.
@@ -67,7 +65,7 @@ message CreateAccountRequest {
   string token_code = 2;
 
   // The identifier of the holder of this account.
-  optional tap.types.v1.Uuid holder_id = 3;
+  optional AccountHolderID holder_id = 3;
 }
 
 // Response message for `CreateAccount`.
@@ -79,7 +77,7 @@ message CreateAccountResponse {
 // Request message for the GetAccountBalance method.
 message GetAccountBalanceRequest {
   // The ID of the account to get the balance for.
-  int64 account_id = 1;
+  AccountID account_id = 1;
 }
 
 // Response message for the GetAccountBalance method.
@@ -88,11 +86,20 @@ message GetAccountBalanceResponse {
   string balance = 1;
 }
 
+// A message to represent an account ID.
+message AccountID {
+  int64 value = 1;
+}
+
+// A message to represent an account holder ID.
+message AccountHolderID {
+  string value = 1;
+}
 
 // A message to represent an account.
 message Account {
   // The ID of the account.
-  int64 id = 1;
+  AccountID id = 1;
 
   // Whether the account can mint tokens or not.
   bool can_mint = 2;
@@ -101,7 +108,7 @@ message Account {
   string token_code = 3;
 
   // The identifier of the holder of this account.
-  tap.types.v1.Uuid holder_id = 4;
+  AccountHolderID holder_id = 4;
 
   // The date and time when the account was created.
   google.protobuf.Timestamp create_time = 5;

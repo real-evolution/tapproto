@@ -3,6 +3,8 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/points/v1/tokens.proto";
+import "tap/points/v1/treasuries.proto";
 import "tap/types/v1/pagination.proto";
 
 // The openings service definition.
@@ -26,13 +28,13 @@ service OpeningsService {
 // Request message for `ListOpenings`.
 message ListOpeningsRequest {
   // Filter by treasury id.
-  optional int32 treasury_id = 1;
+  optional tap.points.v1.TreasuryID treasury_id = 1;
 
   // Filter by source token code.
-  optional string src_token_code = 2;
+  optional tap.points.v1.TokenCode src_token_code = 2;
 
   // Filter by destination token code.
-  optional string dst_token_code = 3;
+  optional tap.points.v1.TokenCode dst_token_code = 3;
 
   // Filter by cancel status.
   optional google.protobuf.Timestamp canceled_before = 4;
@@ -56,7 +58,7 @@ message ListOpeningsResponse {
 // Request message for `GetOpening`.
 message GetOpeningRequest {
   // The opening id.
-  int64 id = 1;
+  OpeningID id = 1;
 }
 
 // Response message for `GetOpening`.
@@ -67,10 +69,10 @@ message GetOpeningResponse {
 // Request message for `HasActiveOpening`.
 message HasActiveOpeningRequest {
   // Opening source token code.
-  string src_token_code = 1;
+  tap.points.v1.TokenCode src_token_code = 1;
 
   // Opening destination token code.
-  string dst_token_code = 2;
+  tap.points.v1.TokenCode dst_token_code = 2;
 
   // Opening open time.
   optional google.protobuf.Timestamp open_time = 3;
@@ -94,10 +96,10 @@ message CreateOpeningRequest {
   string exchange_rate = 2;
 
   // Opening source token code.
-  string src_token_code = 3;
+  tap.points.v1.TokenCode src_token_code = 3;
 
   // Opening destination token code.
-  string dst_token_code = 4;
+  tap.points.v1.TokenCode dst_token_code = 4;
 
   // Opening start time.
   google.protobuf.Timestamp open_time = 5;
@@ -115,7 +117,7 @@ message CreateOpeningResponse {
 // Request message for `CancelOpening`.
 message CancelOpeningRequest {
   // The opening id.
-  int64 id = 1;
+  OpeningID id = 1;
 }
 
 // Response message for `CancelOpening`.
@@ -124,10 +126,15 @@ message CancelOpeningResponse {
   Opening opening = 1;
 }
 
+// A message representing an opening id.
+message OpeningID {
+  int64 value = 1;
+}
+
 // A message representing an opening.
 message Opening {
   // The opening id.
-  int64 id = 1;
+  OpeningID id = 1;
 
   // The opening exchange rate.
   string exchange_rate = 2;
@@ -145,10 +152,10 @@ message Opening {
   optional google.protobuf.Timestamp cancel_time = 6;
 
   // The source token code that is being exchanged.
-  string src_token_code = 7;
+  tap.points.v1.TokenCode src_token_code = 7;
 
   // The destination token code that is being exchanged.
-  string dst_token_code = 8;
+  tap.points.v1.TokenCode dst_token_code = 8;
 
   // The time when the opening was created.
   google.protobuf.Timestamp create_time = 9;

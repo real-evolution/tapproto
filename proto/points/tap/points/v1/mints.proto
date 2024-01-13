@@ -3,6 +3,8 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/points/v1/accounts.proto";
+import "tap/points/v1/tokens.proto";
 import "tap/types/v1/pagination.proto";
 
 // Mint transactions service defintion.
@@ -20,10 +22,10 @@ service MintsService {
 // Request message for `ListMints`
 message ListMintsRequest {
   // Filter by account
-  optional int64 account_id = 1;
+  optional tap.points.v1.AccountID account_id = 1;
 
   // Filter by token.
-  optional string token_code = 2;
+  optional tap.points.v1.TokenCode token_code = 2;
 
   // Filter b minted amount upper bound.
   optional string amount_less_than = 3;
@@ -47,7 +49,7 @@ message ListMintsResponse {
 // Request message for `GetMint`
 message GetMintRequest {
   // The identifier of the mint transaction to get.
-  int64 id = 1;
+  MintID id = 1;
 }
 
 // Request message for `GetMint`
@@ -59,7 +61,7 @@ message GetMintResponse {
 // Request message for `Mint`
 message MintRequest {
   // The identifier of the account to mint into.
-  int64 account_id = 1;
+  tap.points.v1.AccountID account_id = 1;
 
   // The number of token points to mint.
   string amount = 2;
@@ -74,16 +76,21 @@ message MintResponse {
   Mint mint = 1;
 }
 
+// A message to represent a mint identifier.
+message MintID {
+  int64 value = 1;
+}
+
 // A message to represent a token mint.
 message Mint {
   // The mint identifier.
-  int64 id = 1;
+  MintID id = 1;
 
   // The number of token points that were minted.
   string amount = 2;
 
   // The identifier of the account that was minted into.
-  int64 account_id = 3;
+  tap.points.v1.AccountID account_id = 3;
 
   // Optional notes.
   optional string note = 4;
