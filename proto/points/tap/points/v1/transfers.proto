@@ -3,8 +3,9 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/points/v1/accounts.proto";
+import "tap/points/v1/openings.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 // Transfers management service definition.
 service TransfersService {
@@ -18,16 +19,16 @@ service TransfersService {
 // Request message for the ListTransfers method.
 message ListTransfersRequest {
   // Filter by the ID of the holder of either the source or destination account.
-  optional tap.types.v1.Uuid holder_id = 1;
+  optional tap.points.v1.AccountHolderID holder_id = 1;
 
   // Filter by the ID of the source account.
-  optional int64 source_account_id = 2;
+  optional tap.points.v1.AccountID source_account_id = 2;
 
   // Filter by the ID of the destination account.
-  optional int64 destination_account_id = 3;
+  optional tap.points.v1.AccountID destination_account_id = 3;
 
   // Filter by the ID of the opening this transfer is associated with.
-  optional int64 opening_id = 4;
+  optional tap.points.v1.OpeningID opening_id = 4;
 
   // Filter by the amount of the transfer.
   optional string amount_less_than = 5;
@@ -51,10 +52,10 @@ message ListTransfersResponse {
 // Request message for the MakeTransfer method.
 message MakeTransferRequest {
   // The ID of the source account.
-  int64 source_account_id = 1;
+  tap.points.v1.AccountID source_account_id = 1;
 
   // The ID of the destination account.
-  int64 destination_account_id = 2;
+  tap.points.v1.AccountID destination_account_id = 2;
 
   // The amount to transfer.
   string amount = 3;
@@ -69,22 +70,27 @@ message MakeTransferResponse {
   Transfer transfer = 1;
 }
 
+// A message to represent a transfer ID.
+message TransferID {
+  int64 value = 1;
+}
+
 // A message to represent a transfer transaction.
 message Transfer {
   // The ID of the transfer.
-  int64 id = 1;
+  TransferID id = 1;
 
   // The amount to transfer.
   string amount = 2;
 
   // The ID of the source account.
-  int64 source_account_id = 3;
+  tap.points.v1.AccountID source_account_id = 3;
 
   // The ID of the destination account.
-  int64 destination_account_id = 4;
+  tap.points.v1.AccountID destination_account_id = 4;
 
   // The ID of the opening this transfer is associated with.
-  int64 opening_id = 5;
+  tap.points.v1.OpeningID opening_id = 5;
 
   // Optional note.
   optional string note = 6;
