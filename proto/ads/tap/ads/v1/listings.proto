@@ -46,10 +46,7 @@ message CreateListingRequest {
 }
 
 message CreateListingResponse {
-  int64 duration_secs = 1;
-  string price = 2;
-  tap.ads.v1.PassID pass_id = 3;
-  tap.points.v1.TokenCode token_code = 4;
+  Listing listing = 1;
 }
 
 message DeleteListingRequest {
