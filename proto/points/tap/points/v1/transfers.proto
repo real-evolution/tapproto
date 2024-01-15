@@ -5,6 +5,7 @@ package tap.points.v1;
 import "google/protobuf/timestamp.proto";
 import "tap/points/v1/accounts.proto";
 import "tap/points/v1/openings.proto";
+import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 // Transfers management service definition.
@@ -31,10 +32,10 @@ message ListTransfersRequest {
   optional tap.points.v1.OpeningID opening_id = 4;
 
   // Filter by the amount of the transfer.
-  optional string amount_less_than = 5;
+  optional tap.types.v1.Decimal amount_less_than = 5;
 
   // Filter by the amount of the transfer.
-  optional string amount_greater_than = 6;
+  optional tap.types.v1.Decimal amount_greater_than = 6;
 
   // Pagination parameters.
   tap.types.v1.Page page = 7;
@@ -58,7 +59,7 @@ message MakeTransferRequest {
   tap.points.v1.AccountID destination_account_id = 2;
 
   // The amount to transfer.
-  string amount = 3;
+  tap.types.v1.Decimal amount = 3;
 
   // Optional note.
   optional string note = 4;
@@ -81,7 +82,7 @@ message Transfer {
   TransferID id = 1;
 
   // The amount to transfer.
-  string amount = 2;
+  tap.types.v1.Decimal amount = 2;
 
   // The ID of the source account.
   tap.points.v1.AccountID source_account_id = 3;

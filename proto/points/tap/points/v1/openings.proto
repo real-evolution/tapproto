@@ -5,6 +5,7 @@ package tap.points.v1;
 import "google/protobuf/timestamp.proto";
 import "tap/points/v1/tokens.proto";
 import "tap/points/v1/treasuries.proto";
+import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 // The openings service definition.
@@ -93,7 +94,7 @@ message CreateOpeningRequest {
   optional string label = 1;
 
   // Transfers from `src_token_code` to `dst_token_code` exchange rate.
-  string exchange_rate = 2;
+  tap.types.v1.Decimal exchange_rate = 2;
 
   // Opening source token code.
   tap.points.v1.TokenCode src_token_code = 3;
@@ -137,7 +138,7 @@ message Opening {
   OpeningID id = 1;
 
   // The opening exchange rate.
-  string exchange_rate = 2;
+  tap.types.v1.Decimal exchange_rate = 2;
 
   // Opening optional label.
   optional string label = 3;

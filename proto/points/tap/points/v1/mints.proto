@@ -5,6 +5,7 @@ package tap.points.v1;
 import "google/protobuf/timestamp.proto";
 import "tap/points/v1/accounts.proto";
 import "tap/points/v1/tokens.proto";
+import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 // Mint transactions service defintion.
@@ -28,10 +29,10 @@ message ListMintsRequest {
   optional tap.points.v1.TokenCode token_code = 2;
 
   // Filter b minted amount upper bound.
-  optional string amount_less_than = 3;
+  optional tap.types.v1.Decimal amount_less_than = 3;
 
   // Filter b minted amount upper bound.
-  optional string amount_greater_than = 4;
+  optional tap.types.v1.Decimal amount_greater_than = 4;
 
   // Pagination parameters.
   tap.types.v1.Page page = 5;
@@ -64,7 +65,7 @@ message MintRequest {
   tap.points.v1.AccountID account_id = 1;
 
   // The number of token points to mint.
-  string amount = 2;
+  tap.types.v1.Decimal amount = 2;
 
   // Optional note.
   optional string note = 3;
@@ -87,7 +88,7 @@ message Mint {
   MintID id = 1;
 
   // The number of token points that were minted.
-  string amount = 2;
+  tap.types.v1.Decimal amount = 2;
 
   // The identifier of the account that was minted into.
   tap.points.v1.AccountID account_id = 3;
