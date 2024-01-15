@@ -3,7 +3,6 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
-import "tap/types/v1/interval.proto";
 import "tap/types/v1/pagination.proto";
 
 service PassesService {
@@ -64,8 +63,10 @@ message PassID {
 
 message Pass {
   PassID id = 1;
+
   string display_name = 2;
   string description = 3;
+
   google.protobuf.Timestamp create_time = 4;
   google.protobuf.Timestamp update_time = 5;
 }

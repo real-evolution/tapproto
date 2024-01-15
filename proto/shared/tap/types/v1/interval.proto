@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package tap.types.v1;
-
-message Interval {
-  int32 months = 1;
-  int32 days = 2;
-  int64 microseconds = 3;
-}
