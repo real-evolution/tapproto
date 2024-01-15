@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package tap.ads.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/passes.proto";
+import "tap/points/v1/tokens.proto";
+import "tap/types/v1/decimal.proto";
+import "tap/types/v1/duration.proto";
+import "tap/types/v1/pagination.proto";
+
+service ListingsService {
+  rpc ListListings(ListListingsRequest) returns (ListListingsResponse);
+  rpc GetListing(GetListingRequest) returns (GetListingResponse);
+  rpc CreateListing(CreateListingRequest) returns (CreateListingResponse);
+  rpc DeleteListing(DeleteListingRequest) returns (DeleteListingResponse);
+}
+
+message ListListingsRequest {
+  reserved 3 to 14;
+
+  optional tap.ads.v1.PassID pass_id = 1;
+  optional ListingOwnerID owner_id = 2;
+
+  tap.types.v1.Page page = 15;
+}
+
+message ListListingsResponse {
+  repeated Listing items = 1;
+  optional bytes next_cursor = 2;
+}
+
+message GetListingRequest {
+  ListingID id = 1;
+}
+
+message GetListingResponse {
+  Listing listing = 1;
+}
+
+message CreateListingRequest {
+  tap.types.v1.Duration duration = 1;
+  tap.types.v1.Decimal price = 2;
+  tap.ads.v1.PassID pass_id = 3;
+  tap.points.v1.TokenCode token_code = 4;
+}
+
+message CreateListingResponse {
+  int64 duration_secs = 1;
+  string price = 2;
+  tap.ads.v1.PassID pass_id = 3;
+  tap.points.v1.TokenCode token_code = 4;
+}
+
+message DeleteListingRequest {
+  ListingID id = 1;
+}
+
+message DeleteListingResponse {}
+
+message ListingID {
+  int32 id = 1;
+}
+
+message ListingOwnerID {
+  string value = 1;
+}
+
+message Listing {
+  ListingID id = 1;
+
+  tap.types.v1.Duration duration = 2;
+  tap.types.v1.Decimal price = 3;
+
+  tap.ads.v1.PassID pass_id = 4;
+  tap.ads.v1.ListingOwnerID owner_id = 5;
+  tap.points.v1.TokenCode token_code = 6;
+
+  google.protobuf.Timestamp create_time = 7;
+  google.protobuf.Timestamp update_time = 8;
+}
