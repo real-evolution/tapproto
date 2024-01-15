@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package tap.types.v1;
+
+message Decimal {
+  string value = 1;
+}
