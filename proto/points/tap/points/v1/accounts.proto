@@ -3,6 +3,8 @@ syntax = "proto3";
 package tap.points.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/points/v1/tokens.proto";
+import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 // The accounts service definition.
@@ -26,7 +28,7 @@ message ListAccountsRequest {
   optional bool can_mint = 1;
 
   // Filter by token code.
-  optional string token_code = 2;
+  optional tap.points.v1.TokenCode token_code = 2;
 
   // Filter by holder ID.
   optional AccountHolderID holder_id = 3;
@@ -62,7 +64,7 @@ message CreateAccountRequest {
   bool can_mint = 1;
 
   // The code of the token this account is associated with.
-  string token_code = 2;
+  tap.points.v1.TokenCode token_code = 2;
 
   // The identifier of the holder of this account.
   optional AccountHolderID holder_id = 3;
@@ -83,7 +85,7 @@ message GetAccountBalanceRequest {
 // Response message for the GetAccountBalance method.
 message GetAccountBalanceResponse {
   // The balance of the account.
-  string balance = 1;
+  tap.types.v1.Decimal balance = 1;
 }
 
 // A message to represent an account ID.
@@ -105,7 +107,7 @@ message Account {
   bool can_mint = 2;
 
   // The code of the token this account is associated with.
-  string token_code = 3;
+  tap.points.v1.TokenCode token_code = 3;
 
   // The identifier of the holder of this account.
   AccountHolderID holder_id = 4;
