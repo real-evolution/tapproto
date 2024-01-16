@@ -11,6 +11,9 @@ service PassesService {
   rpc CreatePass(CreatePassRequest) returns (CreatePassResponse);
   rpc UpdatePass(UpdatePassRequest) returns (UpdatePassResponse);
   rpc DeletePass(DeletePassRequest) returns (DeletePassResponse);
+
+  rpc ListQuotas(ListQuotasRequest) returns (ListQuotasResponse);
+  rpc GetQuota(GetQuotaRequest) returns (GetQuotaResponse);
 }
 
 message ListPassesRequest {
@@ -57,16 +60,42 @@ message DeletePassRequest {
 
 message DeletePassResponse {}
 
+message ListQuotasRequest {
+  reserved 1 to 14;
+
+  PassID pass_id = 15;
+
+  tap.types.v1.Page page = 16;
+}
+
 message PassID {
   int32 value = 1;
 }
 
 message Pass {
+  reserved 4 to 13;
+
   PassID id = 1;
 
   string display_name = 2;
   string description = 3;
 
-  google.protobuf.Timestamp create_time = 4;
-  google.protobuf.Timestamp update_time = 5;
+  google.protobuf.Timestamp create_time = 14;
+  google.protobuf.Timestamp update_time = 15;
+}
+
+message QuotaID {
+  int32 value = 1;
+}
+
+message Quota {
+  reserved 2 to 11;
+
+  QuotaID id = 1;
+
+  PassID pass_id = 12;
+  tap.ads.v1.AdvertiserID advertiser_id = 13;
+
+  google.protobuf.Timestamp start_time = 14;
+  google.protobuf.Timestamp end_time = 15;
 }
