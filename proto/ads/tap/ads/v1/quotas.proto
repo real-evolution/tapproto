@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "tap/ads/v1/advertisers.proto";
 import "tap/types/v1/pagination.proto";
 
-service Quotas {
+service QuotasService {
   rpc ListQuotas(ListQuotasRequest) returns (ListQuotasResponse);
   rpc GetQuota(GetQuotaRequest) returns (GetQuotaResponse);
 }
