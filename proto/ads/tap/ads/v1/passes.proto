@@ -3,6 +3,7 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/advertisers.proto";
 import "tap/types/v1/pagination.proto";
 
 service PassesService {
@@ -66,6 +67,20 @@ message ListQuotasRequest {
   PassID pass_id = 15;
 
   tap.types.v1.Page page = 16;
+}
+
+message ListQuotasResponse {
+  repeated Quota items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetQuotaRequest {
+  QuotaID id = 1;
+}
+
+message GetQuotaResponse {
+  Quota quota = 1;
 }
 
 message PassID {
