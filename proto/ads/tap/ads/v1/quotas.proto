@@ -12,11 +12,12 @@ service QuotasService {
 }
 
 message ListQuotasRequest {
-  reserved 1 to 14;
+  reserved 3 to 14;
 
-  tap.ads.v1.AdvertiserID advertiser_id = 15;
+  optional QuotaState state = 1;
+  optional tap.ads.v1.AdvertiserID advertiser_id = 2;
 
-  tap.types.v1.Page page = 16;
+  tap.types.v1.Page page = 15;
 }
 
 message ListQuotasResponse {
@@ -37,13 +38,19 @@ message QuotaID {
   int32 value = 1;
 }
 
+enum QuotaState {
+  QUOTA_STATE_UNSPECIFIED = 0;
+  QUOTA_STATE_ACTIVE = 1;
+  QUOTA_STATE_EXPIRED = 2;
+}
+
 message Quota {
-  reserved 2 to 11;
+  reserved 4 to 13;
 
   QuotaID id = 1;
+  QuotaState state = 2;
+  tap.ads.v1.AdvertiserID advertiser_id = 3;
 
-  tap.ads.v1.AdvertiserID advertiser_id = 13;
-
-  google.protobuf.Timestamp start_time = 14;
-  google.protobuf.Timestamp end_time = 15;
+  google.protobuf.Timestamp expire_time = 14;
+  google.protobuf.Timestamp create_time = 15;
 }
