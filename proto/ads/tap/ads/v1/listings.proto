@@ -3,6 +3,7 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/advertisers.proto";
 import "tap/ads/v1/passes.proto";
 import "tap/ads/v1/quotas.proto";
 import "tap/points/v1/tokens.proto";
