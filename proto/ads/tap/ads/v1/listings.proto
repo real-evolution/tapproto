@@ -4,6 +4,7 @@ package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/ads/v1/passes.proto";
+import "tap/ads/v1/quotas.proto";
 import "tap/points/v1/tokens.proto";
 import "tap/points/v1/transfers.proto";
 import "tap/types/v1/decimal.proto";
@@ -15,7 +16,10 @@ service ListingsService {
   rpc GetListing(GetListingRequest) returns (GetListingResponse);
   rpc CreateListing(CreateListingRequest) returns (CreateListingResponse);
   rpc DeleteListing(DeleteListingRequest) returns (DeleteListingResponse);
+
   rpc PurchaseListing(PurchaseListingRequest) returns (PurchaseListingResponse);
+  rpc ListPurchases(ListPurchasesRequest) returns (ListPurchasesResponse);
+  rpc GetPurchase(GetPurchaseRequest) returns (GetPurchaseResponse);
 }
 
 message ListListingsRequest {
@@ -65,6 +69,30 @@ message PurchaseListingResponse {
   Purchase purchase = 1;
 }
 
+message ListPurchasesRequest {
+  reserved 4 to 14;
+
+  optional tap.ads.v1.ListingID listing_id = 1;
+  optional tap.ads.v1.AdvertiserID advertiser_id = 2;
+  optional tap.ads.v1.QuotaID quota_id = 3;
+
+  tap.types.v1.Page page = 15;
+}
+
+message ListPurchasesResponse {
+  repeated Purchase items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetPurchaseRequest {
+  PurchaseID id = 1;
+}
+
+message GetPurchaseResponse {
+  Purchase purchase = 1;
+}
+
 message ListingID {
   int32 value = 1;
 }
@@ -74,6 +102,8 @@ message ListingOwnerID {
 }
 
 message Listing {
+  reserved 7 to 13;
+
   ListingID id = 1;
 
   tap.types.v1.Duration duration = 2;
@@ -83,8 +113,8 @@ message Listing {
   tap.ads.v1.ListingOwnerID owner_id = 5;
   tap.points.v1.TokenCode token_code = 6;
 
-  google.protobuf.Timestamp create_time = 7;
-  google.protobuf.Timestamp update_time = 8;
+  google.protobuf.Timestamp create_time = 14;
+  google.protobuf.Timestamp update_time = 15;
 }
 
 message PurchaseID {
@@ -92,10 +122,13 @@ message PurchaseID {
 }
 
 message Purchase {
+  reserved 5 to 13;
+
   PurchaseID id = 1;
 
-  tap.ads.v1.QuotaID quota_id = 2;
-  tap.points.v1.TransferID transfer_id = 3;
+  ListingID listing_id = 2;
+  tap.ads.v1.QuotaID quota_id = 3;
+  tap.points.v1.TransferID transfer_id = 4;
 
-  google.protobuf.Timestamp create_time = 4;
+  google.protobuf.Timestamp create_time = 14;
 }
