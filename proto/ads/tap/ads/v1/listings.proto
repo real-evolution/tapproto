@@ -23,10 +23,9 @@ service ListingsService {
 }
 
 message ListListingsRequest {
-  reserved 3 to 14;
+  reserved 2 to 14;
 
   optional tap.ads.v1.PassID pass_id = 1;
-  optional ListingOwnerID owner_id = 2;
 
   tap.types.v1.Page page = 15;
 }
@@ -88,12 +87,8 @@ message ListingID {
   int32 value = 1;
 }
 
-message ListingOwnerID {
-  string value = 1;
-}
-
 message Listing {
-  reserved 7 to 13;
+  reserved 6 to 13;
 
   ListingID id = 1;
 
@@ -101,8 +96,7 @@ message Listing {
   tap.types.v1.Decimal price = 3;
 
   tap.ads.v1.PassID pass_id = 4;
-  tap.ads.v1.ListingOwnerID owner_id = 5;
-  tap.points.v1.TokenCode token_code = 6;
+  tap.points.v1.TokenCode token_code = 5;
 
   google.protobuf.Timestamp create_time = 14;
   google.protobuf.Timestamp update_time = 15;
