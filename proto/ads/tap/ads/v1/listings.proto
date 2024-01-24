@@ -20,7 +20,6 @@ service ListingsService {
 
   rpc PurchaseListing(PurchaseListingRequest) returns (PurchaseListingResponse);
   rpc ListPurchases(ListPurchasesRequest) returns (ListPurchasesResponse);
-  rpc GetPurchase(GetPurchaseRequest) returns (GetPurchaseResponse);
 }
 
 message ListListingsRequest {
@@ -75,7 +74,6 @@ message ListPurchasesRequest {
 
   optional tap.ads.v1.ListingID listing_id = 1;
   optional tap.ads.v1.AdvertiserID advertiser_id = 2;
-  optional tap.ads.v1.QuotaID quota_id = 3;
 
   tap.types.v1.Page page = 15;
 }
@@ -84,14 +82,6 @@ message ListPurchasesResponse {
   repeated Purchase items = 1;
 
   optional bytes next_cursor = 2;
-}
-
-message GetPurchaseRequest {
-  PurchaseID id = 1;
-}
-
-message GetPurchaseResponse {
-  Purchase purchase = 1;
 }
 
 message ListingID {
