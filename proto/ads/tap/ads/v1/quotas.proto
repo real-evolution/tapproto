@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package tap.ads.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/advertisers.proto";
+import "tap/types/v1/pagination.proto";
+
+service QuotasService {
+  rpc ListQuotas(ListQuotasRequest) returns (ListQuotasResponse);
+  rpc GetQuota(GetQuotaRequest) returns (GetQuotaResponse);
+}
+
+message ListQuotasRequest {
+  reserved 3 to 14;
+
+  optional QuotaState state = 1;
+  optional tap.ads.v1.AdvertiserID advertiser_id = 2;
+
+  tap.types.v1.Page page = 15;
+}
+
+message ListQuotasResponse {
+  repeated Quota items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetQuotaRequest {
+  QuotaID id = 1;
+}
+
+message GetQuotaResponse {
+  Quota quota = 1;
+}
+
+message QuotaID {
+  int32 value = 1;
+}
+
+enum QuotaState {
+  QUOTA_STATE_UNSPECIFIED = 0;
+  QUOTA_STATE_ACTIVE = 1;
+  QUOTA_STATE_EXPIRED = 2;
+}
+
+message Quota {
+  reserved 4 to 13;
+
+  QuotaID id = 1;
+  QuotaState state = 2;
+  tap.ads.v1.AdvertiserID advertiser_id = 3;
+
+  google.protobuf.Timestamp expire_time = 14;
+  google.protobuf.Timestamp create_time = 15;
+}

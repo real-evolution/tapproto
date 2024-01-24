@@ -62,11 +62,13 @@ message PassID {
 }
 
 message Pass {
+  reserved 4 to 13;
+
   PassID id = 1;
 
   string display_name = 2;
   string description = 3;
 
-  google.protobuf.Timestamp create_time = 4;
-  google.protobuf.Timestamp update_time = 5;
+  google.protobuf.Timestamp create_time = 14;
+  google.protobuf.Timestamp update_time = 15;
 }
