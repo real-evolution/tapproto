@@ -26,6 +26,8 @@ type ListingsServiceClient interface {
 	GetListing(ctx context.Context, in *GetListingRequest, opts ...grpc.CallOption) (*GetListingResponse, error)
 	CreateListing(ctx context.Context, in *CreateListingRequest, opts ...grpc.CallOption) (*CreateListingResponse, error)
 	DeleteListing(ctx context.Context, in *DeleteListingRequest, opts ...grpc.CallOption) (*DeleteListingResponse, error)
+	PurchaseListing(ctx context.Context, in *PurchaseListingRequest, opts ...grpc.CallOption) (*PurchaseListingResponse, error)
+	ListPurchases(ctx context.Context, in *ListPurchasesRequest, opts ...grpc.CallOption) (*ListPurchasesResponse, error)
 }
 
 type listingsServiceClient struct {
@@ -72,6 +74,24 @@ func (c *listingsServiceClient) DeleteListing(ctx context.Context, in *DeleteLis
 	return out, nil
 }
 
+func (c *listingsServiceClient) PurchaseListing(ctx context.Context, in *PurchaseListingRequest, opts ...grpc.CallOption) (*PurchaseListingResponse, error) {
+	out := new(PurchaseListingResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.ListingsService/PurchaseListing", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *listingsServiceClient) ListPurchases(ctx context.Context, in *ListPurchasesRequest, opts ...grpc.CallOption) (*ListPurchasesResponse, error) {
+	out := new(ListPurchasesResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.ListingsService/ListPurchases", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ListingsServiceServer is the server API for ListingsService service.
 // All implementations must embed UnimplementedListingsServiceServer
 // for forward compatibility
@@ -80,6 +100,8 @@ type ListingsServiceServer interface {
 	GetListing(context.Context, *GetListingRequest) (*GetListingResponse, error)
 	CreateListing(context.Context, *CreateListingRequest) (*CreateListingResponse, error)
 	DeleteListing(context.Context, *DeleteListingRequest) (*DeleteListingResponse, error)
+	PurchaseListing(context.Context, *PurchaseListingRequest) (*PurchaseListingResponse, error)
+	ListPurchases(context.Context, *ListPurchasesRequest) (*ListPurchasesResponse, error)
 	mustEmbedUnimplementedListingsServiceServer()
 }
 
@@ -98,6 +120,12 @@ func (UnimplementedListingsServiceServer) CreateListing(context.Context, *Create
 }
 func (UnimplementedListingsServiceServer) DeleteListing(context.Context, *DeleteListingRequest) (*DeleteListingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteListing not implemented")
+}
+func (UnimplementedListingsServiceServer) PurchaseListing(context.Context, *PurchaseListingRequest) (*PurchaseListingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PurchaseListing not implemented")
+}
+func (UnimplementedListingsServiceServer) ListPurchases(context.Context, *ListPurchasesRequest) (*ListPurchasesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPurchases not implemented")
 }
 func (UnimplementedListingsServiceServer) mustEmbedUnimplementedListingsServiceServer() {}
 
@@ -184,6 +212,42 @@ func _ListingsService_DeleteListing_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ListingsService_PurchaseListing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PurchaseListingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ListingsServiceServer).PurchaseListing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.ListingsService/PurchaseListing",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ListingsServiceServer).PurchaseListing(ctx, req.(*PurchaseListingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ListingsService_ListPurchases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPurchasesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ListingsServiceServer).ListPurchases(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.ListingsService/ListPurchases",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ListingsServiceServer).ListPurchases(ctx, req.(*ListPurchasesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ListingsService_ServiceDesc is the grpc.ServiceDesc for ListingsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +270,14 @@ var ListingsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteListing",
 			Handler:    _ListingsService_DeleteListing_Handler,
+		},
+		{
+			MethodName: "PurchaseListing",
+			Handler:    _ListingsService_PurchaseListing_Handler,
+		},
+		{
+			MethodName: "ListPurchases",
+			Handler:    _ListingsService_ListPurchases_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
