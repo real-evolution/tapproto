@@ -13,6 +13,9 @@ service TransfersService {
   // ListTransfers lists transfer transactions.
   rpc ListTransfers(ListTransfersRequest) returns (ListTransfersResponse);
 
+  // GetTransfer returns a transfer transaction.
+  rpc GetTransfer(GetTransferRequest) returns (GetTransferResponse);
+
   // MakeTransfer creates a new transfer transaction.
   rpc MakeTransfer(MakeTransferRequest) returns (MakeTransferResponse);
 }
@@ -48,6 +51,18 @@ message ListTransfersResponse {
 
   // The next page cursor.
   optional bytes next_cursor = 2;
+}
+
+// Request message for the GetTransfer method.
+message GetTransferRequest {
+  // The ID of the transfer.
+  TransferID id = 1;
+}
+
+// Response message for the GetTransfer method.
+message GetTransferResponse {
+  // The transfer.
+  Transfer transfer = 1;
 }
 
 // Request message for the MakeTransfer method.

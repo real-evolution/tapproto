@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type TransfersServiceClient interface {
 	// ListTransfers lists transfer transactions.
 	ListTransfers(ctx context.Context, in *ListTransfersRequest, opts ...grpc.CallOption) (*ListTransfersResponse, error)
+	// GetTransfer returns a transfer transaction.
+	GetTransfer(ctx context.Context, in *GetTransferRequest, opts ...grpc.CallOption) (*GetTransferResponse, error)
 	// MakeTransfer creates a new transfer transaction.
 	MakeTransfer(ctx context.Context, in *MakeTransferRequest, opts ...grpc.CallOption) (*MakeTransferResponse, error)
 }
@@ -45,6 +47,15 @@ func (c *transfersServiceClient) ListTransfers(ctx context.Context, in *ListTran
 	return out, nil
 }
 
+func (c *transfersServiceClient) GetTransfer(ctx context.Context, in *GetTransferRequest, opts ...grpc.CallOption) (*GetTransferResponse, error) {
+	out := new(GetTransferResponse)
+	err := c.cc.Invoke(ctx, "/tap.points.v1.TransfersService/GetTransfer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *transfersServiceClient) MakeTransfer(ctx context.Context, in *MakeTransferRequest, opts ...grpc.CallOption) (*MakeTransferResponse, error) {
 	out := new(MakeTransferResponse)
 	err := c.cc.Invoke(ctx, "/tap.points.v1.TransfersService/MakeTransfer", in, out, opts...)
@@ -60,6 +71,8 @@ func (c *transfersServiceClient) MakeTransfer(ctx context.Context, in *MakeTrans
 type TransfersServiceServer interface {
 	// ListTransfers lists transfer transactions.
 	ListTransfers(context.Context, *ListTransfersRequest) (*ListTransfersResponse, error)
+	// GetTransfer returns a transfer transaction.
+	GetTransfer(context.Context, *GetTransferRequest) (*GetTransferResponse, error)
 	// MakeTransfer creates a new transfer transaction.
 	MakeTransfer(context.Context, *MakeTransferRequest) (*MakeTransferResponse, error)
 	mustEmbedUnimplementedTransfersServiceServer()
@@ -71,6 +84,9 @@ type UnimplementedTransfersServiceServer struct {
 
 func (UnimplementedTransfersServiceServer) ListTransfers(context.Context, *ListTransfersRequest) (*ListTransfersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTransfers not implemented")
+}
+func (UnimplementedTransfersServiceServer) GetTransfer(context.Context, *GetTransferRequest) (*GetTransferResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransfer not implemented")
 }
 func (UnimplementedTransfersServiceServer) MakeTransfer(context.Context, *MakeTransferRequest) (*MakeTransferResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeTransfer not implemented")
@@ -106,6 +122,24 @@ func _TransfersService_ListTransfers_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransfersService_GetTransfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransferRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransfersServiceServer).GetTransfer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.points.v1.TransfersService/GetTransfer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransfersServiceServer).GetTransfer(ctx, req.(*GetTransferRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TransfersService_MakeTransfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MakeTransferRequest)
 	if err := dec(in); err != nil {
@@ -134,6 +168,10 @@ var TransfersService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTransfers",
 			Handler:    _TransfersService_ListTransfers_Handler,
+		},
+		{
+			MethodName: "GetTransfer",
+			Handler:    _TransfersService_GetTransfer_Handler,
 		},
 		{
 			MethodName: "MakeTransfer",
