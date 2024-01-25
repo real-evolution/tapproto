@@ -5,6 +5,7 @@ package tap.points.v1;
 import "google/protobuf/timestamp.proto";
 import "tap/points/v1/accounts.proto";
 import "tap/points/v1/openings.proto";
+import "tap/points/v1/tokens.proto";
 import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
@@ -18,6 +19,9 @@ service TransfersService {
 
   // MakeTransfer creates a new transfer transaction.
   rpc MakeTransfer(MakeTransferRequest) returns (MakeTransferResponse);
+
+  // GetReceipt returns a transfer receipt.
+  rpc GetReceipt(GetReceiptRequest) returns (GetReceiptResponse);
 }
 
 // Request message for the ListTransfers method.
@@ -86,6 +90,18 @@ message MakeTransferResponse {
   Transfer transfer = 1;
 }
 
+// Request message for the GetReceipt method.
+message GetReceiptRequest {
+  // The ID of the transfer.
+  TransferID id = 1;
+}
+
+// Response message for the GetReceipt method.
+message GetReceiptResponse {
+  // The transfer receipt.
+  Receipt receipt = 1;
+}
+
 // A message to represent a transfer ID.
 message TransferID {
   int64 value = 1;
@@ -113,4 +129,43 @@ message Transfer {
 
   // The date and time when the transfer was created.
   google.protobuf.Timestamp create_time = 7;
+}
+
+// A message to represent a transfer receipt.
+message Receipt {
+  // The ID of the transfer.
+  TransferID transfer_id = 1;
+
+  // The amount that was transferred.
+  tap.types.v1.Decimal amount = 2;
+
+  // The rate at which the transfer was made.
+  tap.types.v1.Decimal rate = 3;
+
+  // The ID of the opening this transfer is associated with.
+  tap.points.v1.OpeningID opening_id = 4;
+
+  // The ID of the source account.
+  tap.points.v1.AccountID source_account_id = 5;
+
+  // The ID of the holder of the source account.
+  tap.points.v1.AccountHolderID source_holder_id = 6;
+
+  // The code of the source token.
+  tap.points.v1.TokenCode source_token_code = 7;
+
+  // The ID of the destination account.
+  tap.points.v1.AccountID destination_account_id = 8;
+
+  // The ID of the holder of the destination account.
+  tap.points.v1.AccountHolderID destination_holder_id = 9;
+
+  // The code of the destination token.
+  tap.points.v1.TokenCode destination_token_code = 10;
+
+  // Optional note.
+  optional string note = 11;
+
+  // The date and time when the transfer was created.
+  google.protobuf.Timestamp create_time = 12;
 }
