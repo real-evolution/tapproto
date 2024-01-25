@@ -28,6 +28,8 @@ type TransfersServiceClient interface {
 	GetTransfer(ctx context.Context, in *GetTransferRequest, opts ...grpc.CallOption) (*GetTransferResponse, error)
 	// MakeTransfer creates a new transfer transaction.
 	MakeTransfer(ctx context.Context, in *MakeTransferRequest, opts ...grpc.CallOption) (*MakeTransferResponse, error)
+	// GetReceipt returns a transfer receipt.
+	GetReceipt(ctx context.Context, in *GetReceiptRequest, opts ...grpc.CallOption) (*GetReceiptResponse, error)
 }
 
 type transfersServiceClient struct {
@@ -65,6 +67,15 @@ func (c *transfersServiceClient) MakeTransfer(ctx context.Context, in *MakeTrans
 	return out, nil
 }
 
+func (c *transfersServiceClient) GetReceipt(ctx context.Context, in *GetReceiptRequest, opts ...grpc.CallOption) (*GetReceiptResponse, error) {
+	out := new(GetReceiptResponse)
+	err := c.cc.Invoke(ctx, "/tap.points.v1.TransfersService/GetReceipt", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransfersServiceServer is the server API for TransfersService service.
 // All implementations must embed UnimplementedTransfersServiceServer
 // for forward compatibility
@@ -75,6 +86,8 @@ type TransfersServiceServer interface {
 	GetTransfer(context.Context, *GetTransferRequest) (*GetTransferResponse, error)
 	// MakeTransfer creates a new transfer transaction.
 	MakeTransfer(context.Context, *MakeTransferRequest) (*MakeTransferResponse, error)
+	// GetReceipt returns a transfer receipt.
+	GetReceipt(context.Context, *GetReceiptRequest) (*GetReceiptResponse, error)
 	mustEmbedUnimplementedTransfersServiceServer()
 }
 
@@ -90,6 +103,9 @@ func (UnimplementedTransfersServiceServer) GetTransfer(context.Context, *GetTran
 }
 func (UnimplementedTransfersServiceServer) MakeTransfer(context.Context, *MakeTransferRequest) (*MakeTransferResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeTransfer not implemented")
+}
+func (UnimplementedTransfersServiceServer) GetReceipt(context.Context, *GetReceiptRequest) (*GetReceiptResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReceipt not implemented")
 }
 func (UnimplementedTransfersServiceServer) mustEmbedUnimplementedTransfersServiceServer() {}
 
@@ -158,6 +174,24 @@ func _TransfersService_MakeTransfer_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransfersService_GetReceipt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReceiptRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransfersServiceServer).GetReceipt(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.points.v1.TransfersService/GetReceipt",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransfersServiceServer).GetReceipt(ctx, req.(*GetReceiptRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransfersService_ServiceDesc is the grpc.ServiceDesc for TransfersService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +210,10 @@ var TransfersService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MakeTransfer",
 			Handler:    _TransfersService_MakeTransfer_Handler,
+		},
+		{
+			MethodName: "GetReceipt",
+			Handler:    _TransfersService_GetReceipt_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
