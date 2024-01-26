@@ -30,10 +30,10 @@ message ListTransfersRequest {
   optional tap.points.v1.AccountHolderID holder_id = 1;
 
   // Filter by the ID of the source account.
-  optional tap.points.v1.AccountID source_account_id = 2;
+  optional tap.points.v1.AccountID src_account_id = 2;
 
   // Filter by the ID of the destination account.
-  optional tap.points.v1.AccountID destination_account_id = 3;
+  optional tap.points.v1.AccountID dst_account_id = 3;
 
   // Filter by the ID of the opening this transfer is associated with.
   optional tap.points.v1.OpeningID opening_id = 4;
@@ -72,10 +72,10 @@ message GetTransferResponse {
 // Request message for the MakeTransfer method.
 message MakeTransferRequest {
   // The ID of the source account.
-  tap.points.v1.AccountID source_account_id = 1;
+  tap.points.v1.AccountID src_account_id = 1;
 
   // The ID of the destination account.
-  tap.points.v1.AccountID destination_account_id = 2;
+  tap.points.v1.AccountID dst_account_id = 2;
 
   // The amount to transfer.
   tap.types.v1.Decimal amount = 3;
@@ -116,10 +116,10 @@ message Transfer {
   tap.types.v1.Decimal amount = 2;
 
   // The ID of the source account.
-  tap.points.v1.AccountID source_account_id = 3;
+  tap.points.v1.AccountID src_account_id = 3;
 
   // The ID of the destination account.
-  tap.points.v1.AccountID destination_account_id = 4;
+  tap.points.v1.AccountID dst_account_id = 4;
 
   // The ID of the opening this transfer is associated with.
   tap.points.v1.OpeningID opening_id = 5;
@@ -146,22 +146,22 @@ message Receipt {
   tap.points.v1.OpeningID opening_id = 4;
 
   // The ID of the source account.
-  tap.points.v1.AccountID source_account_id = 5;
+  tap.points.v1.AccountID src_account_id = 5;
 
   // The ID of the holder of the source account.
-  tap.points.v1.AccountHolderID source_holder_id = 6;
+  tap.points.v1.AccountHolderID src_account_holder_id = 6;
 
   // The code of the source token.
-  tap.points.v1.TokenCode source_token_code = 7;
+  tap.points.v1.TokenCode src_token_code = 7;
 
   // The ID of the destination account.
-  tap.points.v1.AccountID destination_account_id = 8;
+  tap.points.v1.AccountID dst_account_id = 8;
 
   // The ID of the holder of the destination account.
-  tap.points.v1.AccountHolderID destination_holder_id = 9;
+  tap.points.v1.AccountHolderID dst_account_holder_id = 9;
 
   // The code of the destination token.
-  tap.points.v1.TokenCode destination_token_code = 10;
+  tap.points.v1.TokenCode dst_token_code = 10;
 
   // Optional note.
   optional string note = 11;
