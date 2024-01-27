@@ -63,6 +63,7 @@ message DeleteListingResponse {}
 
 message PurchaseListingRequest {
   ListingID id = 1;
+  tap.points.v1.TransferID transfer_id = 2;
 }
 
 message PurchaseListingResponse {
