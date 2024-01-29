@@ -64,7 +64,7 @@ message ListTicketsResponse {
 // Request message for `GetTicket`
 message GetTicketRequest {
   // The id of the ticket
-  TicketID id = 1;
+  TicketID id = 1 [(buf.validate.field).required = true];
 }
 
 // Response message for `GetTicket`
@@ -76,7 +76,7 @@ message GetTicketResponse {
 // Request message for `CreateTicket`
 message CreateTicketRequest {
   // The title of the ticket
-  string title = 1;
+  string title = 1 [(buf.validate.field).required = true];
 
   // Ticket initial tags.
   repeated TicketTag tags = 2;
@@ -91,7 +91,7 @@ message CreateTicketResponse {
 // Request message for `UpdateTicket`
 message UpdateTicketRequest {
   // The id of the ticket
-  TicketID id = 1;
+  TicketID id = 1 [(buf.validate.field).required = true];
 
   // The title of the ticket
   optional string title = 2;
@@ -106,7 +106,7 @@ message UpdateTicketResponse {
 // Request message for `DeleteTicket`
 message DeleteTicketRequest {
   // The id of the ticket
-  TicketID id = 1;
+  TicketID id = 1 [(buf.validate.field).required = true];
 }
 
 // Response message for `DeleteTicket`
@@ -115,7 +115,7 @@ message DeleteTicketResponse {}
 // Request message for `AddTicketTag`
 message AddTicketTagsRequest {
   // The id of the ticket to add a tag to.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // The codes of the tag to add.
   repeated TicketTag ticket_tags = 2;
@@ -127,7 +127,7 @@ message AddTicketTagsResponse {}
 // Request message for `ListTicketTags`
 message ListTicketTagsRequest {
   // The id of the ticket to list tags for.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 2;
@@ -145,7 +145,7 @@ message ListTicketTagsResponse {
 // Request message for `RemoveTicketTags`
 message DeleteTicketTagsRequest {
   // The id of the ticket to remove a tag from.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // The codes of the tag to remove.
   repeated string tag_codes = 2;
@@ -160,13 +160,13 @@ message DeleteTicketTagsResponse {
 // Request message for `VerifyTicket`
 message VerifyRequest {
   // The id of the ticket to verify.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // The code of the tag to verify.
-  tap.verify.v1.TagCode tag_code = 2;
+  tap.verify.v1.TagCode tag_code = 2 [(buf.validate.field).required = true];
 
   // Whether the ticket is approved or not.
-  bool approved = 3;
+  bool approved = 3 [(buf.validate.field).required = true];
 
   // Note
   optional string note = 4;
@@ -178,7 +178,7 @@ message VerifyResponse {}
 // Request message for `ListTicketVerifications`
 message ListTicketVerificationsRequest {
   // The id of the ticket to list verifications for.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 2;
@@ -196,7 +196,7 @@ message ListTicketVerificationsResponse {
 // Request message for `IsApproved`
 message IsApprovedRequest {
   // The id of the ticket to check.
-  TicketID ticket_id = 1;
+  TicketID ticket_id = 1 [(buf.validate.field).required = true];
 
   // additional optional tags
   repeated tap.verify.v1.TagCode tag_codes = 2;
