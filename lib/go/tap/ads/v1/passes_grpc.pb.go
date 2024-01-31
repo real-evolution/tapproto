@@ -27,6 +27,10 @@ type PassesServiceClient interface {
 	CreatePass(ctx context.Context, in *CreatePassRequest, opts ...grpc.CallOption) (*CreatePassResponse, error)
 	UpdatePass(ctx context.Context, in *UpdatePassRequest, opts ...grpc.CallOption) (*UpdatePassResponse, error)
 	DeletePass(ctx context.Context, in *DeletePassRequest, opts ...grpc.CallOption) (*DeletePassResponse, error)
+	ListPassRequirements(ctx context.Context, in *ListPassRequirementsRequest, opts ...grpc.CallOption) (*ListPassRequirementsResponse, error)
+	IsEligibleForPass(ctx context.Context, in *IsEligibleForPassRequest, opts ...grpc.CallOption) (*IsEligibleForPassResponse, error)
+	AddRequirementToPass(ctx context.Context, in *AddRequirementToPassRequest, opts ...grpc.CallOption) (*AddRequirementToPassResponse, error)
+	RemoveRequirementFromPass(ctx context.Context, in *RemoveRequirementFromPassRequest, opts ...grpc.CallOption) (*RemoveRequirementFromPassResponse, error)
 }
 
 type passesServiceClient struct {
@@ -82,6 +86,42 @@ func (c *passesServiceClient) DeletePass(ctx context.Context, in *DeletePassRequ
 	return out, nil
 }
 
+func (c *passesServiceClient) ListPassRequirements(ctx context.Context, in *ListPassRequirementsRequest, opts ...grpc.CallOption) (*ListPassRequirementsResponse, error) {
+	out := new(ListPassRequirementsResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/ListPassRequirements", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *passesServiceClient) IsEligibleForPass(ctx context.Context, in *IsEligibleForPassRequest, opts ...grpc.CallOption) (*IsEligibleForPassResponse, error) {
+	out := new(IsEligibleForPassResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/IsEligibleForPass", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *passesServiceClient) AddRequirementToPass(ctx context.Context, in *AddRequirementToPassRequest, opts ...grpc.CallOption) (*AddRequirementToPassResponse, error) {
+	out := new(AddRequirementToPassResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/AddRequirementToPass", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *passesServiceClient) RemoveRequirementFromPass(ctx context.Context, in *RemoveRequirementFromPassRequest, opts ...grpc.CallOption) (*RemoveRequirementFromPassResponse, error) {
+	out := new(RemoveRequirementFromPassResponse)
+	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/RemoveRequirementFromPass", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PassesServiceServer is the server API for PassesService service.
 // All implementations must embed UnimplementedPassesServiceServer
 // for forward compatibility
@@ -91,6 +131,10 @@ type PassesServiceServer interface {
 	CreatePass(context.Context, *CreatePassRequest) (*CreatePassResponse, error)
 	UpdatePass(context.Context, *UpdatePassRequest) (*UpdatePassResponse, error)
 	DeletePass(context.Context, *DeletePassRequest) (*DeletePassResponse, error)
+	ListPassRequirements(context.Context, *ListPassRequirementsRequest) (*ListPassRequirementsResponse, error)
+	IsEligibleForPass(context.Context, *IsEligibleForPassRequest) (*IsEligibleForPassResponse, error)
+	AddRequirementToPass(context.Context, *AddRequirementToPassRequest) (*AddRequirementToPassResponse, error)
+	RemoveRequirementFromPass(context.Context, *RemoveRequirementFromPassRequest) (*RemoveRequirementFromPassResponse, error)
 	mustEmbedUnimplementedPassesServiceServer()
 }
 
@@ -112,6 +156,18 @@ func (UnimplementedPassesServiceServer) UpdatePass(context.Context, *UpdatePassR
 }
 func (UnimplementedPassesServiceServer) DeletePass(context.Context, *DeletePassRequest) (*DeletePassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePass not implemented")
+}
+func (UnimplementedPassesServiceServer) ListPassRequirements(context.Context, *ListPassRequirementsRequest) (*ListPassRequirementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPassRequirements not implemented")
+}
+func (UnimplementedPassesServiceServer) IsEligibleForPass(context.Context, *IsEligibleForPassRequest) (*IsEligibleForPassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsEligibleForPass not implemented")
+}
+func (UnimplementedPassesServiceServer) AddRequirementToPass(context.Context, *AddRequirementToPassRequest) (*AddRequirementToPassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddRequirementToPass not implemented")
+}
+func (UnimplementedPassesServiceServer) RemoveRequirementFromPass(context.Context, *RemoveRequirementFromPassRequest) (*RemoveRequirementFromPassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveRequirementFromPass not implemented")
 }
 func (UnimplementedPassesServiceServer) mustEmbedUnimplementedPassesServiceServer() {}
 
@@ -216,6 +272,78 @@ func _PassesService_DeletePass_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PassesService_ListPassRequirements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPassRequirementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PassesServiceServer).ListPassRequirements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.PassesService/ListPassRequirements",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PassesServiceServer).ListPassRequirements(ctx, req.(*ListPassRequirementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PassesService_IsEligibleForPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsEligibleForPassRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PassesServiceServer).IsEligibleForPass(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.PassesService/IsEligibleForPass",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PassesServiceServer).IsEligibleForPass(ctx, req.(*IsEligibleForPassRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PassesService_AddRequirementToPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRequirementToPassRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PassesServiceServer).AddRequirementToPass(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.PassesService/AddRequirementToPass",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PassesServiceServer).AddRequirementToPass(ctx, req.(*AddRequirementToPassRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PassesService_RemoveRequirementFromPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveRequirementFromPassRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PassesServiceServer).RemoveRequirementFromPass(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tap.ads.v1.PassesService/RemoveRequirementFromPass",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PassesServiceServer).RemoveRequirementFromPass(ctx, req.(*RemoveRequirementFromPassRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PassesService_ServiceDesc is the grpc.ServiceDesc for PassesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +370,22 @@ var PassesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeletePass",
 			Handler:    _PassesService_DeletePass_Handler,
+		},
+		{
+			MethodName: "ListPassRequirements",
+			Handler:    _PassesService_ListPassRequirements_Handler,
+		},
+		{
+			MethodName: "IsEligibleForPass",
+			Handler:    _PassesService_IsEligibleForPass_Handler,
+		},
+		{
+			MethodName: "AddRequirementToPass",
+			Handler:    _PassesService_AddRequirementToPass_Handler,
+		},
+		{
+			MethodName: "RemoveRequirementFromPass",
+			Handler:    _PassesService_RemoveRequirementFromPass_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

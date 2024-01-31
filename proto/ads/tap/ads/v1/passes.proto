@@ -3,6 +3,7 @@ syntax = "proto3";
 package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/requirements.proto";
 import "tap/types/v1/pagination.proto";
 
 service PassesService {
@@ -11,6 +12,11 @@ service PassesService {
   rpc CreatePass(CreatePassRequest) returns (CreatePassResponse);
   rpc UpdatePass(UpdatePassRequest) returns (UpdatePassResponse);
   rpc DeletePass(DeletePassRequest) returns (DeletePassResponse);
+
+  rpc ListPassRequirements(ListPassRequirementsRequest) returns (ListPassRequirementsResponse);
+  rpc IsEligibleForPass(IsEligibleForPassRequest) returns (IsEligibleForPassResponse);
+  rpc AddRequirementToPass(AddRequirementToPassRequest) returns (AddRequirementToPassResponse);
+  rpc RemoveRequirementFromPass(RemoveRequirementFromPassRequest) returns (RemoveRequirementFromPassResponse);
 }
 
 message ListPassesRequest {
@@ -56,6 +62,36 @@ message DeletePassRequest {
 }
 
 message DeletePassResponse {}
+
+message ListPassRequirementsRequest {
+  PassID pass_id = 1;
+}
+
+message ListPassRequirementsResponse {
+  repeated tap.ads.v1.Requirement items = 1;
+}
+
+message IsEligibleForPassRequest {
+  PassID pass_id = 1;
+}
+
+message IsEligibleForPassResponse  {
+  bool eligible = 1;
+}
+
+message AddRequirementToPassRequest {
+  PassID pass_id = 1;
+  tap.ads.v1.RequirementID requirement_id = 2;
+}
+
+message AddRequirementToPassResponse {}
+
+message RemoveRequirementFromPassRequest {
+  PassID pass_id = 1;
+  tap.ads.v1.RequirementID requirement_id = 2;
+}
+
+message RemoveRequirementFromPassResponse {}
 
 message PassID {
   int32 value = 1;
