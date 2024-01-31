@@ -44,7 +44,7 @@ message ListTagsResponse {
 // Request message for `GetTag`
 message GetTagRequest {
   // The code of the tag.
-  TagCode code = 1;
+  TagCode code = 1 [(buf.validate.field).required = true];
 }
 
 // Response message for `GetTag`
@@ -56,7 +56,7 @@ message GetTagResponse {
 // Request message for `CreateTag`
 message CreateTagRequest {
   // The tag code.
-  TagCode code = 1;
+  TagCode code = 1 [(buf.validate.field).required = true];
 }
 
 // Response message for `CreateTag`
@@ -68,10 +68,10 @@ message CreateTagResponse {
 // Request message for `UpdateTag`
 message UpdateTagRequest {
   // The old code.
-  TagCode old_code = 1;
+  TagCode old_code = 1 [(buf.validate.field).required = true];
 
   // The new code
-  TagCode new_code = 2;
+  TagCode new_code = 2 [(buf.validate.field).required = true];
 }
 
 // Response message for `UpdateTag`
@@ -83,7 +83,7 @@ message UpdateTagResponse {
 // Request message for `DeleteTag`
 message DeleteTagRequest {
   // The tag code.
-  TagCode code = 1;
+  TagCode code = 1 [(buf.validate.field).required = true];
 }
 
 // Response message for `DeleteTag`
