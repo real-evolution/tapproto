@@ -169,7 +169,7 @@ message VerifyRequest {
   bool approved = 3 [(buf.validate.field).required = true];
 
   // Note
-  optional string note = 4;
+  string note = 4 [(buf.validate.field).required = true];
 }
 
 // Response message for `VerifyTicket`

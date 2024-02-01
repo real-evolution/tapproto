@@ -83,15 +83,6 @@ func (c *transfersServiceClient) GetReceipt(ctx context.Context, in *GetReceiptR
 	return out, nil
 }
 
-func (c *transfersServiceClient) GetReceipt(ctx context.Context, in *GetReceiptRequest, opts ...grpc.CallOption) (*GetReceiptResponse, error) {
-	out := new(GetReceiptResponse)
-	err := c.cc.Invoke(ctx, "/tap.points.v1.TransfersService/GetReceipt", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // TransfersServiceServer is the server API for TransfersService service.
 // All implementations must embed UnimplementedTransfersServiceServer
 // for forward compatibility
@@ -200,7 +191,7 @@ func _TransfersService_GetReceipt_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tap.points.v1.TransfersService/GetReceipt",
+		FullMethod: TransfersService_GetReceipt_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransfersServiceServer).GetReceipt(ctx, req.(*GetReceiptRequest))

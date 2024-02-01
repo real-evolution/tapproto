@@ -19,11 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PassesService_ListPasses_FullMethodName = "/tap.ads.v1.PassesService/ListPasses"
-	PassesService_GetPass_FullMethodName    = "/tap.ads.v1.PassesService/GetPass"
-	PassesService_CreatePass_FullMethodName = "/tap.ads.v1.PassesService/CreatePass"
-	PassesService_UpdatePass_FullMethodName = "/tap.ads.v1.PassesService/UpdatePass"
-	PassesService_DeletePass_FullMethodName = "/tap.ads.v1.PassesService/DeletePass"
+	PassesService_ListPasses_FullMethodName                = "/tap.ads.v1.PassesService/ListPasses"
+	PassesService_GetPass_FullMethodName                   = "/tap.ads.v1.PassesService/GetPass"
+	PassesService_CreatePass_FullMethodName                = "/tap.ads.v1.PassesService/CreatePass"
+	PassesService_UpdatePass_FullMethodName                = "/tap.ads.v1.PassesService/UpdatePass"
+	PassesService_DeletePass_FullMethodName                = "/tap.ads.v1.PassesService/DeletePass"
+	PassesService_ListPassRequirements_FullMethodName      = "/tap.ads.v1.PassesService/ListPassRequirements"
+	PassesService_IsEligibleForPass_FullMethodName         = "/tap.ads.v1.PassesService/IsEligibleForPass"
+	PassesService_AddRequirementToPass_FullMethodName      = "/tap.ads.v1.PassesService/AddRequirementToPass"
+	PassesService_RemoveRequirementFromPass_FullMethodName = "/tap.ads.v1.PassesService/RemoveRequirementFromPass"
 )
 
 // PassesServiceClient is the client API for PassesService service.
@@ -96,7 +100,7 @@ func (c *passesServiceClient) DeletePass(ctx context.Context, in *DeletePassRequ
 
 func (c *passesServiceClient) ListPassRequirements(ctx context.Context, in *ListPassRequirementsRequest, opts ...grpc.CallOption) (*ListPassRequirementsResponse, error) {
 	out := new(ListPassRequirementsResponse)
-	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/ListPassRequirements", in, out, opts...)
+	err := c.cc.Invoke(ctx, PassesService_ListPassRequirements_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +109,7 @@ func (c *passesServiceClient) ListPassRequirements(ctx context.Context, in *List
 
 func (c *passesServiceClient) IsEligibleForPass(ctx context.Context, in *IsEligibleForPassRequest, opts ...grpc.CallOption) (*IsEligibleForPassResponse, error) {
 	out := new(IsEligibleForPassResponse)
-	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/IsEligibleForPass", in, out, opts...)
+	err := c.cc.Invoke(ctx, PassesService_IsEligibleForPass_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +118,7 @@ func (c *passesServiceClient) IsEligibleForPass(ctx context.Context, in *IsEligi
 
 func (c *passesServiceClient) AddRequirementToPass(ctx context.Context, in *AddRequirementToPassRequest, opts ...grpc.CallOption) (*AddRequirementToPassResponse, error) {
 	out := new(AddRequirementToPassResponse)
-	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/AddRequirementToPass", in, out, opts...)
+	err := c.cc.Invoke(ctx, PassesService_AddRequirementToPass_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +127,7 @@ func (c *passesServiceClient) AddRequirementToPass(ctx context.Context, in *AddR
 
 func (c *passesServiceClient) RemoveRequirementFromPass(ctx context.Context, in *RemoveRequirementFromPassRequest, opts ...grpc.CallOption) (*RemoveRequirementFromPassResponse, error) {
 	out := new(RemoveRequirementFromPassResponse)
-	err := c.cc.Invoke(ctx, "/tap.ads.v1.PassesService/RemoveRequirementFromPass", in, out, opts...)
+	err := c.cc.Invoke(ctx, PassesService_RemoveRequirementFromPass_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +294,7 @@ func _PassesService_ListPassRequirements_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tap.ads.v1.PassesService/ListPassRequirements",
+		FullMethod: PassesService_ListPassRequirements_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PassesServiceServer).ListPassRequirements(ctx, req.(*ListPassRequirementsRequest))
@@ -308,7 +312,7 @@ func _PassesService_IsEligibleForPass_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tap.ads.v1.PassesService/IsEligibleForPass",
+		FullMethod: PassesService_IsEligibleForPass_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PassesServiceServer).IsEligibleForPass(ctx, req.(*IsEligibleForPassRequest))
@@ -326,7 +330,7 @@ func _PassesService_AddRequirementToPass_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tap.ads.v1.PassesService/AddRequirementToPass",
+		FullMethod: PassesService_AddRequirementToPass_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PassesServiceServer).AddRequirementToPass(ctx, req.(*AddRequirementToPassRequest))
@@ -344,7 +348,7 @@ func _PassesService_RemoveRequirementFromPass_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tap.ads.v1.PassesService/RemoveRequirementFromPass",
+		FullMethod: PassesService_RemoveRequirementFromPass_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PassesServiceServer).RemoveRequirementFromPass(ctx, req.(*RemoveRequirementFromPassRequest))
