@@ -8,7 +8,7 @@ import "tap/verify/v1/tags.proto";
 import "tap/verify/v1/verifiers.proto";
 
 // Ticket's management service
-service TicketService {
+service TicketsService {
   // Lists tickets
   rpc ListTickets(ListTicketsRequest) returns (ListTicketsResponse);
 

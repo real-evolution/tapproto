@@ -6,7 +6,7 @@ import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
 // tag's management service
-service TagService {
+service TagsService {
   // Lists tags
   rpc ListTags(ListTagsRequest) returns (ListTagsResponse);
 
