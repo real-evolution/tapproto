@@ -45,11 +45,14 @@ enum QuotaState {
 }
 
 message Quota {
-  reserved 4 to 13;
+  reserved 5 to 13;
 
   QuotaID id = 1;
+
   QuotaState state = 2;
   tap.ads.v1.AdvertiserID advertiser_id = 3;
+
+  int32 ads_left = 4;
 
   google.protobuf.Timestamp expire_time = 14;
   google.protobuf.Timestamp create_time = 15;

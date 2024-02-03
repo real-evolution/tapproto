@@ -11,7 +11,6 @@ import "tap/points/v1/transfers.proto";
 import "tap/types/v1/decimal.proto";
 import "tap/types/v1/duration.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/types/v1/uuid.proto";
 
 service ListingsService {
   rpc ListListings(ListListingsRequest) returns (ListListingsResponse);
