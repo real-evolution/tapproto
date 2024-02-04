@@ -4,6 +4,7 @@ package tap.ads.v1;
 
 import "google/protobuf/timestamp.proto";
 import "tap/ads/v1/advertisers.proto";
+import "tap/ads/v1/passes.proto";
 import "tap/types/v1/pagination.proto";
 
 service QuotasService {
@@ -12,10 +13,9 @@ service QuotasService {
 }
 
 message ListQuotasRequest {
-  reserved 3 to 14;
-
   optional QuotaState state = 1;
   optional tap.ads.v1.AdvertiserID advertiser_id = 2;
+  optional tap.ads.v1.PassID pass_id = 3;
 
   tap.types.v1.Page page = 15;
 }
@@ -45,14 +45,14 @@ enum QuotaState {
 }
 
 message Quota {
-  reserved 5 to 13;
-
   QuotaID id = 1;
 
   QuotaState state = 2;
-  tap.ads.v1.AdvertiserID advertiser_id = 3;
 
-  int32 ads_left = 4;
+  tap.ads.v1.AdvertiserID advertiser_id = 3;
+  tap.ads.v1.PassID pass_id = 4;
+
+  int32 ads_left = 5;
 
   google.protobuf.Timestamp expire_time = 14;
   google.protobuf.Timestamp create_time = 15;
