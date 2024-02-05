@@ -14,9 +14,10 @@ service PassesService {
   rpc DeletePass(DeletePassRequest) returns (DeletePassResponse);
 
   rpc ListPassRequirements(ListPassRequirementsRequest) returns (ListPassRequirementsResponse);
-  rpc IsEligibleForPass(IsEligibleForPassRequest) returns (IsEligibleForPassResponse);
-  rpc AddRequirementToPass(AddRequirementToPassRequest) returns (AddRequirementToPassResponse);
-  rpc RemoveRequirementFromPass(RemoveRequirementFromPassRequest) returns (RemoveRequirementFromPassResponse);
+  rpc CreatePassRequirement(CreatePassRequirementRequest) returns (CreatePassRequirementResponse);
+  rpc DeletePassRequirement(DeletePassRequirementRequest) returns (DeletePassRequirementResponse);
+
+  rpc CanSubscribeToPass(CanSubscribeToPassRequest) returns (CanSubscribeToPassResponse);
 }
 
 message ListPassesRequest {
@@ -67,33 +68,43 @@ message DeletePassResponse {}
 
 message ListPassRequirementsRequest {
   PassID pass_id = 1;
+
+  optional tap.ads.v1.RequirementID requirement_id = 2;
+  optional PassRequirementType type = 3;
+
+  tap.types.v1.Page page = 15;
 }
 
 message ListPassRequirementsResponse {
-  repeated tap.ads.v1.Requirement items = 1;
+  repeated PassRequirement items = 1;
+  optional bytes next_cursor = 2;
 }
 
-message IsEligibleForPassRequest {
-  PassID pass_id = 1;
-}
-
-message IsEligibleForPassResponse  {
-  bool eligible = 1;
-}
-
-message AddRequirementToPassRequest {
+message CreatePassRequirementRequest {
   PassID pass_id = 1;
   tap.ads.v1.RequirementID requirement_id = 2;
+  PassRequirementType type = 3;
 }
 
-message AddRequirementToPassResponse {}
+message CreatePassRequirementResponse {
+  PassRequirement pass_requirement = 1;
+}
 
-message RemoveRequirementFromPassRequest {
+message DeletePassRequirementRequest {
   PassID pass_id = 1;
   tap.ads.v1.RequirementID requirement_id = 2;
+  PassRequirementType type = 3;
 }
 
-message RemoveRequirementFromPassResponse {}
+message DeletePassRequirementResponse {}
+
+message CanSubscribeToPassRequest {
+  PassID pass_id = 1;
+}
+
+message CanSubscribeToPassResponse  {
+  bool can_subscribe = 1;
+}
 
 message PassID {
   int32 value = 1;
@@ -111,4 +122,19 @@ message Pass {
 
   google.protobuf.Timestamp create_time = 14;
   google.protobuf.Timestamp update_time = 15;
+}
+
+enum PassRequirementType {
+  PASS_REQUIREMENT_TYPE_UNSPECIFIED = 0;
+  PASS_REQUIREMENT_TYPE_SUBSCRIPTION = 1;
+  PASS_REQUIREMENT_TYPE_AD = 2;
+}
+
+message PassRequirement {
+  PassID pass_id = 1;
+
+  tap.ads.v1.RequirementID requirement_id = 2;
+  PassRequirementType type = 3;
+
+  google.protobuf.Timestamp create_time = 14;
 }

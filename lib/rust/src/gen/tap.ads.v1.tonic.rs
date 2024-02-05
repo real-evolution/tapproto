@@ -1682,11 +1682,11 @@ pub mod passes_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        pub async fn is_eligible_for_pass(
+        pub async fn create_pass_requirement(
             &mut self,
-            request: impl tonic::IntoRequest<super::IsEligibleForPassRequest>,
+            request: impl tonic::IntoRequest<super::CreatePassRequirementRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::IsEligibleForPassResponse>,
+            tonic::Response<super::CreatePassRequirementResponse>,
             tonic::Status,
         > {
             self.inner
@@ -1700,20 +1700,20 @@ pub mod passes_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.ads.v1.PassesService/IsEligibleForPass",
+                "/tap.ads.v1.PassesService/CreatePassRequirement",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("tap.ads.v1.PassesService", "IsEligibleForPass"),
+                    GrpcMethod::new("tap.ads.v1.PassesService", "CreatePassRequirement"),
                 );
             self.inner.unary(req, path, codec).await
         }
-        pub async fn add_requirement_to_pass(
+        pub async fn delete_pass_requirement(
             &mut self,
-            request: impl tonic::IntoRequest<super::AddRequirementToPassRequest>,
+            request: impl tonic::IntoRequest<super::DeletePassRequirementRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::AddRequirementToPassResponse>,
+            tonic::Response<super::DeletePassRequirementResponse>,
             tonic::Status,
         > {
             self.inner
@@ -1727,20 +1727,20 @@ pub mod passes_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.ads.v1.PassesService/AddRequirementToPass",
+                "/tap.ads.v1.PassesService/DeletePassRequirement",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("tap.ads.v1.PassesService", "AddRequirementToPass"),
+                    GrpcMethod::new("tap.ads.v1.PassesService", "DeletePassRequirement"),
                 );
             self.inner.unary(req, path, codec).await
         }
-        pub async fn remove_requirement_from_pass(
+        pub async fn can_subscribe_to_pass(
             &mut self,
-            request: impl tonic::IntoRequest<super::RemoveRequirementFromPassRequest>,
+            request: impl tonic::IntoRequest<super::CanSubscribeToPassRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::RemoveRequirementFromPassResponse>,
+            tonic::Response<super::CanSubscribeToPassResponse>,
             tonic::Status,
         > {
             self.inner
@@ -1754,15 +1754,12 @@ pub mod passes_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.ads.v1.PassesService/RemoveRequirementFromPass",
+                "/tap.ads.v1.PassesService/CanSubscribeToPass",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new(
-                        "tap.ads.v1.PassesService",
-                        "RemoveRequirementFromPass",
-                    ),
+                    GrpcMethod::new("tap.ads.v1.PassesService", "CanSubscribeToPass"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1814,25 +1811,25 @@ pub mod passes_service_server {
             tonic::Response<super::ListPassRequirementsResponse>,
             tonic::Status,
         >;
-        async fn is_eligible_for_pass(
+        async fn create_pass_requirement(
             &self,
-            request: tonic::Request<super::IsEligibleForPassRequest>,
+            request: tonic::Request<super::CreatePassRequirementRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::IsEligibleForPassResponse>,
+            tonic::Response<super::CreatePassRequirementResponse>,
             tonic::Status,
         >;
-        async fn add_requirement_to_pass(
+        async fn delete_pass_requirement(
             &self,
-            request: tonic::Request<super::AddRequirementToPassRequest>,
+            request: tonic::Request<super::DeletePassRequirementRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::AddRequirementToPassResponse>,
+            tonic::Response<super::DeletePassRequirementResponse>,
             tonic::Status,
         >;
-        async fn remove_requirement_from_pass(
+        async fn can_subscribe_to_pass(
             &self,
-            request: tonic::Request<super::RemoveRequirementFromPassRequest>,
+            request: tonic::Request<super::CanSubscribeToPassRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::RemoveRequirementFromPassResponse>,
+            tonic::Response<super::CanSubscribeToPassResponse>,
             tonic::Status,
         >;
     }
@@ -2181,25 +2178,25 @@ pub mod passes_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.ads.v1.PassesService/IsEligibleForPass" => {
+                "/tap.ads.v1.PassesService/CreatePassRequirement" => {
                     #[allow(non_camel_case_types)]
-                    struct IsEligibleForPassSvc<T: PassesService>(pub Arc<T>);
+                    struct CreatePassRequirementSvc<T: PassesService>(pub Arc<T>);
                     impl<
                         T: PassesService,
-                    > tonic::server::UnaryService<super::IsEligibleForPassRequest>
-                    for IsEligibleForPassSvc<T> {
-                        type Response = super::IsEligibleForPassResponse;
+                    > tonic::server::UnaryService<super::CreatePassRequirementRequest>
+                    for CreatePassRequirementSvc<T> {
+                        type Response = super::CreatePassRequirementResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::IsEligibleForPassRequest>,
+                            request: tonic::Request<super::CreatePassRequirementRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).is_eligible_for_pass(request).await
+                                (*inner).create_pass_requirement(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2211,7 +2208,7 @@ pub mod passes_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = IsEligibleForPassSvc(inner);
+                        let method = CreatePassRequirementSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2227,25 +2224,25 @@ pub mod passes_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.ads.v1.PassesService/AddRequirementToPass" => {
+                "/tap.ads.v1.PassesService/DeletePassRequirement" => {
                     #[allow(non_camel_case_types)]
-                    struct AddRequirementToPassSvc<T: PassesService>(pub Arc<T>);
+                    struct DeletePassRequirementSvc<T: PassesService>(pub Arc<T>);
                     impl<
                         T: PassesService,
-                    > tonic::server::UnaryService<super::AddRequirementToPassRequest>
-                    for AddRequirementToPassSvc<T> {
-                        type Response = super::AddRequirementToPassResponse;
+                    > tonic::server::UnaryService<super::DeletePassRequirementRequest>
+                    for DeletePassRequirementSvc<T> {
+                        type Response = super::DeletePassRequirementResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::AddRequirementToPassRequest>,
+                            request: tonic::Request<super::DeletePassRequirementRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_requirement_to_pass(request).await
+                                (*inner).delete_pass_requirement(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2257,7 +2254,7 @@ pub mod passes_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AddRequirementToPassSvc(inner);
+                        let method = DeletePassRequirementSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2273,28 +2270,25 @@ pub mod passes_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.ads.v1.PassesService/RemoveRequirementFromPass" => {
+                "/tap.ads.v1.PassesService/CanSubscribeToPass" => {
                     #[allow(non_camel_case_types)]
-                    struct RemoveRequirementFromPassSvc<T: PassesService>(pub Arc<T>);
+                    struct CanSubscribeToPassSvc<T: PassesService>(pub Arc<T>);
                     impl<
                         T: PassesService,
-                    > tonic::server::UnaryService<
-                        super::RemoveRequirementFromPassRequest,
-                    > for RemoveRequirementFromPassSvc<T> {
-                        type Response = super::RemoveRequirementFromPassResponse;
+                    > tonic::server::UnaryService<super::CanSubscribeToPassRequest>
+                    for CanSubscribeToPassSvc<T> {
+                        type Response = super::CanSubscribeToPassResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<
-                                super::RemoveRequirementFromPassRequest,
-                            >,
+                            request: tonic::Request<super::CanSubscribeToPassRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).remove_requirement_from_pass(request).await
+                                (*inner).can_subscribe_to_pass(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2306,7 +2300,7 @@ pub mod passes_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = RemoveRequirementFromPassSvc(inner);
+                        let method = CanSubscribeToPassSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

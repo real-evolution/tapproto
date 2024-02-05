@@ -19,15 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PassesService_ListPasses_FullMethodName                = "/tap.ads.v1.PassesService/ListPasses"
-	PassesService_GetPass_FullMethodName                   = "/tap.ads.v1.PassesService/GetPass"
-	PassesService_CreatePass_FullMethodName                = "/tap.ads.v1.PassesService/CreatePass"
-	PassesService_UpdatePass_FullMethodName                = "/tap.ads.v1.PassesService/UpdatePass"
-	PassesService_DeletePass_FullMethodName                = "/tap.ads.v1.PassesService/DeletePass"
-	PassesService_ListPassRequirements_FullMethodName      = "/tap.ads.v1.PassesService/ListPassRequirements"
-	PassesService_IsEligibleForPass_FullMethodName         = "/tap.ads.v1.PassesService/IsEligibleForPass"
-	PassesService_AddRequirementToPass_FullMethodName      = "/tap.ads.v1.PassesService/AddRequirementToPass"
-	PassesService_RemoveRequirementFromPass_FullMethodName = "/tap.ads.v1.PassesService/RemoveRequirementFromPass"
+	PassesService_ListPasses_FullMethodName            = "/tap.ads.v1.PassesService/ListPasses"
+	PassesService_GetPass_FullMethodName               = "/tap.ads.v1.PassesService/GetPass"
+	PassesService_CreatePass_FullMethodName            = "/tap.ads.v1.PassesService/CreatePass"
+	PassesService_UpdatePass_FullMethodName            = "/tap.ads.v1.PassesService/UpdatePass"
+	PassesService_DeletePass_FullMethodName            = "/tap.ads.v1.PassesService/DeletePass"
+	PassesService_ListPassRequirements_FullMethodName  = "/tap.ads.v1.PassesService/ListPassRequirements"
+	PassesService_CreatePassRequirement_FullMethodName = "/tap.ads.v1.PassesService/CreatePassRequirement"
+	PassesService_DeletePassRequirement_FullMethodName = "/tap.ads.v1.PassesService/DeletePassRequirement"
+	PassesService_CanSubscribeToPass_FullMethodName    = "/tap.ads.v1.PassesService/CanSubscribeToPass"
 )
 
 // PassesServiceClient is the client API for PassesService service.
@@ -40,9 +40,9 @@ type PassesServiceClient interface {
 	UpdatePass(ctx context.Context, in *UpdatePassRequest, opts ...grpc.CallOption) (*UpdatePassResponse, error)
 	DeletePass(ctx context.Context, in *DeletePassRequest, opts ...grpc.CallOption) (*DeletePassResponse, error)
 	ListPassRequirements(ctx context.Context, in *ListPassRequirementsRequest, opts ...grpc.CallOption) (*ListPassRequirementsResponse, error)
-	IsEligibleForPass(ctx context.Context, in *IsEligibleForPassRequest, opts ...grpc.CallOption) (*IsEligibleForPassResponse, error)
-	AddRequirementToPass(ctx context.Context, in *AddRequirementToPassRequest, opts ...grpc.CallOption) (*AddRequirementToPassResponse, error)
-	RemoveRequirementFromPass(ctx context.Context, in *RemoveRequirementFromPassRequest, opts ...grpc.CallOption) (*RemoveRequirementFromPassResponse, error)
+	CreatePassRequirement(ctx context.Context, in *CreatePassRequirementRequest, opts ...grpc.CallOption) (*CreatePassRequirementResponse, error)
+	DeletePassRequirement(ctx context.Context, in *DeletePassRequirementRequest, opts ...grpc.CallOption) (*DeletePassRequirementResponse, error)
+	CanSubscribeToPass(ctx context.Context, in *CanSubscribeToPassRequest, opts ...grpc.CallOption) (*CanSubscribeToPassResponse, error)
 }
 
 type passesServiceClient struct {
@@ -107,27 +107,27 @@ func (c *passesServiceClient) ListPassRequirements(ctx context.Context, in *List
 	return out, nil
 }
 
-func (c *passesServiceClient) IsEligibleForPass(ctx context.Context, in *IsEligibleForPassRequest, opts ...grpc.CallOption) (*IsEligibleForPassResponse, error) {
-	out := new(IsEligibleForPassResponse)
-	err := c.cc.Invoke(ctx, PassesService_IsEligibleForPass_FullMethodName, in, out, opts...)
+func (c *passesServiceClient) CreatePassRequirement(ctx context.Context, in *CreatePassRequirementRequest, opts ...grpc.CallOption) (*CreatePassRequirementResponse, error) {
+	out := new(CreatePassRequirementResponse)
+	err := c.cc.Invoke(ctx, PassesService_CreatePassRequirement_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *passesServiceClient) AddRequirementToPass(ctx context.Context, in *AddRequirementToPassRequest, opts ...grpc.CallOption) (*AddRequirementToPassResponse, error) {
-	out := new(AddRequirementToPassResponse)
-	err := c.cc.Invoke(ctx, PassesService_AddRequirementToPass_FullMethodName, in, out, opts...)
+func (c *passesServiceClient) DeletePassRequirement(ctx context.Context, in *DeletePassRequirementRequest, opts ...grpc.CallOption) (*DeletePassRequirementResponse, error) {
+	out := new(DeletePassRequirementResponse)
+	err := c.cc.Invoke(ctx, PassesService_DeletePassRequirement_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *passesServiceClient) RemoveRequirementFromPass(ctx context.Context, in *RemoveRequirementFromPassRequest, opts ...grpc.CallOption) (*RemoveRequirementFromPassResponse, error) {
-	out := new(RemoveRequirementFromPassResponse)
-	err := c.cc.Invoke(ctx, PassesService_RemoveRequirementFromPass_FullMethodName, in, out, opts...)
+func (c *passesServiceClient) CanSubscribeToPass(ctx context.Context, in *CanSubscribeToPassRequest, opts ...grpc.CallOption) (*CanSubscribeToPassResponse, error) {
+	out := new(CanSubscribeToPassResponse)
+	err := c.cc.Invoke(ctx, PassesService_CanSubscribeToPass_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -144,9 +144,9 @@ type PassesServiceServer interface {
 	UpdatePass(context.Context, *UpdatePassRequest) (*UpdatePassResponse, error)
 	DeletePass(context.Context, *DeletePassRequest) (*DeletePassResponse, error)
 	ListPassRequirements(context.Context, *ListPassRequirementsRequest) (*ListPassRequirementsResponse, error)
-	IsEligibleForPass(context.Context, *IsEligibleForPassRequest) (*IsEligibleForPassResponse, error)
-	AddRequirementToPass(context.Context, *AddRequirementToPassRequest) (*AddRequirementToPassResponse, error)
-	RemoveRequirementFromPass(context.Context, *RemoveRequirementFromPassRequest) (*RemoveRequirementFromPassResponse, error)
+	CreatePassRequirement(context.Context, *CreatePassRequirementRequest) (*CreatePassRequirementResponse, error)
+	DeletePassRequirement(context.Context, *DeletePassRequirementRequest) (*DeletePassRequirementResponse, error)
+	CanSubscribeToPass(context.Context, *CanSubscribeToPassRequest) (*CanSubscribeToPassResponse, error)
 	mustEmbedUnimplementedPassesServiceServer()
 }
 
@@ -172,14 +172,14 @@ func (UnimplementedPassesServiceServer) DeletePass(context.Context, *DeletePassR
 func (UnimplementedPassesServiceServer) ListPassRequirements(context.Context, *ListPassRequirementsRequest) (*ListPassRequirementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPassRequirements not implemented")
 }
-func (UnimplementedPassesServiceServer) IsEligibleForPass(context.Context, *IsEligibleForPassRequest) (*IsEligibleForPassResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IsEligibleForPass not implemented")
+func (UnimplementedPassesServiceServer) CreatePassRequirement(context.Context, *CreatePassRequirementRequest) (*CreatePassRequirementResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePassRequirement not implemented")
 }
-func (UnimplementedPassesServiceServer) AddRequirementToPass(context.Context, *AddRequirementToPassRequest) (*AddRequirementToPassResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddRequirementToPass not implemented")
+func (UnimplementedPassesServiceServer) DeletePassRequirement(context.Context, *DeletePassRequirementRequest) (*DeletePassRequirementResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePassRequirement not implemented")
 }
-func (UnimplementedPassesServiceServer) RemoveRequirementFromPass(context.Context, *RemoveRequirementFromPassRequest) (*RemoveRequirementFromPassResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveRequirementFromPass not implemented")
+func (UnimplementedPassesServiceServer) CanSubscribeToPass(context.Context, *CanSubscribeToPassRequest) (*CanSubscribeToPassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CanSubscribeToPass not implemented")
 }
 func (UnimplementedPassesServiceServer) mustEmbedUnimplementedPassesServiceServer() {}
 
@@ -302,56 +302,56 @@ func _PassesService_ListPassRequirements_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PassesService_IsEligibleForPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsEligibleForPassRequest)
+func _PassesService_CreatePassRequirement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePassRequirementRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PassesServiceServer).IsEligibleForPass(ctx, in)
+		return srv.(PassesServiceServer).CreatePassRequirement(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PassesService_IsEligibleForPass_FullMethodName,
+		FullMethod: PassesService_CreatePassRequirement_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PassesServiceServer).IsEligibleForPass(ctx, req.(*IsEligibleForPassRequest))
+		return srv.(PassesServiceServer).CreatePassRequirement(ctx, req.(*CreatePassRequirementRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PassesService_AddRequirementToPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddRequirementToPassRequest)
+func _PassesService_DeletePassRequirement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePassRequirementRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PassesServiceServer).AddRequirementToPass(ctx, in)
+		return srv.(PassesServiceServer).DeletePassRequirement(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PassesService_AddRequirementToPass_FullMethodName,
+		FullMethod: PassesService_DeletePassRequirement_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PassesServiceServer).AddRequirementToPass(ctx, req.(*AddRequirementToPassRequest))
+		return srv.(PassesServiceServer).DeletePassRequirement(ctx, req.(*DeletePassRequirementRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PassesService_RemoveRequirementFromPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveRequirementFromPassRequest)
+func _PassesService_CanSubscribeToPass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CanSubscribeToPassRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PassesServiceServer).RemoveRequirementFromPass(ctx, in)
+		return srv.(PassesServiceServer).CanSubscribeToPass(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PassesService_RemoveRequirementFromPass_FullMethodName,
+		FullMethod: PassesService_CanSubscribeToPass_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PassesServiceServer).RemoveRequirementFromPass(ctx, req.(*RemoveRequirementFromPassRequest))
+		return srv.(PassesServiceServer).CanSubscribeToPass(ctx, req.(*CanSubscribeToPassRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -388,16 +388,16 @@ var PassesService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PassesService_ListPassRequirements_Handler,
 		},
 		{
-			MethodName: "IsEligibleForPass",
-			Handler:    _PassesService_IsEligibleForPass_Handler,
+			MethodName: "CreatePassRequirement",
+			Handler:    _PassesService_CreatePassRequirement_Handler,
 		},
 		{
-			MethodName: "AddRequirementToPass",
-			Handler:    _PassesService_AddRequirementToPass_Handler,
+			MethodName: "DeletePassRequirement",
+			Handler:    _PassesService_DeletePassRequirement_Handler,
 		},
 		{
-			MethodName: "RemoveRequirementFromPass",
-			Handler:    _PassesService_RemoveRequirementFromPass_Handler,
+			MethodName: "CanSubscribeToPass",
+			Handler:    _PassesService_CanSubscribeToPass_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
