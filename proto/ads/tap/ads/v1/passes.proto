@@ -21,7 +21,7 @@ service PassesService {
 }
 
 message ListPassesRequest {
-  reserved 1 to 14;
+  optional bool is_additive = 1;
 
   tap.types.v1.Page page = 15;
 }
@@ -42,7 +42,8 @@ message GetPassResponse {
 message CreatePassRequest {
   string display_name = 1;
   string description = 2;
-  int32 max_ads = 3;
+  bool is_additive = 3;
+  int32 max_ads = 4;
 }
 
 message CreatePassResponse {
@@ -53,7 +54,8 @@ message UpdatePassRequest {
   PassID id = 1;
   optional string display_name = 2;
   optional string description = 3;
-  optional int32 max_ads = 4;
+  optional bool is_additive = 4;
+  optional int32 max_ads = 5;
 }
 
 message UpdatePassResponse {
@@ -111,14 +113,15 @@ message PassID {
 }
 
 message Pass {
-  reserved 5 to 13;
+  reserved 6 to 13;
 
   PassID id = 1;
 
   string display_name = 2;
   string description = 3;
   
-  int32 max_ads = 4;
+  bool is_additive = 4;
+  int32 max_ads = 5;
 
   google.protobuf.Timestamp create_time = 14;
   google.protobuf.Timestamp update_time = 15;
