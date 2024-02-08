@@ -32,7 +32,7 @@ message GetAdRequest {
 }
 
 message GetAdResponse {
-  Ad item = 1;
+  Ad ad = 1;
 }
 
 message CreateAdRequest {
