@@ -54,6 +54,7 @@ message Quota {
 
   int32 ads_left = 5;
 
-  google.protobuf.Timestamp expire_time = 14;
-  google.protobuf.Timestamp create_time = 15;
+  google.protobuf.Timestamp expire_time = 13;
+  google.protobuf.Timestamp create_time = 14;
+  google.protobuf.Timestamp update_time = 15;
 }
