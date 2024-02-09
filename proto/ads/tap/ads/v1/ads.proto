@@ -36,7 +36,11 @@ message GetAdResponse {
 }
 
 message CreateAdRequest {
-  Ad item = 1;
+  string title = 1;
+  string description = 2;
+  tap.types.v1.Duration duration = 3;
+  tap.ads.v1.QuotaID quota_id = 4;
+  bytes content = 5;
 }
 
 message CreateAdResponse {
