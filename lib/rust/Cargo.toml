@@ -30,7 +30,7 @@ features = ["std"]
 optional = true
 
 [dependencies.tonic]
-version = "0.10"
+version = "0.11"
 default-features = false
 features = ["codegen", "prost", "transport"]
 
