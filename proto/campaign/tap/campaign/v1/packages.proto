@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package tap.campaign.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "tap/types/v1/decimal.proto";
+import "tap/types/v1/pagination.proto";
+
+service PackagesService {
+  rpc ListPackages(ListPackagesRequest) returns (ListPackagesResponse);
+  rpc GetPackage(GetPackageRequest) returns (GetPackageResponse);
+}
+
+message ListPackagesRequest {
+  optional string provider_id = 1;
+  optional string token_code = 2;
+
+  tap.types.v1.Page page = 3;
+}
+
+message ListPackagesResponse {
+  repeated Package items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetPackageRequest {
+  PackageID id = 1;
+}
+
+message GetPackageResponse {
+  Package package = 1;
+}
+
+message PackageID {
+  string value = 1;
+}
+
+message PackageLimit {
+  int32 min = 1;
+  int32 max = 2;
+}
+
+message Package {
+  PackageID id = 1;
+
+  string display_name = 2;
+  string description = 3;
+  string provider_id = 4;
+  string token_code = 5;
+
+  google.protobuf.Duration unit_duration = 6;
+  tap.types.v1.Decimal unit_reward = 7;
+
+  PackageLimit ads_limit = 8;
+  PackageLimit units_limit = 9;
+  PackageLimit listen_limit = 10;
+
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}
