@@ -47,7 +47,7 @@ message Package {
   PackageID id = 1;
 
   string display_name = 2;
-  string description = 3;
+  optional string description = 3;
   string provider_id = 4;
   string token_code = 5;
 
