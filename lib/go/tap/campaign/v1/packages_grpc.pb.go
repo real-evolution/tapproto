@@ -22,6 +22,7 @@ const (
 	PackagesService_ListPackages_FullMethodName  = "/tap.campaign.v1.PackagesService/ListPackages"
 	PackagesService_GetPackage_FullMethodName    = "/tap.campaign.v1.PackagesService/GetPackage"
 	PackagesService_CreatePackage_FullMethodName = "/tap.campaign.v1.PackagesService/CreatePackage"
+	PackagesService_UpdatePackage_FullMethodName = "/tap.campaign.v1.PackagesService/UpdatePackage"
 )
 
 // PackagesServiceClient is the client API for PackagesService service.
@@ -31,6 +32,7 @@ type PackagesServiceClient interface {
 	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (*ListPackagesResponse, error)
 	GetPackage(ctx context.Context, in *GetPackageRequest, opts ...grpc.CallOption) (*GetPackageResponse, error)
 	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (*CreatePackageResponse, error)
+	UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error)
 }
 
 type packagesServiceClient struct {
@@ -68,6 +70,15 @@ func (c *packagesServiceClient) CreatePackage(ctx context.Context, in *CreatePac
 	return out, nil
 }
 
+func (c *packagesServiceClient) UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error) {
+	out := new(UpdatePackageResponse)
+	err := c.cc.Invoke(ctx, PackagesService_UpdatePackage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PackagesServiceServer is the server API for PackagesService service.
 // All implementations must embed UnimplementedPackagesServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type PackagesServiceServer interface {
 	ListPackages(context.Context, *ListPackagesRequest) (*ListPackagesResponse, error)
 	GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error)
 	CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error)
+	UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error)
 	mustEmbedUnimplementedPackagesServiceServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedPackagesServiceServer) GetPackage(context.Context, *GetPackag
 }
 func (UnimplementedPackagesServiceServer) CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePackage not implemented")
+}
+func (UnimplementedPackagesServiceServer) UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePackage not implemented")
 }
 func (UnimplementedPackagesServiceServer) mustEmbedUnimplementedPackagesServiceServer() {}
 
@@ -158,6 +173,24 @@ func _PackagesService_CreatePackage_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PackagesService_UpdatePackage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePackageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PackagesServiceServer).UpdatePackage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PackagesService_UpdatePackage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PackagesServiceServer).UpdatePackage(ctx, req.(*UpdatePackageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PackagesService_ServiceDesc is the grpc.ServiceDesc for PackagesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var PackagesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePackage",
 			Handler:    _PackagesService_CreatePackage_Handler,
+		},
+		{
+			MethodName: "UpdatePackage",
+			Handler:    _PackagesService_UpdatePackage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -12,6 +12,7 @@ service PackagesService {
   rpc ListPackages(ListPackagesRequest) returns (ListPackagesResponse);
   rpc GetPackage(GetPackageRequest) returns (GetPackageResponse);
   rpc CreatePackage(CreatePackageRequest) returns (CreatePackageResponse);
+  rpc UpdatePackage(UpdatePackageRequest) returns (UpdatePackageResponse);
 }
 
 message ListPackagesRequest {
@@ -48,6 +49,23 @@ message CreatePackageRequest {
   PackageLimit ads_limit = 9;
   PackageLimit units_limit = 10;
   PackageLimit listen_limit = 11;
+}
+
+message UpdatePackageRequest {
+  PackageID id = 1;
+
+  optional string display_name = 2;
+  optional string description = 3;
+  optional PackageState state = 4;
+  optional google.protobuf.Duration unit_duration = 5;
+  optional tap.types.v1.Decimal unit_reward = 6;
+  optional PackageLimit ads_limit = 7;
+  optional PackageLimit units_limit = 8;
+  optional PackageLimit listen_limit = 9;
+}
+
+message UpdatePackageResponse {
+  Package package = 1;
 }
 
 message CreatePackageResponse {
