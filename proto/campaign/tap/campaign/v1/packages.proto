@@ -17,10 +17,11 @@ service PackagesService {
 }
 
 message ListPackagesRequest {
-  optional string provider_id = 1;
-  optional string token_code = 2;
+  optional PackageState state = 1;
+  optional string provider_id = 2;
+  optional string token_code = 3;
 
-  tap.types.v1.Page page = 3;
+  tap.types.v1.Page page = 4;
 }
 
 message ListPackagesResponse {
