@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PackagesService_ListPackages_FullMethodName = "/tap.campaign.v1.PackagesService/ListPackages"
-	PackagesService_GetPackage_FullMethodName   = "/tap.campaign.v1.PackagesService/GetPackage"
+	PackagesService_ListPackages_FullMethodName  = "/tap.campaign.v1.PackagesService/ListPackages"
+	PackagesService_GetPackage_FullMethodName    = "/tap.campaign.v1.PackagesService/GetPackage"
+	PackagesService_CreatePackage_FullMethodName = "/tap.campaign.v1.PackagesService/CreatePackage"
 )
 
 // PackagesServiceClient is the client API for PackagesService service.
@@ -29,6 +30,7 @@ const (
 type PackagesServiceClient interface {
 	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (*ListPackagesResponse, error)
 	GetPackage(ctx context.Context, in *GetPackageRequest, opts ...grpc.CallOption) (*GetPackageResponse, error)
+	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (*CreatePackageResponse, error)
 }
 
 type packagesServiceClient struct {
@@ -57,12 +59,22 @@ func (c *packagesServiceClient) GetPackage(ctx context.Context, in *GetPackageRe
 	return out, nil
 }
 
+func (c *packagesServiceClient) CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (*CreatePackageResponse, error) {
+	out := new(CreatePackageResponse)
+	err := c.cc.Invoke(ctx, PackagesService_CreatePackage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PackagesServiceServer is the server API for PackagesService service.
 // All implementations must embed UnimplementedPackagesServiceServer
 // for forward compatibility
 type PackagesServiceServer interface {
 	ListPackages(context.Context, *ListPackagesRequest) (*ListPackagesResponse, error)
 	GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error)
+	CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error)
 	mustEmbedUnimplementedPackagesServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedPackagesServiceServer) ListPackages(context.Context, *ListPac
 }
 func (UnimplementedPackagesServiceServer) GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPackage not implemented")
+}
+func (UnimplementedPackagesServiceServer) CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePackage not implemented")
 }
 func (UnimplementedPackagesServiceServer) mustEmbedUnimplementedPackagesServiceServer() {}
 
@@ -125,6 +140,24 @@ func _PackagesService_GetPackage_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PackagesService_CreatePackage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePackageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PackagesServiceServer).CreatePackage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PackagesService_CreatePackage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PackagesServiceServer).CreatePackage(ctx, req.(*CreatePackageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PackagesService_ServiceDesc is the grpc.ServiceDesc for PackagesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var PackagesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPackage",
 			Handler:    _PackagesService_GetPackage_Handler,
+		},
+		{
+			MethodName: "CreatePackage",
+			Handler:    _PackagesService_CreatePackage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
