@@ -38,15 +38,16 @@ message GetPackageResponse {
 message CreatePackageRequest {
   string display_name = 2;
   optional string description = 3;
-  string provider_id = 4;
-  string token_code = 5;
+  PackageState state = 4;
+  string provider_id = 5;
+  string token_code = 6;
 
-  google.protobuf.Duration unit_duration = 6;
-  tap.types.v1.Decimal unit_reward = 7;
+  google.protobuf.Duration unit_duration = 7;
+  tap.types.v1.Decimal unit_reward = 8;
 
-  PackageLimit ads_limit = 8;
-  PackageLimit units_limit = 9;
-  PackageLimit listen_limit = 10;
+  PackageLimit ads_limit = 9;
+  PackageLimit units_limit = 10;
+  PackageLimit listen_limit = 11;
 }
 
 message CreatePackageResponse {
@@ -62,20 +63,27 @@ message PackageLimit {
   int32 max = 2;
 }
 
+enum PackageState {
+  PACKAGE_STATE_UNSPECIFIED = 0;
+  PACKAGE_STATE_ENABLED = 1;
+  PACKAGE_STATE_DISABLED = 2;
+}
+
 message Package {
   PackageID id = 1;
 
   string display_name = 2;
   optional string description = 3;
-  string provider_id = 4;
-  string token_code = 5;
+  PackageState state = 4;
+  string provider_id = 5;
+  string token_code = 6;
 
-  google.protobuf.Duration unit_duration = 6;
-  tap.types.v1.Decimal unit_reward = 7;
+  google.protobuf.Duration unit_duration = 7;
+  tap.types.v1.Decimal unit_reward = 8;
 
-  PackageLimit ads_limit = 8;
-  PackageLimit units_limit = 9;
-  PackageLimit listen_limit = 10;
+  PackageLimit ads_limit = 9;
+  PackageLimit units_limit = 10;
+  PackageLimit listen_limit = 11;
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
