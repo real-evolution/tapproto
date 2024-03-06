@@ -13,6 +13,7 @@ service PackagesService {
   rpc GetPackage(GetPackageRequest) returns (GetPackageResponse);
   rpc CreatePackage(CreatePackageRequest) returns (CreatePackageResponse);
   rpc UpdatePackage(UpdatePackageRequest) returns (UpdatePackageResponse);
+  rpc DeletePackage(DeletePackageRequest) returns (DeletePackageResponse);
 }
 
 message ListPackagesRequest {
@@ -51,6 +52,10 @@ message CreatePackageRequest {
   PackageLimit listen_limit = 11;
 }
 
+message CreatePackageResponse {
+  Package package = 1;
+}
+
 message UpdatePackageRequest {
   PackageID id = 1;
 
@@ -64,11 +69,13 @@ message UpdatePackageRequest {
   optional PackageLimit listen_limit = 9;
 }
 
-message UpdatePackageResponse {
-  Package package = 1;
+message DeletePackageRequest {
+  PackageID id = 1;
 }
 
-message CreatePackageResponse {
+message DeletePackageResponse {}
+
+message UpdatePackageResponse {
   Package package = 1;
 }
 

@@ -23,6 +23,7 @@ const (
 	PackagesService_GetPackage_FullMethodName    = "/tap.campaign.v1.PackagesService/GetPackage"
 	PackagesService_CreatePackage_FullMethodName = "/tap.campaign.v1.PackagesService/CreatePackage"
 	PackagesService_UpdatePackage_FullMethodName = "/tap.campaign.v1.PackagesService/UpdatePackage"
+	PackagesService_DeletePackage_FullMethodName = "/tap.campaign.v1.PackagesService/DeletePackage"
 )
 
 // PackagesServiceClient is the client API for PackagesService service.
@@ -33,6 +34,7 @@ type PackagesServiceClient interface {
 	GetPackage(ctx context.Context, in *GetPackageRequest, opts ...grpc.CallOption) (*GetPackageResponse, error)
 	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (*CreatePackageResponse, error)
 	UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error)
+	DeletePackage(ctx context.Context, in *DeletePackageRequest, opts ...grpc.CallOption) (*DeletePackageResponse, error)
 }
 
 type packagesServiceClient struct {
@@ -79,6 +81,15 @@ func (c *packagesServiceClient) UpdatePackage(ctx context.Context, in *UpdatePac
 	return out, nil
 }
 
+func (c *packagesServiceClient) DeletePackage(ctx context.Context, in *DeletePackageRequest, opts ...grpc.CallOption) (*DeletePackageResponse, error) {
+	out := new(DeletePackageResponse)
+	err := c.cc.Invoke(ctx, PackagesService_DeletePackage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PackagesServiceServer is the server API for PackagesService service.
 // All implementations must embed UnimplementedPackagesServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type PackagesServiceServer interface {
 	GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error)
 	CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error)
 	UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error)
+	DeletePackage(context.Context, *DeletePackageRequest) (*DeletePackageResponse, error)
 	mustEmbedUnimplementedPackagesServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedPackagesServiceServer) CreatePackage(context.Context, *Create
 }
 func (UnimplementedPackagesServiceServer) UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePackage not implemented")
+}
+func (UnimplementedPackagesServiceServer) DeletePackage(context.Context, *DeletePackageRequest) (*DeletePackageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePackage not implemented")
 }
 func (UnimplementedPackagesServiceServer) mustEmbedUnimplementedPackagesServiceServer() {}
 
@@ -191,6 +206,24 @@ func _PackagesService_UpdatePackage_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PackagesService_DeletePackage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePackageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PackagesServiceServer).DeletePackage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PackagesService_DeletePackage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PackagesServiceServer).DeletePackage(ctx, req.(*DeletePackageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PackagesService_ServiceDesc is the grpc.ServiceDesc for PackagesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var PackagesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdatePackage",
 			Handler:    _PackagesService_UpdatePackage_Handler,
+		},
+		{
+			MethodName: "DeletePackage",
+			Handler:    _PackagesService_DeletePackage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
