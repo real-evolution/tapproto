@@ -49,8 +49,8 @@ message CreatePackageRequest {
   tap.types.v1.Decimal unit_reward = 8;
 
   PackageLimit ads_limit = 9;
-  PackageLimit units_limit = 10;
-  PackageLimit listen_limit = 11;
+  PackageLimit views_limit = 10;
+  PackageLimit units_per_view = 11;
 }
 
 message CreatePackageResponse {
@@ -66,8 +66,8 @@ message UpdatePackageRequest {
   optional google.protobuf.Duration unit_duration = 5;
   optional tap.types.v1.Decimal unit_reward = 6;
   optional PackageLimit ads_limit = 7;
-  optional PackageLimit units_limit = 8;
-  optional PackageLimit listen_limit = 9;
+  optional PackageLimit views_limit = 8;
+  optional PackageLimit units_per_view = 9;
 }
 
 message DeletePackageRequest {
@@ -108,8 +108,8 @@ message Package {
   tap.types.v1.Decimal unit_reward = 8;
 
   PackageLimit ads_limit = 9;
-  PackageLimit units_limit = 10;
-  PackageLimit listen_limit = 11;
+  PackageLimit views_limit = 10;
+  PackageLimit units_per_view = 11;
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
