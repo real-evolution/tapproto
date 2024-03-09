@@ -26,7 +26,7 @@ message ListCampaignsRequest {
 message ListCampaignsResponse {
   repeated Campaign items = 1;
 
-  optional bytes next_page_token = 2;
+  optional bytes next_cursor = 2;
 }
 
 message GetCampaignRequest {
@@ -34,7 +34,7 @@ message GetCampaignRequest {
 }
 
 message GetCampaignResponse {
-  Campaign item = 1;
+  Campaign campaign = 1;
 }
 
 message CampaignID {
