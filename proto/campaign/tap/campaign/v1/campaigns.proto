@@ -40,8 +40,11 @@ message GetCampaignResponse {
 }
 
 message CreateCampaignRequest {
-  tap.campaign.v1.PackageID package_id = 1;
-  tap.points.v1.TransferID transfer_id = 2;
+  string title = 1;
+  optional string description = 2;
+  tap.campaign.v1.PackageID package_id = 3;
+  repeated string ads_ids = 4;
+  tap.points.v1.TransferID transfer_id = 5;
 }
 
 message CreateCampaignResponse {
