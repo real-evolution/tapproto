@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CampaignsService_ListCampaigns_FullMethodName = "/tap.campaign.v1.CampaignsService/ListCampaigns"
-	CampaignsService_GetCampaign_FullMethodName   = "/tap.campaign.v1.CampaignsService/GetCampaign"
+	CampaignsService_ListCampaigns_FullMethodName  = "/tap.campaign.v1.CampaignsService/ListCampaigns"
+	CampaignsService_GetCampaign_FullMethodName    = "/tap.campaign.v1.CampaignsService/GetCampaign"
+	CampaignsService_CreateCampaign_FullMethodName = "/tap.campaign.v1.CampaignsService/CreateCampaign"
 )
 
 // CampaignsServiceClient is the client API for CampaignsService service.
@@ -29,6 +30,7 @@ const (
 type CampaignsServiceClient interface {
 	ListCampaigns(ctx context.Context, in *ListCampaignsRequest, opts ...grpc.CallOption) (*ListCampaignsResponse, error)
 	GetCampaign(ctx context.Context, in *GetCampaignRequest, opts ...grpc.CallOption) (*GetCampaignResponse, error)
+	CreateCampaign(ctx context.Context, in *CreateCampaignRequest, opts ...grpc.CallOption) (*CreateCampaignResponse, error)
 }
 
 type campaignsServiceClient struct {
@@ -57,12 +59,22 @@ func (c *campaignsServiceClient) GetCampaign(ctx context.Context, in *GetCampaig
 	return out, nil
 }
 
+func (c *campaignsServiceClient) CreateCampaign(ctx context.Context, in *CreateCampaignRequest, opts ...grpc.CallOption) (*CreateCampaignResponse, error) {
+	out := new(CreateCampaignResponse)
+	err := c.cc.Invoke(ctx, CampaignsService_CreateCampaign_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CampaignsServiceServer is the server API for CampaignsService service.
 // All implementations must embed UnimplementedCampaignsServiceServer
 // for forward compatibility
 type CampaignsServiceServer interface {
 	ListCampaigns(context.Context, *ListCampaignsRequest) (*ListCampaignsResponse, error)
 	GetCampaign(context.Context, *GetCampaignRequest) (*GetCampaignResponse, error)
+	CreateCampaign(context.Context, *CreateCampaignRequest) (*CreateCampaignResponse, error)
 	mustEmbedUnimplementedCampaignsServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedCampaignsServiceServer) ListCampaigns(context.Context, *ListC
 }
 func (UnimplementedCampaignsServiceServer) GetCampaign(context.Context, *GetCampaignRequest) (*GetCampaignResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCampaign not implemented")
+}
+func (UnimplementedCampaignsServiceServer) CreateCampaign(context.Context, *CreateCampaignRequest) (*CreateCampaignResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCampaign not implemented")
 }
 func (UnimplementedCampaignsServiceServer) mustEmbedUnimplementedCampaignsServiceServer() {}
 
@@ -125,6 +140,24 @@ func _CampaignsService_GetCampaign_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CampaignsService_CreateCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCampaignRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampaignsServiceServer).CreateCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CampaignsService_CreateCampaign_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampaignsServiceServer).CreateCampaign(ctx, req.(*CreateCampaignRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CampaignsService_ServiceDesc is the grpc.ServiceDesc for CampaignsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var CampaignsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCampaign",
 			Handler:    _CampaignsService_GetCampaign_Handler,
+		},
+		{
+			MethodName: "CreateCampaign",
+			Handler:    _CampaignsService_CreateCampaign_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

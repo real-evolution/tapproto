@@ -6,12 +6,14 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
 import "tap/campaign/v1/packages.proto";
+import "tap/points/v1/transfers.proto";
 import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 service CampaignsService {
   rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse);
   rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
+  rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
 }
 
 message ListCampaignsRequest {
@@ -34,6 +36,15 @@ message GetCampaignRequest {
 }
 
 message GetCampaignResponse {
+  Campaign campaign = 1;
+}
+
+message CreateCampaignRequest {
+  tap.campaign.v1.PackageID package_id = 1;
+  tap.points.v1.TransferID transfer_id = 2;
+}
+
+message CreateCampaignResponse {
   Campaign campaign = 1;
 }
 
