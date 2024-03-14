@@ -3,11 +3,9 @@ syntax = "proto3";
 package tap.campaign.v1;
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/duration.proto";
 
 import "tap/campaign/v1/packages.proto";
 import "tap/points/v1/transfers.proto";
-import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 service CampaignsService {
@@ -65,11 +63,6 @@ enum CampaignState {
   CAMPAIGN_STATE_ENDED = 6;
 }
 
-message CampaignViewUnits {
-  int32 min = 1;
-  int32 max = 2;
-}
-
 message Campaign {
   CampaignID id = 1;
 
@@ -78,14 +71,10 @@ message Campaign {
   CampaignState state = 4;
 
   int32 unit_count = 5;
-  google.protobuf.Duration unit_duration = 6;
-  tap.types.v1.Decimal unit_reward = 7;
-  CampaignViewUnits view_units = 8;
 
-  tap.campaign.v1.PackageID package_id = 9;
-  string provider_id = 10;
-  string advertiser_id = 11;
-  repeated string ads_ids = 12;
+  tap.campaign.v1.PackageID package_id = 6;
+  string advertiser_id = 7;
+  repeated string ads_ids = 8;
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
