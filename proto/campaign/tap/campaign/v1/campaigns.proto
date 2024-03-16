@@ -89,11 +89,12 @@ message Campaign {
   optional string description = 3;
   CampaignState state = 4;
 
-  int32 unit_count = 5;
+  int32 units_left = 5;
+  int32 total_units = 6;
 
-  tap.campaign.v1.PackageID package_id = 6;
-  string advertiser_id = 7;
-  repeated string ads_ids = 8;
+  tap.campaign.v1.PackageID package_id = 7;
+  string advertiser_id = 8;
+  repeated string ads_ids = 9;
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
