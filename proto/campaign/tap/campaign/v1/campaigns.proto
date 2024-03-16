@@ -12,6 +12,7 @@ service CampaignsService {
   rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse);
   rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
   rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
+  rpc SetCampaignState(SetCampaignStateRequest) returns (SetCampaignStateResponse);
 }
 
 message ListCampaignsRequest {
@@ -46,6 +47,24 @@ message CreateCampaignRequest {
 }
 
 message CreateCampaignResponse {
+  Campaign campaign = 1;
+}
+
+message SetCampaignStateRequest {
+  enum StateTransition {
+    STATE_TRANSITION_UNSPECIFIED = 0;
+    STATE_TRANSITION_APPROVE = 1;
+    STATE_TRANSITION_REJECT = 2;
+    STATE_TRANSITION_RUN = 3;
+    STATE_TRANSITION_PAUSE = 4;
+    STATE_TRANSITION_END = 5;
+  }
+
+  CampaignID id = 1;
+  StateTransition transition = 2;
+}
+
+message SetCampaignStateResponse {
   Campaign campaign = 1;
 }
 
