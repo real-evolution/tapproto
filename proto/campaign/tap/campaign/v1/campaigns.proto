@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package tap.campaign.v1;
 
+import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
 import "tap/campaign/v1/packages.proto";
@@ -13,6 +14,8 @@ service CampaignsService {
   rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
   rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
   rpc SetCampaignState(SetCampaignStateRequest) returns (SetCampaignStateResponse);
+  rpc PickAd(PickAdRequest) returns (PickAdResponse);
+  rpc RegisterAdView(RegisterAdViewRequest) returns (RegisterAdViewResponse);
 }
 
 message ListCampaignsRequest {
@@ -66,6 +69,23 @@ message SetCampaignStateRequest {
 
 message SetCampaignStateResponse {
   Campaign campaign = 1;
+}
+
+message PickAdRequest {}
+message PickAdResponse {
+  CampaignID campaign_id = 1;
+  string ad_id = 2;
+}
+
+message RegisterAdViewRequest {
+  CampaignID campaign_id = 1;
+  string ad_id = 2;
+  string subscriber_id = 3;
+  google.protobuf.Duration duration = 4;
+}
+
+message RegisterAdViewResponse {
+  string view_id = 1;
 }
 
 message CampaignID {

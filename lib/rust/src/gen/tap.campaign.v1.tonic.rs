@@ -808,6 +808,55 @@ pub mod campaigns_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn pick_ad(
+            &mut self,
+            request: impl tonic::IntoRequest<super::PickAdRequest>,
+        ) -> std::result::Result<tonic::Response<super::PickAdResponse>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/tap.campaign.v1.CampaignsService/PickAd",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tap.campaign.v1.CampaignsService", "PickAd"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn register_ad_view(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RegisterAdViewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterAdViewResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/tap.campaign.v1.CampaignsService/RegisterAdView",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("tap.campaign.v1.CampaignsService", "RegisterAdView"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -843,6 +892,17 @@ pub mod campaigns_service_server {
             request: tonic::Request<super::SetCampaignStateRequest>,
         ) -> std::result::Result<
             tonic::Response<super::SetCampaignStateResponse>,
+            tonic::Status,
+        >;
+        async fn pick_ad(
+            &self,
+            request: tonic::Request<super::PickAdRequest>,
+        ) -> std::result::Result<tonic::Response<super::PickAdResponse>, tonic::Status>;
+        async fn register_ad_view(
+            &self,
+            request: tonic::Request<super::RegisterAdViewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterAdViewResponse>,
             tonic::Status,
         >;
     }
@@ -1094,6 +1154,96 @@ pub mod campaigns_service_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = SetCampaignStateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/tap.campaign.v1.CampaignsService/PickAd" => {
+                    #[allow(non_camel_case_types)]
+                    struct PickAdSvc<T: CampaignsService>(pub Arc<T>);
+                    impl<
+                        T: CampaignsService,
+                    > tonic::server::UnaryService<super::PickAdRequest>
+                    for PickAdSvc<T> {
+                        type Response = super::PickAdResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PickAdRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).pick_ad(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = PickAdSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/tap.campaign.v1.CampaignsService/RegisterAdView" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterAdViewSvc<T: CampaignsService>(pub Arc<T>);
+                    impl<
+                        T: CampaignsService,
+                    > tonic::server::UnaryService<super::RegisterAdViewRequest>
+                    for RegisterAdViewSvc<T> {
+                        type Response = super::RegisterAdViewResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterAdViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).register_ad_view(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RegisterAdViewSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

@@ -23,6 +23,8 @@ const (
 	CampaignsService_GetCampaign_FullMethodName      = "/tap.campaign.v1.CampaignsService/GetCampaign"
 	CampaignsService_CreateCampaign_FullMethodName   = "/tap.campaign.v1.CampaignsService/CreateCampaign"
 	CampaignsService_SetCampaignState_FullMethodName = "/tap.campaign.v1.CampaignsService/SetCampaignState"
+	CampaignsService_PickAd_FullMethodName           = "/tap.campaign.v1.CampaignsService/PickAd"
+	CampaignsService_RegisterAdView_FullMethodName   = "/tap.campaign.v1.CampaignsService/RegisterAdView"
 )
 
 // CampaignsServiceClient is the client API for CampaignsService service.
@@ -33,6 +35,8 @@ type CampaignsServiceClient interface {
 	GetCampaign(ctx context.Context, in *GetCampaignRequest, opts ...grpc.CallOption) (*GetCampaignResponse, error)
 	CreateCampaign(ctx context.Context, in *CreateCampaignRequest, opts ...grpc.CallOption) (*CreateCampaignResponse, error)
 	SetCampaignState(ctx context.Context, in *SetCampaignStateRequest, opts ...grpc.CallOption) (*SetCampaignStateResponse, error)
+	PickAd(ctx context.Context, in *PickAdRequest, opts ...grpc.CallOption) (*PickAdResponse, error)
+	RegisterAdView(ctx context.Context, in *RegisterAdViewRequest, opts ...grpc.CallOption) (*RegisterAdViewResponse, error)
 }
 
 type campaignsServiceClient struct {
@@ -79,6 +83,24 @@ func (c *campaignsServiceClient) SetCampaignState(ctx context.Context, in *SetCa
 	return out, nil
 }
 
+func (c *campaignsServiceClient) PickAd(ctx context.Context, in *PickAdRequest, opts ...grpc.CallOption) (*PickAdResponse, error) {
+	out := new(PickAdResponse)
+	err := c.cc.Invoke(ctx, CampaignsService_PickAd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *campaignsServiceClient) RegisterAdView(ctx context.Context, in *RegisterAdViewRequest, opts ...grpc.CallOption) (*RegisterAdViewResponse, error) {
+	out := new(RegisterAdViewResponse)
+	err := c.cc.Invoke(ctx, CampaignsService_RegisterAdView_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CampaignsServiceServer is the server API for CampaignsService service.
 // All implementations must embed UnimplementedCampaignsServiceServer
 // for forward compatibility
@@ -87,6 +109,8 @@ type CampaignsServiceServer interface {
 	GetCampaign(context.Context, *GetCampaignRequest) (*GetCampaignResponse, error)
 	CreateCampaign(context.Context, *CreateCampaignRequest) (*CreateCampaignResponse, error)
 	SetCampaignState(context.Context, *SetCampaignStateRequest) (*SetCampaignStateResponse, error)
+	PickAd(context.Context, *PickAdRequest) (*PickAdResponse, error)
+	RegisterAdView(context.Context, *RegisterAdViewRequest) (*RegisterAdViewResponse, error)
 	mustEmbedUnimplementedCampaignsServiceServer()
 }
 
@@ -105,6 +129,12 @@ func (UnimplementedCampaignsServiceServer) CreateCampaign(context.Context, *Crea
 }
 func (UnimplementedCampaignsServiceServer) SetCampaignState(context.Context, *SetCampaignStateRequest) (*SetCampaignStateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetCampaignState not implemented")
+}
+func (UnimplementedCampaignsServiceServer) PickAd(context.Context, *PickAdRequest) (*PickAdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PickAd not implemented")
+}
+func (UnimplementedCampaignsServiceServer) RegisterAdView(context.Context, *RegisterAdViewRequest) (*RegisterAdViewResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterAdView not implemented")
 }
 func (UnimplementedCampaignsServiceServer) mustEmbedUnimplementedCampaignsServiceServer() {}
 
@@ -191,6 +221,42 @@ func _CampaignsService_SetCampaignState_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CampaignsService_PickAd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PickAdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampaignsServiceServer).PickAd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CampaignsService_PickAd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampaignsServiceServer).PickAd(ctx, req.(*PickAdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CampaignsService_RegisterAdView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterAdViewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampaignsServiceServer).RegisterAdView(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CampaignsService_RegisterAdView_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampaignsServiceServer).RegisterAdView(ctx, req.(*RegisterAdViewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CampaignsService_ServiceDesc is the grpc.ServiceDesc for CampaignsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +279,14 @@ var CampaignsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetCampaignState",
 			Handler:    _CampaignsService_SetCampaignState_Handler,
+		},
+		{
+			MethodName: "PickAd",
+			Handler:    _CampaignsService_PickAd_Handler,
+		},
+		{
+			MethodName: "RegisterAdView",
+			Handler:    _CampaignsService_RegisterAdView_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
