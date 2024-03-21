@@ -153,5 +153,6 @@ message View {
   string subscriber_id = 6;
   optional int64 transfer_id = 7;
 
+  google.protobuf.Timestamp rewarded_at = 14;
   google.protobuf.Timestamp created_at = 15;
 }
