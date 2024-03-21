@@ -7,6 +7,7 @@ import "google/protobuf/timestamp.proto";
 
 import "tap/campaign/v1/packages.proto";
 import "tap/points/v1/transfers.proto";
+import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
 service CampaignsService {
@@ -92,6 +93,10 @@ message CampaignID {
   string value = 1;
 }
 
+message ViewID {
+  int64 value = 1;
+}
+
 enum CampaignState {
   CAMPAIGN_STATE_UNSPECIFIED = 0;
   CAMPAIGN_STATE_APPROVING = 1;
@@ -118,4 +123,17 @@ message Campaign {
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
+}
+
+message View {
+  ViewID id = 1;
+
+  google.protobuf.Duration duration = 2;
+  tap.types.v1.Decimal reward = 3;
+  CampaignID campaign_id = 4;
+  string ad_id = 5;
+  string subscriber_id = 6;
+  optional int64 transfer_id = 7;
+
+  google.protobuf.Timestamp created_at = 15;
 }
