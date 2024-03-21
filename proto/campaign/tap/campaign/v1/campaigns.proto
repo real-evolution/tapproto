@@ -16,6 +16,7 @@ service CampaignsService {
   rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
   rpc SetCampaignState(SetCampaignStateRequest) returns (SetCampaignStateResponse);
   rpc PickAd(PickAdRequest) returns (PickAdResponse);
+  rpc ListCampaignViews(ListCampaignViewsRequest) returns (ListCampaignViewsResponse);
   rpc RegisterAdView(RegisterAdViewRequest) returns (RegisterAdViewResponse);
 }
 
@@ -76,6 +77,23 @@ message PickAdRequest {}
 message PickAdResponse {
   CampaignID campaign_id = 1;
   string ad_id = 2;
+}
+
+message ListCampaignViewsRequest {
+  optional string provider_id = 1;
+  optional string advertiser_id = 2;
+  optional CampaignID campaign_id = 3;
+  optional string ad_id = 4;
+  optional string subscriber_id = 5;
+  optional bool is_rewarded = 6;
+
+  tap.types.v1.Page page = 7;
+}
+
+message ListCampaignViewsResponse {
+  repeated View items = 1;
+
+  optional bytes next_cursor = 2;
 }
 
 message RegisterAdViewRequest {

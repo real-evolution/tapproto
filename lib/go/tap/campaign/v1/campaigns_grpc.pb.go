@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CampaignsService_ListCampaigns_FullMethodName    = "/tap.campaign.v1.CampaignsService/ListCampaigns"
-	CampaignsService_GetCampaign_FullMethodName      = "/tap.campaign.v1.CampaignsService/GetCampaign"
-	CampaignsService_CreateCampaign_FullMethodName   = "/tap.campaign.v1.CampaignsService/CreateCampaign"
-	CampaignsService_SetCampaignState_FullMethodName = "/tap.campaign.v1.CampaignsService/SetCampaignState"
-	CampaignsService_PickAd_FullMethodName           = "/tap.campaign.v1.CampaignsService/PickAd"
-	CampaignsService_RegisterAdView_FullMethodName   = "/tap.campaign.v1.CampaignsService/RegisterAdView"
+	CampaignsService_ListCampaigns_FullMethodName     = "/tap.campaign.v1.CampaignsService/ListCampaigns"
+	CampaignsService_GetCampaign_FullMethodName       = "/tap.campaign.v1.CampaignsService/GetCampaign"
+	CampaignsService_CreateCampaign_FullMethodName    = "/tap.campaign.v1.CampaignsService/CreateCampaign"
+	CampaignsService_SetCampaignState_FullMethodName  = "/tap.campaign.v1.CampaignsService/SetCampaignState"
+	CampaignsService_PickAd_FullMethodName            = "/tap.campaign.v1.CampaignsService/PickAd"
+	CampaignsService_ListCampaignViews_FullMethodName = "/tap.campaign.v1.CampaignsService/ListCampaignViews"
+	CampaignsService_RegisterAdView_FullMethodName    = "/tap.campaign.v1.CampaignsService/RegisterAdView"
 )
 
 // CampaignsServiceClient is the client API for CampaignsService service.
@@ -36,6 +37,7 @@ type CampaignsServiceClient interface {
 	CreateCampaign(ctx context.Context, in *CreateCampaignRequest, opts ...grpc.CallOption) (*CreateCampaignResponse, error)
 	SetCampaignState(ctx context.Context, in *SetCampaignStateRequest, opts ...grpc.CallOption) (*SetCampaignStateResponse, error)
 	PickAd(ctx context.Context, in *PickAdRequest, opts ...grpc.CallOption) (*PickAdResponse, error)
+	ListCampaignViews(ctx context.Context, in *ListCampaignViewsRequest, opts ...grpc.CallOption) (*ListCampaignViewsResponse, error)
 	RegisterAdView(ctx context.Context, in *RegisterAdViewRequest, opts ...grpc.CallOption) (*RegisterAdViewResponse, error)
 }
 
@@ -92,6 +94,15 @@ func (c *campaignsServiceClient) PickAd(ctx context.Context, in *PickAdRequest, 
 	return out, nil
 }
 
+func (c *campaignsServiceClient) ListCampaignViews(ctx context.Context, in *ListCampaignViewsRequest, opts ...grpc.CallOption) (*ListCampaignViewsResponse, error) {
+	out := new(ListCampaignViewsResponse)
+	err := c.cc.Invoke(ctx, CampaignsService_ListCampaignViews_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *campaignsServiceClient) RegisterAdView(ctx context.Context, in *RegisterAdViewRequest, opts ...grpc.CallOption) (*RegisterAdViewResponse, error) {
 	out := new(RegisterAdViewResponse)
 	err := c.cc.Invoke(ctx, CampaignsService_RegisterAdView_FullMethodName, in, out, opts...)
@@ -110,6 +121,7 @@ type CampaignsServiceServer interface {
 	CreateCampaign(context.Context, *CreateCampaignRequest) (*CreateCampaignResponse, error)
 	SetCampaignState(context.Context, *SetCampaignStateRequest) (*SetCampaignStateResponse, error)
 	PickAd(context.Context, *PickAdRequest) (*PickAdResponse, error)
+	ListCampaignViews(context.Context, *ListCampaignViewsRequest) (*ListCampaignViewsResponse, error)
 	RegisterAdView(context.Context, *RegisterAdViewRequest) (*RegisterAdViewResponse, error)
 	mustEmbedUnimplementedCampaignsServiceServer()
 }
@@ -132,6 +144,9 @@ func (UnimplementedCampaignsServiceServer) SetCampaignState(context.Context, *Se
 }
 func (UnimplementedCampaignsServiceServer) PickAd(context.Context, *PickAdRequest) (*PickAdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PickAd not implemented")
+}
+func (UnimplementedCampaignsServiceServer) ListCampaignViews(context.Context, *ListCampaignViewsRequest) (*ListCampaignViewsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCampaignViews not implemented")
 }
 func (UnimplementedCampaignsServiceServer) RegisterAdView(context.Context, *RegisterAdViewRequest) (*RegisterAdViewResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterAdView not implemented")
@@ -239,6 +254,24 @@ func _CampaignsService_PickAd_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CampaignsService_ListCampaignViews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCampaignViewsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampaignsServiceServer).ListCampaignViews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CampaignsService_ListCampaignViews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampaignsServiceServer).ListCampaignViews(ctx, req.(*ListCampaignViewsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _CampaignsService_RegisterAdView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterAdViewRequest)
 	if err := dec(in); err != nil {
@@ -283,6 +316,10 @@ var CampaignsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PickAd",
 			Handler:    _CampaignsService_PickAd_Handler,
+		},
+		{
+			MethodName: "ListCampaignViews",
+			Handler:    _CampaignsService_ListCampaignViews_Handler,
 		},
 		{
 			MethodName: "RegisterAdView",

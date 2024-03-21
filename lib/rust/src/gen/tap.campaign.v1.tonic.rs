@@ -830,6 +830,36 @@ pub mod campaigns_service_client {
                 .insert(GrpcMethod::new("tap.campaign.v1.CampaignsService", "PickAd"));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn list_campaign_views(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListCampaignViewsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCampaignViewsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/tap.campaign.v1.CampaignsService/ListCampaignViews",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "tap.campaign.v1.CampaignsService",
+                        "ListCampaignViews",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn register_ad_view(
             &mut self,
             request: impl tonic::IntoRequest<super::RegisterAdViewRequest>,
@@ -898,6 +928,13 @@ pub mod campaigns_service_server {
             &self,
             request: tonic::Request<super::PickAdRequest>,
         ) -> std::result::Result<tonic::Response<super::PickAdResponse>, tonic::Status>;
+        async fn list_campaign_views(
+            &self,
+            request: tonic::Request<super::ListCampaignViewsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCampaignViewsResponse>,
+            tonic::Status,
+        >;
         async fn register_ad_view(
             &self,
             request: tonic::Request<super::RegisterAdViewRequest>,
@@ -1198,6 +1235,52 @@ pub mod campaigns_service_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = PickAdSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/tap.campaign.v1.CampaignsService/ListCampaignViews" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCampaignViewsSvc<T: CampaignsService>(pub Arc<T>);
+                    impl<
+                        T: CampaignsService,
+                    > tonic::server::UnaryService<super::ListCampaignViewsRequest>
+                    for ListCampaignViewsSvc<T> {
+                        type Response = super::ListCampaignViewsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCampaignViewsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).list_campaign_views(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListCampaignViewsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

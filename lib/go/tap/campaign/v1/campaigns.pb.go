@@ -692,6 +692,156 @@ func (x *PickAdResponse) GetAdId() string {
 	return ""
 }
 
+type ListCampaignViewsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ProviderId   *string     `protobuf:"bytes,1,opt,name=provider_id,json=providerId,proto3,oneof" json:"provider_id,omitempty"`
+	AdvertiserId *string     `protobuf:"bytes,2,opt,name=advertiser_id,json=advertiserId,proto3,oneof" json:"advertiser_id,omitempty"`
+	CampaignId   *CampaignID `protobuf:"bytes,3,opt,name=campaign_id,json=campaignId,proto3,oneof" json:"campaign_id,omitempty"`
+	AdId         *string     `protobuf:"bytes,4,opt,name=ad_id,json=adId,proto3,oneof" json:"ad_id,omitempty"`
+	SubscriberId *string     `protobuf:"bytes,5,opt,name=subscriber_id,json=subscriberId,proto3,oneof" json:"subscriber_id,omitempty"`
+	IsRewarded   *bool       `protobuf:"varint,6,opt,name=is_rewarded,json=isRewarded,proto3,oneof" json:"is_rewarded,omitempty"`
+	Page         *v1.Page    `protobuf:"bytes,7,opt,name=page,proto3" json:"page,omitempty"`
+}
+
+func (x *ListCampaignViewsRequest) Reset() {
+	*x = ListCampaignViewsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListCampaignViewsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCampaignViewsRequest) ProtoMessage() {}
+
+func (x *ListCampaignViewsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCampaignViewsRequest.ProtoReflect.Descriptor instead.
+func (*ListCampaignViewsRequest) Descriptor() ([]byte, []int) {
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ListCampaignViewsRequest) GetProviderId() string {
+	if x != nil && x.ProviderId != nil {
+		return *x.ProviderId
+	}
+	return ""
+}
+
+func (x *ListCampaignViewsRequest) GetAdvertiserId() string {
+	if x != nil && x.AdvertiserId != nil {
+		return *x.AdvertiserId
+	}
+	return ""
+}
+
+func (x *ListCampaignViewsRequest) GetCampaignId() *CampaignID {
+	if x != nil {
+		return x.CampaignId
+	}
+	return nil
+}
+
+func (x *ListCampaignViewsRequest) GetAdId() string {
+	if x != nil && x.AdId != nil {
+		return *x.AdId
+	}
+	return ""
+}
+
+func (x *ListCampaignViewsRequest) GetSubscriberId() string {
+	if x != nil && x.SubscriberId != nil {
+		return *x.SubscriberId
+	}
+	return ""
+}
+
+func (x *ListCampaignViewsRequest) GetIsRewarded() bool {
+	if x != nil && x.IsRewarded != nil {
+		return *x.IsRewarded
+	}
+	return false
+}
+
+func (x *ListCampaignViewsRequest) GetPage() *v1.Page {
+	if x != nil {
+		return x.Page
+	}
+	return nil
+}
+
+type ListCampaignViewsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items      []*View `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	NextCursor []byte  `protobuf:"bytes,2,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
+}
+
+func (x *ListCampaignViewsResponse) Reset() {
+	*x = ListCampaignViewsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListCampaignViewsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCampaignViewsResponse) ProtoMessage() {}
+
+func (x *ListCampaignViewsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCampaignViewsResponse.ProtoReflect.Descriptor instead.
+func (*ListCampaignViewsResponse) Descriptor() ([]byte, []int) {
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ListCampaignViewsResponse) GetItems() []*View {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *ListCampaignViewsResponse) GetNextCursor() []byte {
+	if x != nil {
+		return x.NextCursor
+	}
+	return nil
+}
+
 type RegisterAdViewRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -706,7 +856,7 @@ type RegisterAdViewRequest struct {
 func (x *RegisterAdViewRequest) Reset() {
 	*x = RegisterAdViewRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[10]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -719,7 +869,7 @@ func (x *RegisterAdViewRequest) String() string {
 func (*RegisterAdViewRequest) ProtoMessage() {}
 
 func (x *RegisterAdViewRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[10]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -732,7 +882,7 @@ func (x *RegisterAdViewRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterAdViewRequest.ProtoReflect.Descriptor instead.
 func (*RegisterAdViewRequest) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{10}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *RegisterAdViewRequest) GetCampaignId() *CampaignID {
@@ -774,7 +924,7 @@ type RegisterAdViewResponse struct {
 func (x *RegisterAdViewResponse) Reset() {
 	*x = RegisterAdViewResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[11]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -787,7 +937,7 @@ func (x *RegisterAdViewResponse) String() string {
 func (*RegisterAdViewResponse) ProtoMessage() {}
 
 func (x *RegisterAdViewResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[11]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -800,7 +950,7 @@ func (x *RegisterAdViewResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterAdViewResponse.ProtoReflect.Descriptor instead.
 func (*RegisterAdViewResponse) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{11}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *RegisterAdViewResponse) GetView() *View {
@@ -821,7 +971,7 @@ type CampaignID struct {
 func (x *CampaignID) Reset() {
 	*x = CampaignID{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[12]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -834,7 +984,7 @@ func (x *CampaignID) String() string {
 func (*CampaignID) ProtoMessage() {}
 
 func (x *CampaignID) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[12]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -847,7 +997,7 @@ func (x *CampaignID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CampaignID.ProtoReflect.Descriptor instead.
 func (*CampaignID) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{12}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *CampaignID) GetValue() string {
@@ -868,7 +1018,7 @@ type ViewID struct {
 func (x *ViewID) Reset() {
 	*x = ViewID{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[13]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -881,7 +1031,7 @@ func (x *ViewID) String() string {
 func (*ViewID) ProtoMessage() {}
 
 func (x *ViewID) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[13]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -894,7 +1044,7 @@ func (x *ViewID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ViewID.ProtoReflect.Descriptor instead.
 func (*ViewID) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{13}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ViewID) GetValue() int64 {
@@ -925,7 +1075,7 @@ type Campaign struct {
 func (x *Campaign) Reset() {
 	*x = Campaign{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[14]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -938,7 +1088,7 @@ func (x *Campaign) String() string {
 func (*Campaign) ProtoMessage() {}
 
 func (x *Campaign) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[14]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -951,7 +1101,7 @@ func (x *Campaign) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Campaign.ProtoReflect.Descriptor instead.
 func (*Campaign) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{14}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *Campaign) GetId() *CampaignID {
@@ -1049,7 +1199,7 @@ type View struct {
 func (x *View) Reset() {
 	*x = View{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[15]
+		mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1062,7 +1212,7 @@ func (x *View) String() string {
 func (*View) ProtoMessage() {}
 
 func (x *View) ProtoReflect() protoreflect.Message {
-	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[15]
+	mi := &file_tap_campaign_v1_campaigns_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1075,7 +1225,7 @@ func (x *View) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use View.ProtoReflect.Descriptor instead.
 func (*View) Descriptor() ([]byte, []int) {
-	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{15}
+	return file_tap_campaign_v1_campaigns_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *View) GetId() *ViewID {
@@ -1244,7 +1394,41 @@ var file_tap_campaign_v1_campaigns_proto_rawDesc = []byte{
 	0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x43,
 	0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x49, 0x44, 0x52, 0x0a, 0x63, 0x61, 0x6d, 0x70, 0x61,
 	0x69, 0x67, 0x6e, 0x49, 0x64, 0x12, 0x13, 0x0a, 0x05, 0x61, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x61, 0x64, 0x49, 0x64, 0x22, 0xc6, 0x01, 0x0a, 0x15, 0x52,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x61, 0x64, 0x49, 0x64, 0x22, 0x9d, 0x03, 0x0a, 0x18, 0x4c,
+	0x69, 0x73, 0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x56, 0x69, 0x65, 0x77, 0x73,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x0b, 0x70, 0x72, 0x6f, 0x76, 0x69,
+	0x64, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0a,
+	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x49, 0x64, 0x88, 0x01, 0x01, 0x12, 0x28, 0x0a,
+	0x0d, 0x61, 0x64, 0x76, 0x65, 0x72, 0x74, 0x69, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x48, 0x01, 0x52, 0x0c, 0x61, 0x64, 0x76, 0x65, 0x72, 0x74, 0x69, 0x73,
+	0x65, 0x72, 0x49, 0x64, 0x88, 0x01, 0x01, 0x12, 0x41, 0x0a, 0x0b, 0x63, 0x61, 0x6d, 0x70, 0x61,
+	0x69, 0x67, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x74,
+	0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x43,
+	0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x49, 0x44, 0x48, 0x02, 0x52, 0x0a, 0x63, 0x61, 0x6d,
+	0x70, 0x61, 0x69, 0x67, 0x6e, 0x49, 0x64, 0x88, 0x01, 0x01, 0x12, 0x18, 0x0a, 0x05, 0x61, 0x64,
+	0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x48, 0x03, 0x52, 0x04, 0x61, 0x64, 0x49,
+	0x64, 0x88, 0x01, 0x01, 0x12, 0x28, 0x0a, 0x0d, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62,
+	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x48, 0x04, 0x52, 0x0c, 0x73,
+	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x72, 0x49, 0x64, 0x88, 0x01, 0x01, 0x12, 0x24,
+	0x0a, 0x0b, 0x69, 0x73, 0x5f, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x65, 0x64, 0x18, 0x06, 0x20,
+	0x01, 0x28, 0x08, 0x48, 0x05, 0x52, 0x0a, 0x69, 0x73, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x65,
+	0x64, 0x88, 0x01, 0x01, 0x12, 0x26, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x07, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x12, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x42, 0x0e, 0x0a, 0x0c,
+	0x5f, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x42, 0x10, 0x0a, 0x0e,
+	0x5f, 0x61, 0x64, 0x76, 0x65, 0x72, 0x74, 0x69, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x42, 0x0e,
+	0x0a, 0x0c, 0x5f, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x5f, 0x69, 0x64, 0x42, 0x08,
+	0x0a, 0x06, 0x5f, 0x61, 0x64, 0x5f, 0x69, 0x64, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x73, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x69,
+	0x73, 0x5f, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x65, 0x64, 0x22, 0x7e, 0x0a, 0x19, 0x4c, 0x69,
+	0x73, 0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x56, 0x69, 0x65, 0x77, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d,
+	0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x69, 0x65, 0x77, 0x52, 0x05, 0x69,
+	0x74, 0x65, 0x6d, 0x73, 0x12, 0x24, 0x0a, 0x0b, 0x6e, 0x65, 0x78, 0x74, 0x5f, 0x63, 0x75, 0x72,
+	0x73, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x48, 0x00, 0x52, 0x0a, 0x6e, 0x65, 0x78,
+	0x74, 0x43, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x88, 0x01, 0x01, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x6e,
+	0x65, 0x78, 0x74, 0x5f, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x22, 0xc6, 0x01, 0x0a, 0x15, 0x52,
 	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65, 0x77, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x3c, 0x0a, 0x0b, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e,
 	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x74, 0x61, 0x70, 0x2e,
@@ -1334,7 +1518,7 @@ var file_tap_campaign_v1_campaigns_proto_rawDesc = []byte{
 	0x19, 0x0a, 0x15, 0x43, 0x41, 0x4d, 0x50, 0x41, 0x49, 0x47, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54,
 	0x45, 0x5f, 0x50, 0x41, 0x55, 0x53, 0x45, 0x44, 0x10, 0x05, 0x12, 0x18, 0x0a, 0x14, 0x43, 0x41,
 	0x4d, 0x50, 0x41, 0x49, 0x47, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x45, 0x5f, 0x45, 0x4e, 0x44,
-	0x45, 0x44, 0x10, 0x06, 0x32, 0xc6, 0x04, 0x0a, 0x10, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67,
+	0x45, 0x44, 0x10, 0x06, 0x32, 0xb2, 0x05, 0x0a, 0x10, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67,
 	0x6e, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x5e, 0x0a, 0x0d, 0x4c, 0x69, 0x73,
 	0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x73, 0x12, 0x25, 0x2e, 0x74, 0x61, 0x70,
 	0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69, 0x73,
@@ -1364,27 +1548,33 @@ var file_tap_campaign_v1_campaigns_proto_rawDesc = []byte{
 	0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x63, 0x6b,
 	0x41, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x74, 0x61, 0x70, 0x2e,
 	0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x63, 0x6b,
-	0x41, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x52, 0x65,
-	0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65, 0x77, 0x12, 0x26, 0x2e, 0x74,
-	0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52,
-	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65, 0x77, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61,
-	0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41,
-	0x64, 0x56, 0x69, 0x65, 0x77, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0xc9, 0x01,
-	0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69,
-	0x67, 0x6e, 0x2e, 0x76, 0x31, 0x42, 0x0e, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x73,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x44, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x72, 0x65, 0x61, 0x6c, 0x2d, 0x65, 0x76, 0x6f, 0x6c, 0x75, 0x74, 0x69,
-	0x6f, 0x6e, 0x2f, 0x74, 0x61, 0x70, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x6c, 0x69, 0x62, 0x2f,
-	0x67, 0x6f, 0x2f, 0x74, 0x61, 0x70, 0x2f, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2f,
-	0x76, 0x31, 0x3b, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x03,
-	0x54, 0x43, 0x58, 0xaa, 0x02, 0x0f, 0x54, 0x61, 0x70, 0x2e, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69,
-	0x67, 0x6e, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0f, 0x54, 0x61, 0x70, 0x5c, 0x43, 0x61, 0x6d, 0x70,
-	0x61, 0x69, 0x67, 0x6e, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1b, 0x54, 0x61, 0x70, 0x5c, 0x43, 0x61,
-	0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
-	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x11, 0x54, 0x61, 0x70, 0x3a, 0x3a, 0x43, 0x61, 0x6d,
-	0x70, 0x61, 0x69, 0x67, 0x6e, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x41, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6a, 0x0a, 0x11, 0x4c, 0x69,
+	0x73, 0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x56, 0x69, 0x65, 0x77, 0x73, 0x12,
+	0x29, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76,
+	0x31, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x56, 0x69,
+	0x65, 0x77, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2a, 0x2e, 0x74, 0x61, 0x70,
+	0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69, 0x73,
+	0x74, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x56, 0x69, 0x65, 0x77, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
+	0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65, 0x77, 0x12, 0x26, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63,
+	0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73,
+	0x74, 0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65, 0x77, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x27, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e,
+	0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x56, 0x69, 0x65,
+	0x77, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0xc9, 0x01, 0x0a, 0x13, 0x63, 0x6f,
+	0x6d, 0x2e, 0x74, 0x61, 0x70, 0x2e, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x76,
+	0x31, 0x42, 0x0e, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x73, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x44, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x72, 0x65, 0x61, 0x6c, 0x2d, 0x65, 0x76, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x74,
+	0x61, 0x70, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x6c, 0x69, 0x62, 0x2f, 0x67, 0x6f, 0x2f, 0x74,
+	0x61, 0x70, 0x2f, 0x63, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2f, 0x76, 0x31, 0x3b, 0x63,
+	0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x54, 0x43, 0x58, 0xaa,
+	0x02, 0x0f, 0x54, 0x61, 0x70, 0x2e, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e, 0x2e, 0x56,
+	0x31, 0xca, 0x02, 0x0f, 0x54, 0x61, 0x70, 0x5c, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67, 0x6e,
+	0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1b, 0x54, 0x61, 0x70, 0x5c, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69,
+	0x67, 0x6e, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
+	0x61, 0xea, 0x02, 0x11, 0x54, 0x61, 0x70, 0x3a, 0x3a, 0x43, 0x61, 0x6d, 0x70, 0x61, 0x69, 0x67,
+	0x6e, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1400,7 +1590,7 @@ func file_tap_campaign_v1_campaigns_proto_rawDescGZIP() []byte {
 }
 
 var file_tap_campaign_v1_campaigns_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_tap_campaign_v1_campaigns_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_tap_campaign_v1_campaigns_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_tap_campaign_v1_campaigns_proto_goTypes = []interface{}{
 	(CampaignState)(0),                           // 0: tap.campaign.v1.CampaignState
 	(SetCampaignStateRequest_StateTransition)(0), // 1: tap.campaign.v1.SetCampaignStateRequest.StateTransition
@@ -1414,63 +1604,70 @@ var file_tap_campaign_v1_campaigns_proto_goTypes = []interface{}{
 	(*SetCampaignStateResponse)(nil),             // 9: tap.campaign.v1.SetCampaignStateResponse
 	(*PickAdRequest)(nil),                        // 10: tap.campaign.v1.PickAdRequest
 	(*PickAdResponse)(nil),                       // 11: tap.campaign.v1.PickAdResponse
-	(*RegisterAdViewRequest)(nil),                // 12: tap.campaign.v1.RegisterAdViewRequest
-	(*RegisterAdViewResponse)(nil),               // 13: tap.campaign.v1.RegisterAdViewResponse
-	(*CampaignID)(nil),                           // 14: tap.campaign.v1.CampaignID
-	(*ViewID)(nil),                               // 15: tap.campaign.v1.ViewID
-	(*Campaign)(nil),                             // 16: tap.campaign.v1.Campaign
-	(*View)(nil),                                 // 17: tap.campaign.v1.View
-	(*PackageID)(nil),                            // 18: tap.campaign.v1.PackageID
-	(*v1.Page)(nil),                              // 19: tap.types.v1.Page
-	(*v11.TransferID)(nil),                       // 20: tap.points.v1.TransferID
-	(*durationpb.Duration)(nil),                  // 21: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),                // 22: google.protobuf.Timestamp
-	(*v1.Decimal)(nil),                           // 23: tap.types.v1.Decimal
+	(*ListCampaignViewsRequest)(nil),             // 12: tap.campaign.v1.ListCampaignViewsRequest
+	(*ListCampaignViewsResponse)(nil),            // 13: tap.campaign.v1.ListCampaignViewsResponse
+	(*RegisterAdViewRequest)(nil),                // 14: tap.campaign.v1.RegisterAdViewRequest
+	(*RegisterAdViewResponse)(nil),               // 15: tap.campaign.v1.RegisterAdViewResponse
+	(*CampaignID)(nil),                           // 16: tap.campaign.v1.CampaignID
+	(*ViewID)(nil),                               // 17: tap.campaign.v1.ViewID
+	(*Campaign)(nil),                             // 18: tap.campaign.v1.Campaign
+	(*View)(nil),                                 // 19: tap.campaign.v1.View
+	(*PackageID)(nil),                            // 20: tap.campaign.v1.PackageID
+	(*v1.Page)(nil),                              // 21: tap.types.v1.Page
+	(*v11.TransferID)(nil),                       // 22: tap.points.v1.TransferID
+	(*durationpb.Duration)(nil),                  // 23: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),                // 24: google.protobuf.Timestamp
+	(*v1.Decimal)(nil),                           // 25: tap.types.v1.Decimal
 }
 var file_tap_campaign_v1_campaigns_proto_depIdxs = []int32{
 	0,  // 0: tap.campaign.v1.ListCampaignsRequest.state:type_name -> tap.campaign.v1.CampaignState
-	18, // 1: tap.campaign.v1.ListCampaignsRequest.package_id:type_name -> tap.campaign.v1.PackageID
-	19, // 2: tap.campaign.v1.ListCampaignsRequest.page:type_name -> tap.types.v1.Page
-	16, // 3: tap.campaign.v1.ListCampaignsResponse.items:type_name -> tap.campaign.v1.Campaign
-	14, // 4: tap.campaign.v1.GetCampaignRequest.id:type_name -> tap.campaign.v1.CampaignID
-	16, // 5: tap.campaign.v1.GetCampaignResponse.campaign:type_name -> tap.campaign.v1.Campaign
-	18, // 6: tap.campaign.v1.CreateCampaignRequest.package_id:type_name -> tap.campaign.v1.PackageID
-	20, // 7: tap.campaign.v1.CreateCampaignRequest.transfer_id:type_name -> tap.points.v1.TransferID
-	16, // 8: tap.campaign.v1.CreateCampaignResponse.campaign:type_name -> tap.campaign.v1.Campaign
-	14, // 9: tap.campaign.v1.SetCampaignStateRequest.id:type_name -> tap.campaign.v1.CampaignID
+	20, // 1: tap.campaign.v1.ListCampaignsRequest.package_id:type_name -> tap.campaign.v1.PackageID
+	21, // 2: tap.campaign.v1.ListCampaignsRequest.page:type_name -> tap.types.v1.Page
+	18, // 3: tap.campaign.v1.ListCampaignsResponse.items:type_name -> tap.campaign.v1.Campaign
+	16, // 4: tap.campaign.v1.GetCampaignRequest.id:type_name -> tap.campaign.v1.CampaignID
+	18, // 5: tap.campaign.v1.GetCampaignResponse.campaign:type_name -> tap.campaign.v1.Campaign
+	20, // 6: tap.campaign.v1.CreateCampaignRequest.package_id:type_name -> tap.campaign.v1.PackageID
+	22, // 7: tap.campaign.v1.CreateCampaignRequest.transfer_id:type_name -> tap.points.v1.TransferID
+	18, // 8: tap.campaign.v1.CreateCampaignResponse.campaign:type_name -> tap.campaign.v1.Campaign
+	16, // 9: tap.campaign.v1.SetCampaignStateRequest.id:type_name -> tap.campaign.v1.CampaignID
 	1,  // 10: tap.campaign.v1.SetCampaignStateRequest.transition:type_name -> tap.campaign.v1.SetCampaignStateRequest.StateTransition
-	16, // 11: tap.campaign.v1.SetCampaignStateResponse.campaign:type_name -> tap.campaign.v1.Campaign
-	14, // 12: tap.campaign.v1.PickAdResponse.campaign_id:type_name -> tap.campaign.v1.CampaignID
-	14, // 13: tap.campaign.v1.RegisterAdViewRequest.campaign_id:type_name -> tap.campaign.v1.CampaignID
-	21, // 14: tap.campaign.v1.RegisterAdViewRequest.duration:type_name -> google.protobuf.Duration
-	17, // 15: tap.campaign.v1.RegisterAdViewResponse.view:type_name -> tap.campaign.v1.View
-	14, // 16: tap.campaign.v1.Campaign.id:type_name -> tap.campaign.v1.CampaignID
-	0,  // 17: tap.campaign.v1.Campaign.state:type_name -> tap.campaign.v1.CampaignState
-	18, // 18: tap.campaign.v1.Campaign.package_id:type_name -> tap.campaign.v1.PackageID
-	22, // 19: tap.campaign.v1.Campaign.created_at:type_name -> google.protobuf.Timestamp
-	22, // 20: tap.campaign.v1.Campaign.updated_at:type_name -> google.protobuf.Timestamp
-	15, // 21: tap.campaign.v1.View.id:type_name -> tap.campaign.v1.ViewID
-	21, // 22: tap.campaign.v1.View.duration:type_name -> google.protobuf.Duration
-	23, // 23: tap.campaign.v1.View.reward:type_name -> tap.types.v1.Decimal
-	14, // 24: tap.campaign.v1.View.campaign_id:type_name -> tap.campaign.v1.CampaignID
-	22, // 25: tap.campaign.v1.View.created_at:type_name -> google.protobuf.Timestamp
-	2,  // 26: tap.campaign.v1.CampaignsService.ListCampaigns:input_type -> tap.campaign.v1.ListCampaignsRequest
-	4,  // 27: tap.campaign.v1.CampaignsService.GetCampaign:input_type -> tap.campaign.v1.GetCampaignRequest
-	6,  // 28: tap.campaign.v1.CampaignsService.CreateCampaign:input_type -> tap.campaign.v1.CreateCampaignRequest
-	8,  // 29: tap.campaign.v1.CampaignsService.SetCampaignState:input_type -> tap.campaign.v1.SetCampaignStateRequest
-	10, // 30: tap.campaign.v1.CampaignsService.PickAd:input_type -> tap.campaign.v1.PickAdRequest
-	12, // 31: tap.campaign.v1.CampaignsService.RegisterAdView:input_type -> tap.campaign.v1.RegisterAdViewRequest
-	3,  // 32: tap.campaign.v1.CampaignsService.ListCampaigns:output_type -> tap.campaign.v1.ListCampaignsResponse
-	5,  // 33: tap.campaign.v1.CampaignsService.GetCampaign:output_type -> tap.campaign.v1.GetCampaignResponse
-	7,  // 34: tap.campaign.v1.CampaignsService.CreateCampaign:output_type -> tap.campaign.v1.CreateCampaignResponse
-	9,  // 35: tap.campaign.v1.CampaignsService.SetCampaignState:output_type -> tap.campaign.v1.SetCampaignStateResponse
-	11, // 36: tap.campaign.v1.CampaignsService.PickAd:output_type -> tap.campaign.v1.PickAdResponse
-	13, // 37: tap.campaign.v1.CampaignsService.RegisterAdView:output_type -> tap.campaign.v1.RegisterAdViewResponse
-	32, // [32:38] is the sub-list for method output_type
-	26, // [26:32] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	18, // 11: tap.campaign.v1.SetCampaignStateResponse.campaign:type_name -> tap.campaign.v1.Campaign
+	16, // 12: tap.campaign.v1.PickAdResponse.campaign_id:type_name -> tap.campaign.v1.CampaignID
+	16, // 13: tap.campaign.v1.ListCampaignViewsRequest.campaign_id:type_name -> tap.campaign.v1.CampaignID
+	21, // 14: tap.campaign.v1.ListCampaignViewsRequest.page:type_name -> tap.types.v1.Page
+	19, // 15: tap.campaign.v1.ListCampaignViewsResponse.items:type_name -> tap.campaign.v1.View
+	16, // 16: tap.campaign.v1.RegisterAdViewRequest.campaign_id:type_name -> tap.campaign.v1.CampaignID
+	23, // 17: tap.campaign.v1.RegisterAdViewRequest.duration:type_name -> google.protobuf.Duration
+	19, // 18: tap.campaign.v1.RegisterAdViewResponse.view:type_name -> tap.campaign.v1.View
+	16, // 19: tap.campaign.v1.Campaign.id:type_name -> tap.campaign.v1.CampaignID
+	0,  // 20: tap.campaign.v1.Campaign.state:type_name -> tap.campaign.v1.CampaignState
+	20, // 21: tap.campaign.v1.Campaign.package_id:type_name -> tap.campaign.v1.PackageID
+	24, // 22: tap.campaign.v1.Campaign.created_at:type_name -> google.protobuf.Timestamp
+	24, // 23: tap.campaign.v1.Campaign.updated_at:type_name -> google.protobuf.Timestamp
+	17, // 24: tap.campaign.v1.View.id:type_name -> tap.campaign.v1.ViewID
+	23, // 25: tap.campaign.v1.View.duration:type_name -> google.protobuf.Duration
+	25, // 26: tap.campaign.v1.View.reward:type_name -> tap.types.v1.Decimal
+	16, // 27: tap.campaign.v1.View.campaign_id:type_name -> tap.campaign.v1.CampaignID
+	24, // 28: tap.campaign.v1.View.created_at:type_name -> google.protobuf.Timestamp
+	2,  // 29: tap.campaign.v1.CampaignsService.ListCampaigns:input_type -> tap.campaign.v1.ListCampaignsRequest
+	4,  // 30: tap.campaign.v1.CampaignsService.GetCampaign:input_type -> tap.campaign.v1.GetCampaignRequest
+	6,  // 31: tap.campaign.v1.CampaignsService.CreateCampaign:input_type -> tap.campaign.v1.CreateCampaignRequest
+	8,  // 32: tap.campaign.v1.CampaignsService.SetCampaignState:input_type -> tap.campaign.v1.SetCampaignStateRequest
+	10, // 33: tap.campaign.v1.CampaignsService.PickAd:input_type -> tap.campaign.v1.PickAdRequest
+	12, // 34: tap.campaign.v1.CampaignsService.ListCampaignViews:input_type -> tap.campaign.v1.ListCampaignViewsRequest
+	14, // 35: tap.campaign.v1.CampaignsService.RegisterAdView:input_type -> tap.campaign.v1.RegisterAdViewRequest
+	3,  // 36: tap.campaign.v1.CampaignsService.ListCampaigns:output_type -> tap.campaign.v1.ListCampaignsResponse
+	5,  // 37: tap.campaign.v1.CampaignsService.GetCampaign:output_type -> tap.campaign.v1.GetCampaignResponse
+	7,  // 38: tap.campaign.v1.CampaignsService.CreateCampaign:output_type -> tap.campaign.v1.CreateCampaignResponse
+	9,  // 39: tap.campaign.v1.CampaignsService.SetCampaignState:output_type -> tap.campaign.v1.SetCampaignStateResponse
+	11, // 40: tap.campaign.v1.CampaignsService.PickAd:output_type -> tap.campaign.v1.PickAdResponse
+	13, // 41: tap.campaign.v1.CampaignsService.ListCampaignViews:output_type -> tap.campaign.v1.ListCampaignViewsResponse
+	15, // 42: tap.campaign.v1.CampaignsService.RegisterAdView:output_type -> tap.campaign.v1.RegisterAdViewResponse
+	36, // [36:43] is the sub-list for method output_type
+	29, // [29:36] is the sub-list for method input_type
+	29, // [29:29] is the sub-list for extension type_name
+	29, // [29:29] is the sub-list for extension extendee
+	0,  // [0:29] is the sub-list for field type_name
 }
 
 func init() { file_tap_campaign_v1_campaigns_proto_init() }
@@ -1601,7 +1798,7 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterAdViewRequest); i {
+			switch v := v.(*ListCampaignViewsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1613,7 +1810,7 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterAdViewResponse); i {
+			switch v := v.(*ListCampaignViewsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1625,7 +1822,7 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CampaignID); i {
+			switch v := v.(*RegisterAdViewRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1637,7 +1834,7 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ViewID); i {
+			switch v := v.(*RegisterAdViewResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1649,7 +1846,7 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Campaign); i {
+			switch v := v.(*CampaignID); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1661,6 +1858,30 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 			}
 		}
 		file_tap_campaign_v1_campaigns_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ViewID); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tap_campaign_v1_campaigns_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Campaign); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tap_campaign_v1_campaigns_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*View); i {
 			case 0:
 				return &v.state
@@ -1676,15 +1897,17 @@ func file_tap_campaign_v1_campaigns_proto_init() {
 	file_tap_campaign_v1_campaigns_proto_msgTypes[0].OneofWrappers = []interface{}{}
 	file_tap_campaign_v1_campaigns_proto_msgTypes[1].OneofWrappers = []interface{}{}
 	file_tap_campaign_v1_campaigns_proto_msgTypes[4].OneofWrappers = []interface{}{}
-	file_tap_campaign_v1_campaigns_proto_msgTypes[14].OneofWrappers = []interface{}{}
-	file_tap_campaign_v1_campaigns_proto_msgTypes[15].OneofWrappers = []interface{}{}
+	file_tap_campaign_v1_campaigns_proto_msgTypes[10].OneofWrappers = []interface{}{}
+	file_tap_campaign_v1_campaigns_proto_msgTypes[11].OneofWrappers = []interface{}{}
+	file_tap_campaign_v1_campaigns_proto_msgTypes[16].OneofWrappers = []interface{}{}
+	file_tap_campaign_v1_campaigns_proto_msgTypes[17].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_tap_campaign_v1_campaigns_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   16,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
