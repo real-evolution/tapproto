@@ -86,7 +86,7 @@ message RegisterAdViewRequest {
 }
 
 message RegisterAdViewResponse {
-  string view_id = 1;
+  View view = 1;
 }
 
 message CampaignID {
