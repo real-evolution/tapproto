@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package tap.ads.v1;
+
+import "google/protobuf/timestamp.proto";
+import "tap/ads/v1/advertisers.proto";
+import "tap/ads/v1/quotas.proto";
+import "tap/verify/v1/tickets.proto";
+import "tap/types/v1/duration.proto";
+import "tap/types/v1/pagination.proto";
+
+service AdsService {
+  rpc ListAds(ListAdsRequest) returns (ListAdsResponse);
+  rpc GetAd(GetAdRequest) returns (GetAdResponse);
+  rpc CreateAd(CreateAdRequest) returns (CreateAdResponse);
+}
+
+message ListAdsRequest {
+  optional tap.ads.v1.AdvertiserID advertiser_id = 1;
+
+  tap.types.v1.Page page = 3;
+}
+
+message ListAdsResponse {
+  repeated Ad items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetAdRequest {
+  AdID id = 1;
+}
+
+message GetAdResponse {
+  Ad ad = 1;
+}
+
+message CreateAdRequest {
+  string title = 1;
+  string description = 2;
+  tap.types.v1.Duration duration = 3;
+  tap.ads.v1.QuotaID quota_id = 4;
+  bytes content = 5;
+}
+
+message CreateAdResponse {
+  Ad ad = 1;
+}
+
+message AdID {
+  string value = 1;
+}
+
+message Ad {
+  AdID id = 1;
+
+  string title = 2;
+  string description = 3;
+  tap.types.v1.Duration duration = 4;
+
+  tap.ads.v1.AdvertiserID advertiser_id = 5;
+  tap.ads.v1.QuotaID quota_id = 6;
+  tap.verify.v1.TicketID ticket_id = 7;
+  string content_id = 8;
+
+  google.protobuf.Timestamp created_at = 9;
+}

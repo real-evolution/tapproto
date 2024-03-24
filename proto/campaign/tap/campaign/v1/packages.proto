@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package tap.campaign.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "tap/types/v1/decimal.proto";
+import "tap/types/v1/pagination.proto";
+
+service PackagesService {
+  rpc ListPackages(ListPackagesRequest) returns (ListPackagesResponse);
+  rpc GetPackage(GetPackageRequest) returns (GetPackageResponse);
+  rpc CreatePackage(CreatePackageRequest) returns (CreatePackageResponse);
+  rpc UpdatePackage(UpdatePackageRequest) returns (UpdatePackageResponse);
+  rpc DeletePackage(DeletePackageRequest) returns (DeletePackageResponse);
+}
+
+message ListPackagesRequest {
+  optional PackageState state = 1;
+  optional string provider_id = 2;
+  optional string token_code = 3;
+
+  tap.types.v1.Page page = 4;
+}
+
+message ListPackagesResponse {
+  repeated Package items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetPackageRequest {
+  PackageID id = 1;
+}
+
+message GetPackageResponse {
+  Package package = 1;
+}
+
+message CreatePackageRequest {
+  string display_name = 1;
+  optional string description = 2;
+  PackageState state = 3;
+
+  int32 unit_count = 4;
+  google.protobuf.Duration unit_duration = 5;
+  tap.types.v1.Decimal unit_reward = 6;
+  PackageViewUnits view_units = 7;
+
+  int32 ads_limit = 8;
+
+  string provider_id = 9;
+  string token_code = 10;
+}
+
+message CreatePackageResponse {
+  Package package = 1;
+}
+
+message UpdatePackageRequest {
+  PackageID id = 1;
+
+  optional string display_name = 2;
+  optional string description = 3;
+  optional PackageState state = 4;
+
+  optional int32 unit_count = 5;
+  optional google.protobuf.Duration unit_duration = 6;
+  optional tap.types.v1.Decimal unit_reward = 7;
+  optional PackageViewUnits view_units = 8;
+
+  optional int32 ads_limit = 9;
+}
+
+message DeletePackageRequest {
+  PackageID id = 1;
+}
+
+message DeletePackageResponse {}
+
+message UpdatePackageResponse {
+  Package package = 1;
+}
+
+message PackageID {
+  string value = 1;
+}
+
+enum PackageState {
+  PACKAGE_STATE_UNSPECIFIED = 0;
+  PACKAGE_STATE_ENABLED = 1;
+  PACKAGE_STATE_DISABLED = 2;
+}
+
+message PackageViewUnits {
+  int32 min = 1;
+  int32 max = 2;
+}
+
+message Package {
+  PackageID id = 1;
+
+  string display_name = 2;
+  optional string description = 3;
+  PackageState state = 4;
+
+  int32 unit_count = 5;
+  google.protobuf.Duration unit_duration = 6;
+  tap.types.v1.Decimal unit_reward = 7;
+  PackageViewUnits view_units = 8;
+
+  int32 ads_limit = 9;
+
+  string provider_id = 10;
+  string token_code = 11;
+
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}

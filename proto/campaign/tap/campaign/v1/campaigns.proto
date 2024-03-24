@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package tap.campaign.v1;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+import "tap/campaign/v1/packages.proto";
+import "tap/points/v1/transfers.proto";
+import "tap/types/v1/decimal.proto";
+import "tap/types/v1/pagination.proto";
+
+service CampaignsService {
+  rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse);
+  rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
+  rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
+  rpc SetCampaignState(SetCampaignStateRequest) returns (SetCampaignStateResponse);
+  rpc PickAd(PickAdRequest) returns (PickAdResponse);
+  rpc ListCampaignViews(ListCampaignViewsRequest) returns (ListCampaignViewsResponse);
+  rpc RegisterAdView(RegisterAdViewRequest) returns (RegisterAdViewResponse);
+}
+
+message ListCampaignsRequest {
+  optional CampaignState state = 1;
+  optional tap.campaign.v1.PackageID package_id = 2;
+  optional string provider_id = 3;
+  optional string advertiser_id = 4;
+
+  tap.types.v1.Page page = 5;
+}
+
+message ListCampaignsResponse {
+  repeated Campaign items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message GetCampaignRequest {
+  CampaignID id = 1;
+}
+
+message GetCampaignResponse {
+  Campaign campaign = 1;
+}
+
+message CreateCampaignRequest {
+  string title = 1;
+  optional string description = 2;
+  tap.campaign.v1.PackageID package_id = 3;
+  repeated string ads_ids = 4;
+  tap.points.v1.TransferID transfer_id = 5;
+}
+
+message CreateCampaignResponse {
+  Campaign campaign = 1;
+}
+
+message SetCampaignStateRequest {
+  enum StateTransition {
+    STATE_TRANSITION_UNSPECIFIED = 0;
+    STATE_TRANSITION_APPROVE = 1;
+    STATE_TRANSITION_REJECT = 2;
+    STATE_TRANSITION_RUN = 3;
+    STATE_TRANSITION_PAUSE = 4;
+    STATE_TRANSITION_END = 5;
+  }
+
+  CampaignID id = 1;
+  StateTransition transition = 2;
+}
+
+message SetCampaignStateResponse {
+  Campaign campaign = 1;
+}
+
+message PickAdRequest {}
+message PickAdResponse {
+  CampaignID campaign_id = 1;
+  string ad_id = 2;
+}
+
+message ListCampaignViewsRequest {
+  optional string provider_id = 1;
+  optional string advertiser_id = 2;
+  optional CampaignID campaign_id = 3;
+  optional string ad_id = 4;
+  optional string subscriber_id = 5;
+  optional bool is_rewarded = 6;
+
+  tap.types.v1.Page page = 7;
+}
+
+message ListCampaignViewsResponse {
+  repeated View items = 1;
+
+  optional bytes next_cursor = 2;
+}
+
+message RegisterAdViewRequest {
+  CampaignID campaign_id = 1;
+  string ad_id = 2;
+  string subscriber_id = 3;
+  google.protobuf.Duration duration = 4;
+}
+
+message RegisterAdViewResponse {
+  View view = 1;
+}
+
+message CampaignID {
+  string value = 1;
+}
+
+message ViewID {
+  int64 value = 1;
+}
+
+enum CampaignState {
+  CAMPAIGN_STATE_UNSPECIFIED = 0;
+  CAMPAIGN_STATE_APPROVING = 1;
+  CAMPAIGN_STATE_APPROVED = 2;
+  CAMPAIGN_STATE_REJECTED = 3;
+  CAMPAIGN_STATE_RUNNING = 4;
+  CAMPAIGN_STATE_PAUSED = 5;
+  CAMPAIGN_STATE_ENDED = 6;
+}
+
+message Campaign {
+  CampaignID id = 1;
+
+  string title = 2;
+  optional string description = 3;
+  CampaignState state = 4;
+
+  int32 units_left = 5;
+  int32 total_units = 6;
+
+  tap.campaign.v1.PackageID package_id = 7;
+  string advertiser_id = 8;
+  repeated string ads_ids = 9;
+
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}
+
+message View {
+  ViewID id = 1;
+
+  google.protobuf.Duration duration = 2;
+  tap.types.v1.Decimal reward = 3;
+  CampaignID campaign_id = 4;
+  string ad_id = 5;
+  string subscriber_id = 6;
+  optional int64 transfer_id = 7;
+
+  google.protobuf.Timestamp created_at = 15;
+}

@@ -1,14 +1,14 @@
 // @generated
 /// Generated client implementations.
-pub mod tag_service_client {
+pub mod tags_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
-    pub struct TagServiceClient<T> {
+    pub struct TagsServiceClient<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl TagServiceClient<tonic::transport::Channel> {
+    impl TagsServiceClient<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -19,7 +19,7 @@ pub mod tag_service_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> TagServiceClient<T>
+    impl<T> TagsServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -37,7 +37,7 @@ pub mod tag_service_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> TagServiceClient<InterceptedService<T, F>>
+        ) -> TagsServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -51,7 +51,7 @@ pub mod tag_service_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + Send + Sync,
         {
-            TagServiceClient::new(InterceptedService::new(inner, interceptor))
+            TagsServiceClient::new(InterceptedService::new(inner, interceptor))
         }
         /// Compress requests with the given encoding.
         ///
@@ -102,11 +102,11 @@ pub mod tag_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TagService/ListTags",
+                "/tap.verify.v1.TagsService/ListTags",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TagService", "ListTags"));
+                .insert(GrpcMethod::new("tap.verify.v1.TagsService", "ListTags"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn get_tag(
@@ -124,11 +124,11 @@ pub mod tag_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TagService/GetTag",
+                "/tap.verify.v1.TagsService/GetTag",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TagService", "GetTag"));
+                .insert(GrpcMethod::new("tap.verify.v1.TagsService", "GetTag"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn create_tag(
@@ -149,11 +149,11 @@ pub mod tag_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TagService/CreateTag",
+                "/tap.verify.v1.TagsService/CreateTag",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TagService", "CreateTag"));
+                .insert(GrpcMethod::new("tap.verify.v1.TagsService", "CreateTag"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn update_tag(
@@ -174,11 +174,11 @@ pub mod tag_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TagService/UpdateTag",
+                "/tap.verify.v1.TagsService/UpdateTag",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TagService", "UpdateTag"));
+                .insert(GrpcMethod::new("tap.verify.v1.TagsService", "UpdateTag"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn delete_tag(
@@ -199,22 +199,22 @@ pub mod tag_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TagService/DeleteTag",
+                "/tap.verify.v1.TagsService/DeleteTag",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TagService", "DeleteTag"));
+                .insert(GrpcMethod::new("tap.verify.v1.TagsService", "DeleteTag"));
             self.inner.unary(req, path, codec).await
         }
     }
 }
 /// Generated server implementations.
-pub mod tag_service_server {
+pub mod tags_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with TagServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with TagsServiceServer.
     #[async_trait]
-    pub trait TagService: Send + Sync + 'static {
+    pub trait TagsService: Send + Sync + 'static {
         async fn list_tags(
             &self,
             request: tonic::Request<super::ListTagsRequest>,
@@ -249,7 +249,7 @@ pub mod tag_service_server {
         >;
     }
     #[derive(Debug)]
-    pub struct TagServiceServer<T: TagService> {
+    pub struct TagsServiceServer<T: TagsService> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
@@ -257,7 +257,7 @@ pub mod tag_service_server {
         max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: TagService> TagServiceServer<T> {
+    impl<T: TagsService> TagsServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -309,9 +309,9 @@ pub mod tag_service_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for TagServiceServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TagsServiceServer<T>
     where
-        T: TagService,
+        T: TagsService,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -327,11 +327,11 @@ pub mod tag_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/tap.verify.v1.TagService/ListTags" => {
+                "/tap.verify.v1.TagsService/ListTags" => {
                     #[allow(non_camel_case_types)]
-                    struct ListTagsSvc<T: TagService>(pub Arc<T>);
+                    struct ListTagsSvc<T: TagsService>(pub Arc<T>);
                     impl<
-                        T: TagService,
+                        T: TagsService,
                     > tonic::server::UnaryService<super::ListTagsRequest>
                     for ListTagsSvc<T> {
                         type Response = super::ListTagsResponse;
@@ -371,10 +371,12 @@ pub mod tag_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TagService/GetTag" => {
+                "/tap.verify.v1.TagsService/GetTag" => {
                     #[allow(non_camel_case_types)]
-                    struct GetTagSvc<T: TagService>(pub Arc<T>);
-                    impl<T: TagService> tonic::server::UnaryService<super::GetTagRequest>
+                    struct GetTagSvc<T: TagsService>(pub Arc<T>);
+                    impl<
+                        T: TagsService,
+                    > tonic::server::UnaryService<super::GetTagRequest>
                     for GetTagSvc<T> {
                         type Response = super::GetTagResponse;
                         type Future = BoxFuture<
@@ -413,11 +415,11 @@ pub mod tag_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TagService/CreateTag" => {
+                "/tap.verify.v1.TagsService/CreateTag" => {
                     #[allow(non_camel_case_types)]
-                    struct CreateTagSvc<T: TagService>(pub Arc<T>);
+                    struct CreateTagSvc<T: TagsService>(pub Arc<T>);
                     impl<
-                        T: TagService,
+                        T: TagsService,
                     > tonic::server::UnaryService<super::CreateTagRequest>
                     for CreateTagSvc<T> {
                         type Response = super::CreateTagResponse;
@@ -457,11 +459,11 @@ pub mod tag_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TagService/UpdateTag" => {
+                "/tap.verify.v1.TagsService/UpdateTag" => {
                     #[allow(non_camel_case_types)]
-                    struct UpdateTagSvc<T: TagService>(pub Arc<T>);
+                    struct UpdateTagSvc<T: TagsService>(pub Arc<T>);
                     impl<
-                        T: TagService,
+                        T: TagsService,
                     > tonic::server::UnaryService<super::UpdateTagRequest>
                     for UpdateTagSvc<T> {
                         type Response = super::UpdateTagResponse;
@@ -501,11 +503,11 @@ pub mod tag_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TagService/DeleteTag" => {
+                "/tap.verify.v1.TagsService/DeleteTag" => {
                     #[allow(non_camel_case_types)]
-                    struct DeleteTagSvc<T: TagService>(pub Arc<T>);
+                    struct DeleteTagSvc<T: TagsService>(pub Arc<T>);
                     impl<
-                        T: TagService,
+                        T: TagsService,
                     > tonic::server::UnaryService<super::DeleteTagRequest>
                     for DeleteTagSvc<T> {
                         type Response = super::DeleteTagResponse;
@@ -560,7 +562,7 @@ pub mod tag_service_server {
             }
         }
     }
-    impl<T: TagService> Clone for TagServiceServer<T> {
+    impl<T: TagsService> Clone for TagsServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -572,7 +574,7 @@ pub mod tag_service_server {
             }
         }
     }
-    impl<T: TagService> Clone for _Inner<T> {
+    impl<T: TagsService> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(Arc::clone(&self.0))
         }
@@ -582,8 +584,8 @@ pub mod tag_service_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: TagService> tonic::server::NamedService for TagServiceServer<T> {
-        const NAME: &'static str = "tap.verify.v1.TagService";
+    impl<T: TagsService> tonic::server::NamedService for TagsServiceServer<T> {
+        const NAME: &'static str = "tap.verify.v1.TagsService";
     }
 }
 /// Generated client implementations.
@@ -1445,15 +1447,15 @@ pub mod verifiers_service_server {
     }
 }
 /// Generated client implementations.
-pub mod ticket_service_client {
+pub mod tickets_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
-    pub struct TicketServiceClient<T> {
+    pub struct TicketsServiceClient<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl TicketServiceClient<tonic::transport::Channel> {
+    impl TicketsServiceClient<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -1464,7 +1466,7 @@ pub mod ticket_service_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> TicketServiceClient<T>
+    impl<T> TicketsServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -1482,7 +1484,7 @@ pub mod ticket_service_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> TicketServiceClient<InterceptedService<T, F>>
+        ) -> TicketsServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -1496,7 +1498,7 @@ pub mod ticket_service_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + Send + Sync,
         {
-            TicketServiceClient::new(InterceptedService::new(inner, interceptor))
+            TicketsServiceClient::new(InterceptedService::new(inner, interceptor))
         }
         /// Compress requests with the given encoding.
         ///
@@ -1547,11 +1549,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/ListTickets",
+                "/tap.verify.v1.TicketsService/ListTickets",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "ListTickets"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "ListTickets"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn get_ticket(
@@ -1572,11 +1574,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/GetTicket",
+                "/tap.verify.v1.TicketsService/GetTicket",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "GetTicket"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "GetTicket"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn create_ticket(
@@ -1597,11 +1599,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/CreateTicket",
+                "/tap.verify.v1.TicketsService/CreateTicket",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "CreateTicket"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "CreateTicket"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn update_ticket(
@@ -1622,11 +1624,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/UpdateTicket",
+                "/tap.verify.v1.TicketsService/UpdateTicket",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "UpdateTicket"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "UpdateTicket"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn delete_ticket(
@@ -1647,11 +1649,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/DeleteTicket",
+                "/tap.verify.v1.TicketsService/DeleteTicket",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "DeleteTicket"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "DeleteTicket"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn add_ticket_tags(
@@ -1672,11 +1674,13 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/AddTicketTags",
+                "/tap.verify.v1.TicketsService/AddTicketTags",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "AddTicketTags"));
+                .insert(
+                    GrpcMethod::new("tap.verify.v1.TicketsService", "AddTicketTags"),
+                );
             self.inner.unary(req, path, codec).await
         }
         pub async fn list_ticket_tags(
@@ -1697,12 +1701,12 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/ListTicketTags",
+                "/tap.verify.v1.TicketsService/ListTicketTags",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("tap.verify.v1.TicketService", "ListTicketTags"),
+                    GrpcMethod::new("tap.verify.v1.TicketsService", "ListTicketTags"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1724,12 +1728,12 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/DeleteTicketTags",
+                "/tap.verify.v1.TicketsService/DeleteTicketTags",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("tap.verify.v1.TicketService", "DeleteTicketTags"),
+                    GrpcMethod::new("tap.verify.v1.TicketsService", "DeleteTicketTags"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1748,11 +1752,11 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/Verify",
+                "/tap.verify.v1.TicketsService/Verify",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "Verify"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "Verify"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn list_ticket_verifications(
@@ -1773,13 +1777,13 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/ListTicketVerifications",
+                "/tap.verify.v1.TicketsService/ListTicketVerifications",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new(
-                        "tap.verify.v1.TicketService",
+                        "tap.verify.v1.TicketsService",
                         "ListTicketVerifications",
                     ),
                 );
@@ -1803,22 +1807,22 @@ pub mod ticket_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/tap.verify.v1.TicketService/IsApproved",
+                "/tap.verify.v1.TicketsService/IsApproved",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("tap.verify.v1.TicketService", "IsApproved"));
+                .insert(GrpcMethod::new("tap.verify.v1.TicketsService", "IsApproved"));
             self.inner.unary(req, path, codec).await
         }
     }
 }
 /// Generated server implementations.
-pub mod ticket_service_server {
+pub mod tickets_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with TicketServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with TicketsServiceServer.
     #[async_trait]
-    pub trait TicketService: Send + Sync + 'static {
+    pub trait TicketsService: Send + Sync + 'static {
         async fn list_tickets(
             &self,
             request: tonic::Request<super::ListTicketsRequest>,
@@ -1895,7 +1899,7 @@ pub mod ticket_service_server {
         >;
     }
     #[derive(Debug)]
-    pub struct TicketServiceServer<T: TicketService> {
+    pub struct TicketsServiceServer<T: TicketsService> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
@@ -1903,7 +1907,7 @@ pub mod ticket_service_server {
         max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: TicketService> TicketServiceServer<T> {
+    impl<T: TicketsService> TicketsServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -1955,9 +1959,9 @@ pub mod ticket_service_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for TicketServiceServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TicketsServiceServer<T>
     where
-        T: TicketService,
+        T: TicketsService,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -1973,11 +1977,11 @@ pub mod ticket_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/tap.verify.v1.TicketService/ListTickets" => {
+                "/tap.verify.v1.TicketsService/ListTickets" => {
                     #[allow(non_camel_case_types)]
-                    struct ListTicketsSvc<T: TicketService>(pub Arc<T>);
+                    struct ListTicketsSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::ListTicketsRequest>
                     for ListTicketsSvc<T> {
                         type Response = super::ListTicketsResponse;
@@ -2019,11 +2023,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/GetTicket" => {
+                "/tap.verify.v1.TicketsService/GetTicket" => {
                     #[allow(non_camel_case_types)]
-                    struct GetTicketSvc<T: TicketService>(pub Arc<T>);
+                    struct GetTicketSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::GetTicketRequest>
                     for GetTicketSvc<T> {
                         type Response = super::GetTicketResponse;
@@ -2063,11 +2067,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/CreateTicket" => {
+                "/tap.verify.v1.TicketsService/CreateTicket" => {
                     #[allow(non_camel_case_types)]
-                    struct CreateTicketSvc<T: TicketService>(pub Arc<T>);
+                    struct CreateTicketSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::CreateTicketRequest>
                     for CreateTicketSvc<T> {
                         type Response = super::CreateTicketResponse;
@@ -2109,11 +2113,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/UpdateTicket" => {
+                "/tap.verify.v1.TicketsService/UpdateTicket" => {
                     #[allow(non_camel_case_types)]
-                    struct UpdateTicketSvc<T: TicketService>(pub Arc<T>);
+                    struct UpdateTicketSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::UpdateTicketRequest>
                     for UpdateTicketSvc<T> {
                         type Response = super::UpdateTicketResponse;
@@ -2155,11 +2159,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/DeleteTicket" => {
+                "/tap.verify.v1.TicketsService/DeleteTicket" => {
                     #[allow(non_camel_case_types)]
-                    struct DeleteTicketSvc<T: TicketService>(pub Arc<T>);
+                    struct DeleteTicketSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::DeleteTicketRequest>
                     for DeleteTicketSvc<T> {
                         type Response = super::DeleteTicketResponse;
@@ -2201,11 +2205,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/AddTicketTags" => {
+                "/tap.verify.v1.TicketsService/AddTicketTags" => {
                     #[allow(non_camel_case_types)]
-                    struct AddTicketTagsSvc<T: TicketService>(pub Arc<T>);
+                    struct AddTicketTagsSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::AddTicketTagsRequest>
                     for AddTicketTagsSvc<T> {
                         type Response = super::AddTicketTagsResponse;
@@ -2247,11 +2251,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/ListTicketTags" => {
+                "/tap.verify.v1.TicketsService/ListTicketTags" => {
                     #[allow(non_camel_case_types)]
-                    struct ListTicketTagsSvc<T: TicketService>(pub Arc<T>);
+                    struct ListTicketTagsSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::ListTicketTagsRequest>
                     for ListTicketTagsSvc<T> {
                         type Response = super::ListTicketTagsResponse;
@@ -2293,11 +2297,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/DeleteTicketTags" => {
+                "/tap.verify.v1.TicketsService/DeleteTicketTags" => {
                     #[allow(non_camel_case_types)]
-                    struct DeleteTicketTagsSvc<T: TicketService>(pub Arc<T>);
+                    struct DeleteTicketTagsSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::DeleteTicketTagsRequest>
                     for DeleteTicketTagsSvc<T> {
                         type Response = super::DeleteTicketTagsResponse;
@@ -2339,11 +2343,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/Verify" => {
+                "/tap.verify.v1.TicketsService/Verify" => {
                     #[allow(non_camel_case_types)]
-                    struct VerifySvc<T: TicketService>(pub Arc<T>);
+                    struct VerifySvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::VerifyRequest>
                     for VerifySvc<T> {
                         type Response = super::VerifyResponse;
@@ -2383,11 +2387,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/ListTicketVerifications" => {
+                "/tap.verify.v1.TicketsService/ListTicketVerifications" => {
                     #[allow(non_camel_case_types)]
-                    struct ListTicketVerificationsSvc<T: TicketService>(pub Arc<T>);
+                    struct ListTicketVerificationsSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::ListTicketVerificationsRequest>
                     for ListTicketVerificationsSvc<T> {
                         type Response = super::ListTicketVerificationsResponse;
@@ -2431,11 +2435,11 @@ pub mod ticket_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/tap.verify.v1.TicketService/IsApproved" => {
+                "/tap.verify.v1.TicketsService/IsApproved" => {
                     #[allow(non_camel_case_types)]
-                    struct IsApprovedSvc<T: TicketService>(pub Arc<T>);
+                    struct IsApprovedSvc<T: TicketsService>(pub Arc<T>);
                     impl<
-                        T: TicketService,
+                        T: TicketsService,
                     > tonic::server::UnaryService<super::IsApprovedRequest>
                     for IsApprovedSvc<T> {
                         type Response = super::IsApprovedResponse;
@@ -2490,7 +2494,7 @@ pub mod ticket_service_server {
             }
         }
     }
-    impl<T: TicketService> Clone for TicketServiceServer<T> {
+    impl<T: TicketsService> Clone for TicketsServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -2502,7 +2506,7 @@ pub mod ticket_service_server {
             }
         }
     }
-    impl<T: TicketService> Clone for _Inner<T> {
+    impl<T: TicketsService> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(Arc::clone(&self.0))
         }
@@ -2512,7 +2516,7 @@ pub mod ticket_service_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: TicketService> tonic::server::NamedService for TicketServiceServer<T> {
-        const NAME: &'static str = "tap.verify.v1.TicketService";
+    impl<T: TicketsService> tonic::server::NamedService for TicketsServiceServer<T> {
+        const NAME: &'static str = "tap.verify.v1.TicketsService";
     }
 }
