@@ -20,12 +20,13 @@ plugins:
     opt: paths=source_relative
 
   ## rust
-  - plugin: prost
+  - plugin: buf.build/community/neoeinstein-prost:v0.3.1
     out: lib/rust/src/gen
     opt:
       - bytes=.
+      - file_descriptor_set
       - compile_well_known_types
-  - plugin: tonic
+  - plugin: buf.build/community/neoeinstein-tonic:v0.4.0
     out: lib/rust/src/gen
     opt:
       - compile_well_known_types
@@ -33,5 +34,7 @@ plugins:
     out: lib/rust
     strategy: all
     opt:
+      - only_include=.tap
+      - only_include=.google
       - include_file=src/gen/mod.rs
       - gen_crate=lib/rust/Cargo.toml
