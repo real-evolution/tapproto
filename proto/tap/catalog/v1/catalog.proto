@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package tap.catalog.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "tap/catalog/v1/resources.proto";
+
+// This API provides methods to manage & purchase products.
+service CatalogService {
+  // Lists products for the given seller.
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+
+  // Gets a product by its resource name.
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+
+  // Creates a new product.
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+
+  // Updates an existing product.
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
+
+  // Deletes a product by its resource name.
+  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty);
+}
+
+// Request message for ListProducts method.
+message ListProductsRequest {
+  // Required. The resource name of the parent seller for which to list products.
+  //
+  // Format: `catalog.tap.dev/Sellers/{seller}`
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. The maximum number of products to return.
+  int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The value returned by the last `ListProductsResponse`; indicates that
+  // this is a continuation of a prior `ListProducts` call, and that the
+  // system should return the next page of data.
+  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for ListProducts method.
+message ListProductsResponse {
+  // The products for the given seller.
+  repeated Product products = 1;
+
+  // The next page token.
+  string next_page_token = 2;
+}
+
+// Request message for GetProduct method.
+message GetProductRequest {
+  // Required. The resource name of the product to get.
+  //
+  // Format: `sellers/{sellerId}/products/{productId}`
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for GetProduct method.
+message GetProductResponse {
+  // The fetched product.
+  Product product = 1;
+}
+
+// Request message for CreateProduct method.
+message CreateProductRequest {
+  // Required. The resource name of the parent seller for which to list products.
+  //
+  // Format: `sellers/{sellerId}`
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The product to create.
+  Product product = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for CreateProduct method.
+message CreateProductResponse {
+  // The created product.
+  Product product = 1;
+}
+
+// Request message for UpdateProduct method.
+message UpdateProductRequest {
+  // Required. The product to update.
+  Product product = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The update mask.
+  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for UpdateProduct method.
+message UpdateProductResponse {
+  // The updated product.
+  Product product = 1;
+}
+
+// Request message for DeleteProduct method.
+message DeleteProductRequest {
+  // Required. The resource name of the product to delete.
+  //
+  // Format: `sellers/{sellerId}/products/{productId}`
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package tap.catalog.v1;
+
+import "google/api/field_behavior.proto";
+import "google/api/field_info.proto";
+import "google/api/resource.proto";
+import "google/protobuf/timestamp.proto";
+import "google/type/money.proto";
+
+// A product that can be listed for sale.
+message Product {
+  option (google.api.resource) = {pattern: "sellers/{sellerId}/products/{productId}"};
+
+  // Output only. The resource name of the product.
+  //
+  // Format: `sellers/{sellerId}/products/{productId}`
+  string name = 1 [(google.api.field_behavior) = IDENTIFIER];
+
+  // The display name of the product.
+  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // A description of the product.
+  string description = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // The identifier of the owner of the product.
+  string owner_id = 4 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_info).format = UUID4
+  ];
+
+  // The price of the product.
+  //
+  // This contains both the token code and the amount.
+  google.type.Money price = 5 [(google.api.field_behavior) = REQUIRED];
+
+  // Output only. The timestamp at which the product was created.
+  google.protobuf.Timestamp create_time = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Output only. The timestamp at which the product was last updated.
+  google.protobuf.Timestamp update_time = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
