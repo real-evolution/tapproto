@@ -4,14 +4,11 @@ package tap.catalog.v1;
 
 import "google/api/field_behavior.proto";
 import "google/api/field_info.proto";
-import "google/api/resource.proto";
 import "google/protobuf/timestamp.proto";
 import "google/type/money.proto";
 
 // A product that can be listed for sale.
 message Product {
-  option (google.api.resource) = {pattern: "sellers/{sellerId}/products/{productId}"};
-
   // Output only. The resource name of the product.
   //
   // Format: `sellers/{sellerId}/products/{productId}`
