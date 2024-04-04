@@ -104,7 +104,7 @@ message CanSubscribeToPassRequest {
   PassID pass_id = 1;
 }
 
-message CanSubscribeToPassResponse  {
+message CanSubscribeToPassResponse {
   bool can_subscribe = 1;
 }
 
@@ -119,7 +119,7 @@ message Pass {
 
   string display_name = 2;
   string description = 3;
-  
+
   bool is_additive = 4;
   int32 max_ads = 5;
 

@@ -5,9 +5,9 @@ package tap.ads.v1;
 import "google/protobuf/timestamp.proto";
 import "tap/ads/v1/advertisers.proto";
 import "tap/ads/v1/quotas.proto";
-import "tap/verify/v1/tickets.proto";
 import "tap/types/v1/duration.proto";
 import "tap/types/v1/pagination.proto";
+import "tap/verify/v1/tickets.proto";
 
 service AdsService {
   rpc ListAds(ListAdsRequest) returns (ListAdsResponse);

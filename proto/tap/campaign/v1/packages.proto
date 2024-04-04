@@ -2,9 +2,8 @@ syntax = "proto3";
 
 package tap.campaign.v1;
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
-
+import "google/protobuf/timestamp.proto";
 import "tap/types/v1/decimal.proto";
 import "tap/types/v1/pagination.proto";
 
