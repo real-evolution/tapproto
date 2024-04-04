@@ -1,10 +1,36 @@
 // @generated
+pub mod buf {
+    #[cfg(feature = "buf-validate")]
+    // @@protoc_insertion_point(attribute:buf.validate)
+    pub mod validate {
+        include!("buf.validate.rs");
+        // @@protoc_insertion_point(buf.validate)
+        #[cfg(feature = "buf-validate-priv")]
+        // @@protoc_insertion_point(attribute:buf.validate.priv)
+        pub mod r#priv {
+            include!("buf.validate.priv.rs");
+            // @@protoc_insertion_point(buf.validate.priv)
+        }
+    }
+}
 pub mod google {
+    #[cfg(feature = "google-api")]
+    // @@protoc_insertion_point(attribute:google.api)
+    pub mod api {
+        include!("google.api.rs");
+        // @@protoc_insertion_point(google.api)
+    }
     #[cfg(feature = "google-protobuf")]
     // @@protoc_insertion_point(attribute:google.protobuf)
     pub mod protobuf {
         include!("google.protobuf.rs");
         // @@protoc_insertion_point(google.protobuf)
+    }
+    #[cfg(feature = "google-type")]
+    // @@protoc_insertion_point(attribute:google.type)
+    pub mod r#type {
+        include!("google.type.rs");
+        // @@protoc_insertion_point(google.type)
     }
 }
 pub mod tap {
@@ -22,6 +48,14 @@ pub mod tap {
         pub mod v1 {
             include!("tap.campaign.v1.rs");
             // @@protoc_insertion_point(tap.campaign.v1)
+        }
+    }
+    pub mod catalog {
+        #[cfg(feature = "tap-catalog-v1")]
+        // @@protoc_insertion_point(attribute:tap.catalog.v1)
+        pub mod v1 {
+            include!("tap.catalog.v1.rs");
+            // @@protoc_insertion_point(tap.catalog.v1)
         }
     }
     pub mod points {
