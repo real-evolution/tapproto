@@ -3,12 +3,25 @@ syntax = "proto3";
 package tap.catalog.v1;
 
 import "google/api/field_behavior.proto";
-import "google/api/field_info.proto";
-import "google/protobuf/timestamp.proto";
+import "google/api/resource.proto";
 import "google/type/money.proto";
+import "google/protobuf/timestamp.proto";
+
+// Seller resource represents a user that can list products for sale.
+option (google.api.resource_definition) = {
+  type: "catalog.tap.dev/Seller"
+  pattern: "sellers/{seller}"
+};
 
 // A product that can be listed for sale.
 message Product {
+  option (google.api.resource) = {
+    type: "catalog.tap.dev/Product"
+    pattern: "sellers/{seller}/products/{product}"
+    singular: "product"
+    plural: "products"
+  };
+
   // Output only. The resource name of the product.
   //
   // Format: `sellers/{sellerId}/products/{productId}`
@@ -21,9 +34,9 @@ message Product {
   string description = 3 [(google.api.field_behavior) = OPTIONAL];
 
   // The identifier of the owner of the product.
-  string owner_id = 4 [
-    (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_info).format = UUID4
+  string seller = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {type: "catalog.tap.dev/Seller"}
   ];
 
   // The price of the product.

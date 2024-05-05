@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package tap.catalog.v1;
 
+import "google/api/annotations.proto";
+import "google/api/client.proto";
 import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "tap/catalog/v1/resources.proto";
@@ -10,27 +13,54 @@ import "tap/catalog/v1/resources.proto";
 // This API provides methods to manage & purchase products.
 service CatalogService {
   // Lists products for the given seller.
-  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {
+    option (google.api.http) = {get: "/v1/{parent=sellers/*}/products}"};
+    option (google.api.method_signature) = "parent";
+  }
 
   // Gets a product by its resource name.
-  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+  rpc GetProduct(GetProductRequest) returns (Product) {
+    option (google.api.http) = {get: "/v1/{name=sellers/*/products/*}"};
+    option (google.api.method_signature) = "name";
+  }
 
   // Creates a new product.
-  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+  rpc CreateProduct(CreateProductRequest) returns (Product) {
+    option (google.api.http) = {
+      post: "/v1/{parent=sellers/*}/products"
+      body: "product"
+    };
+    option (google.api.method_signature) = "parent,product";
+  }
 
   // Updates an existing product.
-  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
+  rpc UpdateProduct(UpdateProductRequest) returns (Product) {
+    option (google.api.http) = {
+      patch: "/v1/{product.name=sellers/*/products/*}"
+      body: "product"
+    };
+    option (google.api.method_signature) = "product,update_mask";
+  }
 
   // Deletes a product by its resource name.
-  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty);
+  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {delete: "/v1/{name=sellers/*/products/*}"};
+    option (google.api.method_signature) = "name";
+  }
 }
 
 // Request message for ListProducts method.
 message ListProductsRequest {
   // Required. The resource name of the parent seller for which to list products.
   //
-  // Format: `catalog.tap.dev/Sellers/{seller}`
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  // Format: `sellers/{seller}`
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "catalog.tap.dev/Seller"
+      child_type: "catalog.tap.dev/Product"
+    }
+  ];
 
   // Optional. The maximum number of products to return.
   int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
@@ -54,31 +84,31 @@ message ListProductsResponse {
 message GetProductRequest {
   // Required. The resource name of the product to get.
   //
-  // Format: `sellers/{sellerId}/products/{productId}`
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Response message for GetProduct method.
-message GetProductResponse {
-  // The fetched product.
-  Product product = 1;
+  // Format: `sellers/{seller}/products/{product}`
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "catalog.tap.dev/Product"
+  ];
 }
 
 // Request message for CreateProduct method.
 message CreateProductRequest {
   // Required. The resource name of the parent seller for which to list products.
   //
-  // Format: `sellers/{sellerId}`
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  // Format: `sellers/{seller}`
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "catalog.tap.dev/Seller"
+      child_type: "catalog.tap.dev/Product"
+    }
+  ];
+
+  // Optional. The id of the product to create.
+  string product_id = 2 [(google.api.field_behavior) = OPTIONAL];
 
   // Required. The product to create.
-  Product product = 2 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Response message for CreateProduct method.
-message CreateProductResponse {
-  // The created product.
-  Product product = 1;
+  Product product = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for UpdateProduct method.
@@ -87,19 +117,18 @@ message UpdateProductRequest {
   Product product = 1 [(google.api.field_behavior) = REQUIRED];
 
   // Required. The update mask.
-  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// Response message for UpdateProduct method.
-message UpdateProductResponse {
-  // The updated product.
-  Product product = 1;
+  google.protobuf.FieldMask update_mask = 2 [
+    (google.api.field_behavior) = OPTIONAL
+  ];
 }
 
 // Request message for DeleteProduct method.
 message DeleteProductRequest {
   // Required. The resource name of the product to delete.
   //
-  // Format: `sellers/{sellerId}/products/{productId}`
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  // Format: `sellers/{seller}/products/{product}`
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "catalog.tap.dev/Product"
+  ];
 }
