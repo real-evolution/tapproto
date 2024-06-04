@@ -42,7 +42,7 @@ message Product {
   // The price of the product.
   //
   // This contains both the token code and the amount.
-  google.type.Money price = 5 [(google.api.field_behavior) = REQUIRED];
+  google.type.Money price = 5 [(google.api.field_behavior) = OPTIONAL];
 
   // Output only. The timestamp at which the product was created.
   google.protobuf.Timestamp create_time = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
