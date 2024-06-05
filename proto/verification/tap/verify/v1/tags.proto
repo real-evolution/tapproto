@@ -98,7 +98,7 @@ message TagCode {
 // A message representing a tag.
 message Tag {
   // The code of the tag.
-  string code = 1;
+  TagCode code = 1;
 
   // The creation time of the tag.
   google.protobuf.Timestamp create_time = 2;
