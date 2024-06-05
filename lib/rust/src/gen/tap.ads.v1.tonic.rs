@@ -361,7 +361,8 @@ pub mod advertisers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_advertisers(request).await
+                                <T as AdvertisersService>::list_advertisers(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -407,7 +408,8 @@ pub mod advertisers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_advertiser(request).await
+                                <T as AdvertisersService>::get_advertiser(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -453,7 +455,11 @@ pub mod advertisers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_advertiser(request).await
+                                <T as AdvertisersService>::create_advertiser(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -499,7 +505,11 @@ pub mod advertisers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_advertiser(request).await
+                                <T as AdvertisersService>::update_advertiser(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -545,7 +555,11 @@ pub mod advertisers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_advertiser(request).await
+                                <T as AdvertisersService>::delete_advertiser(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -878,7 +892,11 @@ pub mod requirements_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_requirements(request).await
+                                <T as RequirementsService>::list_requirements(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -924,7 +942,11 @@ pub mod requirements_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_requirement(request).await
+                                <T as RequirementsService>::create_requirement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1478,7 +1500,9 @@ pub mod passes_service_server {
                             request: tonic::Request<super::ListPassesRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_passes(request).await };
+                            let fut = async move {
+                                <T as PassesService>::list_passes(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1522,7 +1546,9 @@ pub mod passes_service_server {
                             request: tonic::Request<super::GetPassRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_pass(request).await };
+                            let fut = async move {
+                                <T as PassesService>::get_pass(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1566,7 +1592,9 @@ pub mod passes_service_server {
                             request: tonic::Request<super::CreatePassRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_pass(request).await };
+                            let fut = async move {
+                                <T as PassesService>::create_pass(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1610,7 +1638,9 @@ pub mod passes_service_server {
                             request: tonic::Request<super::UpdatePassRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_pass(request).await };
+                            let fut = async move {
+                                <T as PassesService>::update_pass(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1654,7 +1684,9 @@ pub mod passes_service_server {
                             request: tonic::Request<super::DeletePassRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delete_pass(request).await };
+                            let fut = async move {
+                                <T as PassesService>::delete_pass(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1699,7 +1731,11 @@ pub mod passes_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_pass_requirements(request).await
+                                <T as PassesService>::list_pass_requirements(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1745,7 +1781,11 @@ pub mod passes_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_pass_requirement(request).await
+                                <T as PassesService>::create_pass_requirement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1791,7 +1831,11 @@ pub mod passes_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_pass_requirement(request).await
+                                <T as PassesService>::delete_pass_requirement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1837,7 +1881,8 @@ pub mod passes_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).can_subscribe_to_pass(request).await
+                                <T as PassesService>::can_subscribe_to_pass(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2161,7 +2206,9 @@ pub mod quotas_service_server {
                             request: tonic::Request<super::ListQuotasRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_quotas(request).await };
+                            let fut = async move {
+                                <T as QuotasService>::list_quotas(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2205,7 +2252,9 @@ pub mod quotas_service_server {
                             request: tonic::Request<super::GetQuotaRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_quota(request).await };
+                            let fut = async move {
+                                <T as QuotasService>::get_quota(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2551,7 +2600,9 @@ pub mod ads_service_server {
                             request: tonic::Request<super::ListAdsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_ads(request).await };
+                            let fut = async move {
+                                <T as AdsService>::list_ads(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2593,7 +2644,9 @@ pub mod ads_service_server {
                             request: tonic::Request<super::GetAdRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_ad(request).await };
+                            let fut = async move {
+                                <T as AdsService>::get_ad(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2637,7 +2690,9 @@ pub mod ads_service_server {
                             request: tonic::Request<super::CreateAdRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_ad(request).await };
+                            let fut = async move {
+                                <T as AdsService>::create_ad(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2995,7 +3050,8 @@ pub mod documents_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_documents(request).await
+                                <T as DocumentsService>::list_documents(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3041,7 +3097,7 @@ pub mod documents_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_document(request).await
+                                <T as DocumentsService>::get_document(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3087,7 +3143,8 @@ pub mod documents_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_document(request).await
+                                <T as DocumentsService>::create_document(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3542,7 +3599,7 @@ pub mod listings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_listings(request).await
+                                <T as ListingsService>::list_listings(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3587,7 +3644,9 @@ pub mod listings_service_server {
                             request: tonic::Request<super::GetListingRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_listing(request).await };
+                            let fut = async move {
+                                <T as ListingsService>::get_listing(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -3632,7 +3691,8 @@ pub mod listings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_listing(request).await
+                                <T as ListingsService>::create_listing(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3678,7 +3738,8 @@ pub mod listings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_listing(request).await
+                                <T as ListingsService>::delete_listing(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3724,7 +3785,8 @@ pub mod listings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).purchase_listing(request).await
+                                <T as ListingsService>::purchase_listing(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3770,7 +3832,8 @@ pub mod listings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_purchases(request).await
+                                <T as ListingsService>::list_purchases(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }

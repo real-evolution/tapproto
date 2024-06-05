@@ -361,7 +361,7 @@ pub mod packages_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_packages(request).await
+                                <T as PackagesService>::list_packages(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -406,7 +406,9 @@ pub mod packages_service_server {
                             request: tonic::Request<super::GetPackageRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_package(request).await };
+                            let fut = async move {
+                                <T as PackagesService>::get_package(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -451,7 +453,8 @@ pub mod packages_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_package(request).await
+                                <T as PackagesService>::create_package(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -497,7 +500,8 @@ pub mod packages_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_package(request).await
+                                <T as PackagesService>::update_package(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -543,7 +547,8 @@ pub mod packages_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_package(request).await
+                                <T as PackagesService>::delete_package(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1040,7 +1045,8 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_campaigns(request).await
+                                <T as CampaignsService>::list_campaigns(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1086,7 +1092,7 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_campaign(request).await
+                                <T as CampaignsService>::get_campaign(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1132,7 +1138,8 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_campaign(request).await
+                                <T as CampaignsService>::create_campaign(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1178,7 +1185,8 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).set_campaign_state(request).await
+                                <T as CampaignsService>::set_campaign_state(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1223,7 +1231,9 @@ pub mod campaigns_service_server {
                             request: tonic::Request<super::PickAdRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).pick_ad(request).await };
+                            let fut = async move {
+                                <T as CampaignsService>::pick_ad(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1268,7 +1278,11 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_campaign_views(request).await
+                                <T as CampaignsService>::list_campaign_views(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1314,7 +1328,8 @@ pub mod campaigns_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_ad_view(request).await
+                                <T as CampaignsService>::register_ad_view(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }

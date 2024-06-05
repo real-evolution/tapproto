@@ -344,7 +344,9 @@ pub mod tags_service_server {
                             request: tonic::Request<super::ListTagsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_tags(request).await };
+                            let fut = async move {
+                                <T as TagsService>::list_tags(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -388,7 +390,9 @@ pub mod tags_service_server {
                             request: tonic::Request<super::GetTagRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_tag(request).await };
+                            let fut = async move {
+                                <T as TagsService>::get_tag(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -432,7 +436,9 @@ pub mod tags_service_server {
                             request: tonic::Request<super::CreateTagRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_tag(request).await };
+                            let fut = async move {
+                                <T as TagsService>::create_tag(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -476,7 +482,9 @@ pub mod tags_service_server {
                             request: tonic::Request<super::UpdateTagRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_tag(request).await };
+                            let fut = async move {
+                                <T as TagsService>::update_tag(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -520,7 +528,9 @@ pub mod tags_service_server {
                             request: tonic::Request<super::DeleteTagRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delete_tag(request).await };
+                            let fut = async move {
+                                <T as TagsService>::delete_tag(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1055,7 +1065,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_verifiers(request).await
+                                <T as VerifiersService>::list_verifiers(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1101,7 +1112,7 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_verifier(request).await
+                                <T as VerifiersService>::get_verifier(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1147,7 +1158,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_verifier(request).await
+                                <T as VerifiersService>::create_verifier(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1193,7 +1205,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_verifier(request).await
+                                <T as VerifiersService>::update_verifier(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1239,7 +1252,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_verifier(request).await
+                                <T as VerifiersService>::delete_verifier(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1285,7 +1299,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_verifier_tags(request).await
+                                <T as VerifiersService>::add_verifier_tags(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1331,7 +1346,8 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_verifier_tags(request).await
+                                <T as VerifiersService>::list_verifier_tags(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1377,7 +1393,11 @@ pub mod verifiers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_verifier_tags(request).await
+                                <T as VerifiersService>::delete_verifier_tags(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1995,7 +2015,7 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_tickets(request).await
+                                <T as TicketsService>::list_tickets(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2040,7 +2060,9 @@ pub mod tickets_service_server {
                             request: tonic::Request<super::GetTicketRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_ticket(request).await };
+                            let fut = async move {
+                                <T as TicketsService>::get_ticket(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2085,7 +2107,7 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_ticket(request).await
+                                <T as TicketsService>::create_ticket(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2131,7 +2153,7 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_ticket(request).await
+                                <T as TicketsService>::update_ticket(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2177,7 +2199,7 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_ticket(request).await
+                                <T as TicketsService>::delete_ticket(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2223,7 +2245,8 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_ticket_tags(request).await
+                                <T as TicketsService>::add_ticket_tags(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2269,7 +2292,8 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_ticket_tags(request).await
+                                <T as TicketsService>::list_ticket_tags(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2315,7 +2339,8 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_ticket_tags(request).await
+                                <T as TicketsService>::delete_ticket_tags(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2360,7 +2385,9 @@ pub mod tickets_service_server {
                             request: tonic::Request<super::VerifyRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).verify(request).await };
+                            let fut = async move {
+                                <T as TicketsService>::verify(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2407,7 +2434,11 @@ pub mod tickets_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_ticket_verifications(request).await
+                                <T as TicketsService>::list_ticket_verifications(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2452,7 +2483,9 @@ pub mod tickets_service_server {
                             request: tonic::Request<super::IsApprovedRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).is_approved(request).await };
+                            let fut = async move {
+                                <T as TicketsService>::is_approved(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

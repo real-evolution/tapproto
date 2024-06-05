@@ -361,7 +361,8 @@ pub mod treasuries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_treasuries(request).await
+                                <T as TreasuriesService>::list_treasuries(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -407,7 +408,8 @@ pub mod treasuries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_treasury(request).await
+                                <T as TreasuriesService>::get_treasury(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -453,7 +455,8 @@ pub mod treasuries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_treasury(request).await
+                                <T as TreasuriesService>::create_treasury(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -499,7 +502,8 @@ pub mod treasuries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_treasury(request).await
+                                <T as TreasuriesService>::update_treasury(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -545,7 +549,8 @@ pub mod treasuries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_treasury(request).await
+                                <T as TreasuriesService>::delete_treasury(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -966,7 +971,9 @@ pub mod tokens_service_server {
                             request: tonic::Request<super::ListTokensRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_tokens(request).await };
+                            let fut = async move {
+                                <T as TokensService>::list_tokens(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1010,7 +1017,9 @@ pub mod tokens_service_server {
                             request: tonic::Request<super::GetTokenRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_token(request).await };
+                            let fut = async move {
+                                <T as TokensService>::get_token(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1055,7 +1064,7 @@ pub mod tokens_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_token(request).await
+                                <T as TokensService>::create_token(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1101,7 +1110,7 @@ pub mod tokens_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_token(request).await
+                                <T as TokensService>::update_token(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1147,7 +1156,7 @@ pub mod tokens_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_token(request).await
+                                <T as TokensService>::delete_token(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1542,7 +1551,7 @@ pub mod accounts_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_accounts(request).await
+                                <T as AccountsService>::list_accounts(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1587,7 +1596,9 @@ pub mod accounts_service_server {
                             request: tonic::Request<super::GetAccountRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_account(request).await };
+                            let fut = async move {
+                                <T as AccountsService>::get_account(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1632,7 +1643,8 @@ pub mod accounts_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_account_balance(request).await
+                                <T as AccountsService>::get_account_balance(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1678,7 +1690,8 @@ pub mod accounts_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_account(request).await
+                                <T as AccountsService>::create_account(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2025,7 +2038,9 @@ pub mod mints_service_server {
                             request: tonic::Request<super::ListMintsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_mints(request).await };
+                            let fut = async move {
+                                <T as MintsService>::list_mints(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2069,7 +2084,9 @@ pub mod mints_service_server {
                             request: tonic::Request<super::GetMintRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_mint(request).await };
+                            let fut = async move {
+                                <T as MintsService>::get_mint(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2111,7 +2128,9 @@ pub mod mints_service_server {
                             request: tonic::Request<super::MintRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).mint(request).await };
+                            let fut = async move {
+                                <T as MintsService>::mint(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2539,7 +2558,7 @@ pub mod openings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_openings(request).await
+                                <T as OpeningsService>::list_openings(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2584,7 +2603,9 @@ pub mod openings_service_server {
                             request: tonic::Request<super::GetOpeningRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_opening(request).await };
+                            let fut = async move {
+                                <T as OpeningsService>::get_opening(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2629,7 +2650,8 @@ pub mod openings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).has_active_opening(request).await
+                                <T as OpeningsService>::has_active_opening(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2675,7 +2697,8 @@ pub mod openings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_opening(request).await
+                                <T as OpeningsService>::create_opening(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2721,7 +2744,8 @@ pub mod openings_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).cancel_opening(request).await
+                                <T as OpeningsService>::cancel_opening(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3153,7 +3177,8 @@ pub mod transfers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_transfers(request).await
+                                <T as TransfersService>::list_transfers(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3199,7 +3224,7 @@ pub mod transfers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_transfer(request).await
+                                <T as TransfersService>::get_transfer(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3245,7 +3270,8 @@ pub mod transfers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).make_transfer(request).await
+                                <T as TransfersService>::make_transfer(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3291,7 +3317,11 @@ pub mod transfers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).make_transfer_to_holder(request).await
+                                <T as TransfersService>::make_transfer_to_holder(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3336,7 +3366,9 @@ pub mod transfers_service_server {
                             request: tonic::Request<super::GetReceiptRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_receipt(request).await };
+                            let fut = async move {
+                                <T as TransfersService>::get_receipt(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

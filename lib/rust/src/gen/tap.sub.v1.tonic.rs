@@ -287,7 +287,8 @@ pub mod countries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_countries(request).await
+                                <T as CountriesService>::list_countries(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -332,7 +333,9 @@ pub mod countries_service_server {
                             request: tonic::Request<super::GetCountryRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_country(request).await };
+                            let fut = async move {
+                                <T as CountriesService>::get_country(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -377,7 +380,8 @@ pub mod countries_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_country(request).await
+                                <T as CountriesService>::update_country(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -734,7 +738,7 @@ pub mod events_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_event_batch(request).await
+                                <T as EventsService>::get_event_batch(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -780,7 +784,7 @@ pub mod events_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).commit_event(request).await
+                                <T as EventsService>::commit_event(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -826,7 +830,7 @@ pub mod events_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).revert_event(request).await
+                                <T as EventsService>::revert_event(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1253,7 +1257,8 @@ pub mod providers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_providers(request).await
+                                <T as ProvidersService>::list_providers(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1299,7 +1304,7 @@ pub mod providers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_provider(request).await
+                                <T as ProvidersService>::get_provider(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1345,7 +1350,8 @@ pub mod providers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_provider(request).await
+                                <T as ProvidersService>::create_provider(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1391,7 +1397,8 @@ pub mod providers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_provider(request).await
+                                <T as ProvidersService>::update_provider(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1437,7 +1444,8 @@ pub mod providers_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_provider(request).await
+                                <T as ProvidersService>::delete_provider(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1854,7 +1862,9 @@ pub mod sites_service_server {
                             request: tonic::Request<super::ListSitesRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_sites(request).await };
+                            let fut = async move {
+                                <T as SitesService>::list_sites(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1898,7 +1908,9 @@ pub mod sites_service_server {
                             request: tonic::Request<super::GetSiteRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_site(request).await };
+                            let fut = async move {
+                                <T as SitesService>::get_site(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1942,7 +1954,9 @@ pub mod sites_service_server {
                             request: tonic::Request<super::CreateSiteRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_site(request).await };
+                            let fut = async move {
+                                <T as SitesService>::create_site(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1986,7 +2000,9 @@ pub mod sites_service_server {
                             request: tonic::Request<super::UpdateSiteRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_site(request).await };
+                            let fut = async move {
+                                <T as SitesService>::update_site(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2030,7 +2046,9 @@ pub mod sites_service_server {
                             request: tonic::Request<super::DeleteSiteRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delete_site(request).await };
+                            let fut = async move {
+                                <T as SitesService>::delete_site(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2428,7 +2446,11 @@ pub mod subscriptions_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_subscriptions(request).await
+                                <T as SubscriptionsService>::list_subscriptions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2474,7 +2496,11 @@ pub mod subscriptions_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_subscription(request).await
+                                <T as SubscriptionsService>::get_subscription(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2519,7 +2545,10 @@ pub mod subscriptions_service_server {
                             request: tonic::Request<super::SubscribeRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).subscribe(request).await };
+                            let fut = async move {
+                                <T as SubscriptionsService>::subscribe(&inner, request)
+                                    .await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2563,7 +2592,10 @@ pub mod subscriptions_service_server {
                             request: tonic::Request<super::UnsubscribeRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).unsubscribe(request).await };
+                            let fut = async move {
+                                <T as SubscriptionsService>::unsubscribe(&inner, request)
+                                    .await
+                            };
                             Box::pin(fut)
                         }
                     }
