@@ -104,11 +104,8 @@ message CreateProductRequest {
     }
   ];
 
-  // Optional. The id of the product to create.
-  string product_id = 2 [(google.api.field_behavior) = OPTIONAL];
-
   // Required. The product to create.
-  Product product = 3 [(google.api.field_behavior) = REQUIRED];
+  Product product = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for UpdateProduct method.
