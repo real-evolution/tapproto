@@ -18,7 +18,7 @@ service AdsService {
 message ListAdsRequest {
   optional tap.ads.v1.AdvertiserID advertiser_id = 1;
 
-  tap.types.v1.Page page = 3;
+  tap.types.v1.Page page = 2;
 }
 
 message ListAdsResponse {
