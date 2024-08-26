@@ -12,6 +12,7 @@ import "tap/types/v1/pagination.proto";
 service AdsService {
   rpc ListAds(ListAdsRequest) returns (ListAdsResponse);
   rpc GetAd(GetAdRequest) returns (GetAdResponse);
+  rpc GetAdContent(GetAdContentRequest) returns (GetAdContentResponse);
   rpc CreateAd(CreateAdRequest) returns (CreateAdResponse);
 }
 
@@ -33,6 +34,14 @@ message GetAdRequest {
 
 message GetAdResponse {
   Ad ad = 1;
+}
+
+message GetAdContentRequest {
+  AdID id = 1;
+}
+
+message GetAdContentResponse {
+  bytes content = 1;
 }
 
 message CreateAdRequest {

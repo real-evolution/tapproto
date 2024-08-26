@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	AdsService_ListAds_FullMethodName  = "/tap.ads.v1.AdsService/ListAds"
-	AdsService_GetAd_FullMethodName    = "/tap.ads.v1.AdsService/GetAd"
-	AdsService_CreateAd_FullMethodName = "/tap.ads.v1.AdsService/CreateAd"
+	AdsService_ListAds_FullMethodName      = "/tap.ads.v1.AdsService/ListAds"
+	AdsService_GetAd_FullMethodName        = "/tap.ads.v1.AdsService/GetAd"
+	AdsService_GetAdContent_FullMethodName = "/tap.ads.v1.AdsService/GetAdContent"
+	AdsService_CreateAd_FullMethodName     = "/tap.ads.v1.AdsService/CreateAd"
 )
 
 // AdsServiceClient is the client API for AdsService service.
@@ -30,6 +31,7 @@ const (
 type AdsServiceClient interface {
 	ListAds(ctx context.Context, in *ListAdsRequest, opts ...grpc.CallOption) (*ListAdsResponse, error)
 	GetAd(ctx context.Context, in *GetAdRequest, opts ...grpc.CallOption) (*GetAdResponse, error)
+	GetAdContent(ctx context.Context, in *GetAdContentRequest, opts ...grpc.CallOption) (*GetAdContentResponse, error)
 	CreateAd(ctx context.Context, in *CreateAdRequest, opts ...grpc.CallOption) (*CreateAdResponse, error)
 }
 
@@ -61,6 +63,16 @@ func (c *adsServiceClient) GetAd(ctx context.Context, in *GetAdRequest, opts ...
 	return out, nil
 }
 
+func (c *adsServiceClient) GetAdContent(ctx context.Context, in *GetAdContentRequest, opts ...grpc.CallOption) (*GetAdContentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAdContentResponse)
+	err := c.cc.Invoke(ctx, AdsService_GetAdContent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *adsServiceClient) CreateAd(ctx context.Context, in *CreateAdRequest, opts ...grpc.CallOption) (*CreateAdResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateAdResponse)
@@ -77,6 +89,7 @@ func (c *adsServiceClient) CreateAd(ctx context.Context, in *CreateAdRequest, op
 type AdsServiceServer interface {
 	ListAds(context.Context, *ListAdsRequest) (*ListAdsResponse, error)
 	GetAd(context.Context, *GetAdRequest) (*GetAdResponse, error)
+	GetAdContent(context.Context, *GetAdContentRequest) (*GetAdContentResponse, error)
 	CreateAd(context.Context, *CreateAdRequest) (*CreateAdResponse, error)
 	mustEmbedUnimplementedAdsServiceServer()
 }
@@ -90,6 +103,9 @@ func (UnimplementedAdsServiceServer) ListAds(context.Context, *ListAdsRequest) (
 }
 func (UnimplementedAdsServiceServer) GetAd(context.Context, *GetAdRequest) (*GetAdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAd not implemented")
+}
+func (UnimplementedAdsServiceServer) GetAdContent(context.Context, *GetAdContentRequest) (*GetAdContentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdContent not implemented")
 }
 func (UnimplementedAdsServiceServer) CreateAd(context.Context, *CreateAdRequest) (*CreateAdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAd not implemented")
@@ -143,6 +159,24 @@ func _AdsService_GetAd_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AdsService_GetAdContent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdContentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdsServiceServer).GetAdContent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdsService_GetAdContent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdsServiceServer).GetAdContent(ctx, req.(*GetAdContentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AdsService_CreateAd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateAdRequest)
 	if err := dec(in); err != nil {
@@ -175,6 +209,10 @@ var AdsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAd",
 			Handler:    _AdsService_GetAd_Handler,
+		},
+		{
+			MethodName: "GetAdContent",
+			Handler:    _AdsService_GetAdContent_Handler,
 		},
 		{
 			MethodName: "CreateAd",
