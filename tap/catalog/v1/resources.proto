@@ -27,22 +27,22 @@ message Product {
   // Format: `sellers/{sellerId}/products/{productId}`
   string name = 1 [(google.api.field_behavior) = IDENTIFIER];
 
-  // The display name of the product.
+  // Required. The display name of the product.
   string display_name = 2 [(google.api.field_behavior) = REQUIRED];
 
-  // A description of the product.
+  // Optional. A description of the product.
   string description = 3 [(google.api.field_behavior) = OPTIONAL];
 
-  // The identifier of the owner of the product.
+  // Required. The identifier of the owner of the product.
   string seller = 4 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "catalog.tap.dev/Seller"}
   ];
 
-  // The price of the product.
+  // Required. The price of the product.
   //
   // This contains both the token code and the amount.
-  google.type.Money price = 5 [(google.api.field_behavior) = OPTIONAL];
+  google.type.Money price = 5 [(google.api.field_behavior) = REQUIRED];
 
   // Output only. The timestamp at which the product was created.
   google.protobuf.Timestamp create_time = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
