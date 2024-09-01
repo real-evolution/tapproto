@@ -12,13 +12,14 @@ import "tap/verify/v1/tickets.proto";
 service AdsService {
   rpc ListAds(ListAdsRequest) returns (ListAdsResponse);
   rpc GetAd(GetAdRequest) returns (GetAdResponse);
+  rpc GetAdContent(GetAdContentRequest) returns (GetAdContentResponse);
   rpc CreateAd(CreateAdRequest) returns (CreateAdResponse);
 }
 
 message ListAdsRequest {
   optional tap.ads.v1.AdvertiserID advertiser_id = 1;
 
-  tap.types.v1.Page page = 3;
+  tap.types.v1.Page page = 2;
 }
 
 message ListAdsResponse {
@@ -33,6 +34,14 @@ message GetAdRequest {
 
 message GetAdResponse {
   Ad ad = 1;
+}
+
+message GetAdContentRequest {
+  AdID id = 1;
+}
+
+message GetAdContentResponse {
+  bytes content = 1;
 }
 
 message CreateAdRequest {
