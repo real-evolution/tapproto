@@ -14,7 +14,7 @@ import "tap/catalog/v1/resources.proto";
 service CatalogService {
   // Lists products for the given seller.
   rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {
-    option (google.api.http) = {get: "/v1/{parent=sellers/*}/products}"};
+    option (google.api.http) = {get: "/v1/{parent=sellers/*}/products"};
     option (google.api.method_signature) = "parent";
   }
 
