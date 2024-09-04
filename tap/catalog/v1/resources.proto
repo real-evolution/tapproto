@@ -13,7 +13,7 @@ option (google.api.resource_definition) = {
   pattern: "sellers/{seller}"
 };
 
-// A product that can be listed for sale.
+// Product is a product that can be listed for sale.
 message Product {
   option (google.api.resource) = {
     type: "catalog.tap.dev/Product"
@@ -22,7 +22,7 @@ message Product {
     plural: "products"
   };
 
-  // Output only. The resource name of the product.
+  // Identifier. The resource name of the product.
   //
   // Format: `sellers/{sellerId}/products/{productId}`
   string name = 1 [(google.api.field_behavior) = IDENTIFIER];
@@ -49,4 +49,31 @@ message Product {
 
   // Output only. The timestamp at which the product was last updated.
   google.protobuf.Timestamp update_time = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// Order is an order for a product listed in the catalog.
+message Order {
+  option (google.api.resource) = {
+    type: "catalog.tap.dev/Order"
+    pattern: "sellers/{seller}/products/{product}/orders/{order}"
+    singular: "order"
+    plural: "orders"
+  };
+
+  // Identifer. The resource name of the order.
+  //
+  // Format: `sellers/{seller}/products/{product}/orders/{order}`
+  string name = 1 [(google.api.field_behavior) = IDENTIFIER];
+
+  // Immutable. The resource name of the product the order was made for.
+  string product = 2 [(google.api.field_behavior) = IMMUTABLE];
+
+  // Output only. The identifier of the user who made the order.
+  string buyer_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Output only. The identifier of the transfer that was made for the order.
+  string transfer_id = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Output only. The timestamp at which the order was created.
+  string created_at = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
