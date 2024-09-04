@@ -260,8 +260,8 @@ message VerifiedTicket {
   // The code of the tag
   tap.verify.v1.TagCode tag_code = 3;
 
-  // Whether the ticket is approved or not.
-  bool approved = 4;
+  // The state of the verified ticket
+  VerificatoinState state = 4;
 
   // Note
   optional string note = 5;
