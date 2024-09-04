@@ -166,7 +166,7 @@ message VerifyRequest {
   tap.verify.v1.TagCode tag_code = 2 [(buf.validate.field).required = true];
 
   // Whether the ticket is approved or not.
-  bool approved = 3 [(buf.validate.field).required = true];
+  VerificatoinState state = 3 [(buf.validate.field).required = true];
 
   // Note
   string note = 4 [(buf.validate.field).required = true];
@@ -236,6 +236,17 @@ message TicketTag {
 
   // Whether the tag is optional or not.
   bool optional = 2;
+}
+
+// An enum representing the verification state
+enum VerificatoinState{
+   VERIFICATION_STATE_UNSPECIFIED = 0;
+
+   // The ticket is approved
+   VERIFICATION_STATE_APPROVED = 1;
+
+   // The ticket is rejected
+   VERIFICATION_STATE_REJECTED = 2;
 }
 
 // A message representing a verified ticket
