@@ -47,6 +47,27 @@ service CatalogService {
     option (google.api.http) = {delete: "/v1/{name=sellers/*/products/*}"};
     option (google.api.method_signature) = "name";
   }
+
+  // Lists orders for the given product.
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse) {
+    option (google.api.http) = {get: "/v1/{parent=sellers/*/products/*}/orders"};
+    option (google.api.method_signature) = "parent";
+  }
+
+  // Gets an order by its resource name.
+  rpc GetOrder(GetOrderRequest) returns (Order) {
+    option (google.api.http) = {get: "/v1/{name=sellers/*/products/*/orders/*}"};
+    option (google.api.method_signature) = "name";
+  }
+
+  // Creates a new order.
+  rpc CreateOrder(CreateOrderRequest) returns (Order) {
+    option (google.api.http) = {
+      post: "/v1/{parent=sellers/*/products/*}/orders"
+      body: "order"
+    };
+    option (google.api.method_signature) = "parent,order";
+  }
 }
 
 // Request message for ListProducts method.
@@ -93,7 +114,7 @@ message GetProductRequest {
 
 // Request message for CreateProduct method.
 message CreateProductRequest {
-  // Required. The resource name of the parent seller for which to list products.
+  // Required. The resource name of the parent seller for which to create the product.
   //
   // Format: `sellers/{seller}`
   string parent = 1 [
@@ -128,4 +149,63 @@ message DeleteProductRequest {
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).type = "catalog.tap.dev/Product"
   ];
+}
+
+// Request message for ListOrders method.
+message ListOrdersRequest {
+  // Required. The resource name of the parent product for which to list orders.
+  //
+  // Format: `sellers/{seller}/products/{product}`
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "catalog.tap.dev/Product"
+      child_type: "catalog.tap.dev/Order"
+    }
+  ];
+
+  // Optional. The maximum number of orders to return.
+  int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The value returned by the last `ListOrdersResponse`; indicates that
+  // this is a continuation of a prior `ListOrders` call, and that the
+  // system should return the next page of data.
+  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for `ListOrders` method.
+message ListOrdersResponse {
+  // The orders for the given product.
+  repeated Order orders = 1;
+
+  // The next page token.
+  string next_page_token = 2;
+}
+
+// Request message for GetProduct method.
+message GetOrderRequest {
+  // Required. The resource name of the order to get.
+  //
+  // Format: `sellers/{seller}/products/{product}/orders/{order}`
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "catalog.tap.dev/Order"
+  ];
+}
+
+// Request message for CreateProduct method.
+message CreateOrderRequest {
+  // Required. The resource name of the parent product for which to create the order.
+  //
+  // Format: `sellers/{seller}/products/{product}`
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "catalog.tap.dev/Product"
+      child_type: "catalog.tap.dev/Order"
+    }
+  ];
+
+  // Required. The order to create.
+  Order order = 2 [(google.api.field_behavior) = REQUIRED];
 }
