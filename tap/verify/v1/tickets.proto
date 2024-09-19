@@ -266,3 +266,14 @@ message VerifiedTicket {
   // Note
   optional string note = 5;
 }
+
+message TicketWithTag {
+  // The ticket id
+  TicketID ticket_id = 1;
+
+  // The ticket title
+  string ticket_title = 2;
+
+  // The ticket tag code
+  tap.verify.v1.TagCode tag_code = 3;
+}
