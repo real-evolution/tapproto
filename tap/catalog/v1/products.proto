@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package tap.catalog.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/type/money.proto";
+
+// This API provides methods to manage products.
+service ProductsService {
+  // Lists products for the given seller.
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+
+  // Gets a product by its resource name.
+  rpc GetProduct(GetProductRequest) returns (Product);
+
+  // Creates a new product.
+  rpc CreateProduct(CreateProductRequest) returns (Product);
+
+  // Updates an existing product.
+  rpc UpdateProduct(UpdateProductRequest) returns (Product);
+
+  // Deletes a product by its resource name.
+  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty);
+}
+
+// Request message for ListProducts method.
+message ListProductsRequest {
+  // If set, filter by seller.
+  optional string seller_id = 1;
+
+  // The maximum number of products to return.
+  int32 page_size = 2;
+
+  // The continuation token of the last call to `ListProducts`.
+  string page_token = 3;
+}
+
+// Response message for ListProducts method.
+message ListProductsResponse {
+  // The products for the given seller.
+  repeated Product products = 1;
+
+  // The next page token.
+  optional string next_page_token = 2;
+}
+
+// Request message for GetProduct method.
+message GetProductRequest {
+  // The identifier of the product to get.
+  string id = 1;
+}
+
+// Request message for CreateProduct method.
+message CreateProductRequest {
+  // The display name of the product.
+  string display_name = 1;
+
+  // A description of the product.
+  string description = 2;
+
+  // The identifier of the owner of the product.
+  string seller_id = 3;
+
+  // The price of the product.
+  google.type.Money price = 4;
+}
+
+// Request message for UpdateProduct method.
+message UpdateProductRequest {
+  // The identifier of the product to update.
+  string id = 1;
+
+  // If set, the new display name to be set.
+  optional string display_name = 2;
+
+  // If set, the new description to be set.
+  optional string description = 3;
+
+  // If set, the new price to be set.
+  optional google.type.Money price = 4;
+}
+
+// Request message for DeleteProduct method.
+message DeleteProductRequest {
+  // The identifier of the product to delete.
+  string id = 1;
+}
+
+// Product is a product that can be listed for sale.
+message Product {
+  // Product identifier.
+  string id = 1;
+
+  // The display name of the product.
+  string display_name = 2;
+
+  // A description of the product.
+  string description = 3;
+
+  // The identifier of the owner of the product.
+  string seller_id = 4;
+
+  // The price of the product.
+  google.type.Money price = 5;
+
+  // The timestamp at which the product was created.
+  google.protobuf.Timestamp create_time = 14;
+
+  // The timestamp at which the product was last updated.
+  google.protobuf.Timestamp update_time = 15;
+}
