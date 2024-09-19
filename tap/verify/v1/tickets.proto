@@ -12,6 +12,9 @@ service TicketsService {
   // Lists tickets
   rpc ListTickets(ListTicketsRequest) returns (ListTicketsResponse);
 
+  // List verifier tickets
+  rpc ListVerifierTickets(ListVerifierTicketsRequest) returns (ListVerifierTicketsResponse);
+
   // Gets a ticket
   rpc GetTicket(GetTicketRequest) returns (GetTicketResponse);
 
@@ -59,6 +62,27 @@ message ListTicketsRequest {
 message ListTicketsResponse {
   // The tickets
   repeated Ticket tickets = 1;
+}
+
+// Request message for `ListVerifierTickets`
+message ListVerifierTicketsRequest {
+  // The verifier id
+  tap.verify.v1.VerifierID verifier_id = 1 [(buf.validate.field).required = true];
+
+  // Filter by title
+  optional string title = 2;
+
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 3;
+
+  // The maximum number of products to return
+  optional int32 page_size = 4;
+}
+
+// Response message for `ListVerifierTickets`
+message ListVerifierTicketsResponse {
+  // The tickets
+  repeated TicketWithTag tickets = 1;
 }
 
 // Request message for `GetTicket`
