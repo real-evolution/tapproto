@@ -11,7 +11,7 @@ service ProductsService {
   // Lists products for the given seller.
   rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
 
-  // Gets a product by its resource name.
+  // Gets a product by its identifier.
   rpc GetProduct(GetProductRequest) returns (Product);
 
   // Creates a new product.
@@ -20,11 +20,11 @@ service ProductsService {
   // Updates an existing product.
   rpc UpdateProduct(UpdateProductRequest) returns (Product);
 
-  // Deletes a product by its resource name.
+  // Deletes a product by its identifier.
   rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty);
 }
 
-// Request message for ListProducts method.
+// Request message for `ListProducts` method.
 message ListProductsRequest {
   // If set, filter by seller.
   optional string seller_id = 1;
@@ -36,7 +36,7 @@ message ListProductsRequest {
   string page_token = 3;
 }
 
-// Response message for ListProducts method.
+// Response message for `ListProducts` method.
 message ListProductsResponse {
   // The products for the given seller.
   repeated Product products = 1;
@@ -45,13 +45,13 @@ message ListProductsResponse {
   optional string next_page_token = 2;
 }
 
-// Request message for GetProduct method.
+// Request message for `GetProduct` method.
 message GetProductRequest {
   // The identifier of the product to get.
   string id = 1;
 }
 
-// Request message for CreateProduct method.
+// Request message for `CreateProduct` method.
 message CreateProductRequest {
   // The display name of the product.
   string display_name = 1;
@@ -66,7 +66,7 @@ message CreateProductRequest {
   google.type.Money price = 4;
 }
 
-// Request message for UpdateProduct method.
+// Request message for `UpdateProduct` method.
 message UpdateProductRequest {
   // The identifier of the product to update.
   string id = 1;
@@ -81,7 +81,7 @@ message UpdateProductRequest {
   optional google.type.Money price = 4;
 }
 
-// Request message for DeleteProduct method.
+// Request message for `DeleteProduct` method.
 message DeleteProductRequest {
   // The identifier of the product to delete.
   string id = 1;
