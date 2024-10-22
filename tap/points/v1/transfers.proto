@@ -21,7 +21,8 @@ service TransfersService {
   rpc MakeTransfer(MakeTransferRequest) returns (MakeTransferResponse);
 
   // MakeTransferToHolder creates a new transfer transaction to a holder.
-  rpc MakeTransferToHolder(MakeTransferToHolderRequest) returns (MakeTransferToHolderResponse);
+  rpc MakeTransferToHolder(MakeTransferToHolderRequest)
+      returns (MakeTransferToHolderResponse);
 
   // GetReceipt returns a transfer receipt.
   rpc GetReceipt(GetReceiptRequest) returns (GetReceiptResponse);
@@ -47,8 +48,14 @@ message ListTransfersRequest {
   // Filter by the amount of the transfer.
   optional tap.types.v1.Decimal amount_greater_than = 6;
 
+  // Filter by the timestamp at which the transfer was made.
+  optional google.protobuf.Timestamp made_before = 7;
+
+  // Filter by the timestamp at which the transfer was made.
+  optional google.protobuf.Timestamp made_after = 8;
+
   // Pagination parameters.
-  tap.types.v1.Page page = 7;
+  tap.types.v1.Page page = 15;
 }
 
 // Response message for the ListTransfers method.
@@ -130,9 +137,7 @@ message GetReceiptResponse {
 }
 
 // A message to represent a transfer ID.
-message TransferID {
-  int64 value = 1;
-}
+message TransferID { int64 value = 1; }
 
 // A message to represent a transfer transaction.
 message Transfer {
