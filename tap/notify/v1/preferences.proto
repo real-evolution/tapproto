@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package tap.notify.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "tap/notify/v1/notifications.proto";
+
+// The preference service
+service PreferencesService {
+  // Lists preferences.
+  rpc ListPreferences(ListPreferencesRequest) returns (ListPreferencesResponse);
+
+  // Creates a preference.
+  rpc CreatePreference(CreatePreferenceRequest) returns (CreatePreferenceResponse);
+
+  // Updates a preference.
+  rpc UpdatePreference(UpdatePreferenceRequest) returns (UpdatePreferenceResponse);
+
+  // Deletes a preference.
+  rpc DeletePreference(DeletePreferenceRequest) returns (DeletePreferenceResponse);
+}
+
+// Request message for `ListPreferences`.
+message ListPreferencesRequest {
+  // The ID of the user to list preferences for.
+  optional string user_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // Filter preferences by sending method.
+  optional tap.notify.v1.NotificationSendingMethod sending_method = 2;
+
+  // Filter preferences by tag.
+  optional string tag = 3;
+
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 4;
+
+  // The maximum number of subscriptions to return.
+  optional int32 page_size = 5;
+}
+
+// Response message for `ListPreferences`.
+message ListPreferencesResponse {
+  // The preferences.
+  repeated Preference preferences = 1;
+}
+
+// Request message for `CreatePreference`.
+message CreatePreferenceRequest {
+  // The ID of the user to create a preference for.
+  string user_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The sending method.
+  tap.notify.v1.NotificationSendingMethod sending_method = 2;
+
+  // The tag.
+  string tag = 3;
+}
+
+// Response message for `CreatePreference`.
+message CreatePreferenceResponse {
+  // The created preference.
+  Preference preference = 1;
+}
+
+// Request message for `UpdatePreference`.
+message UpdatePreferenceRequest {
+  // The ID of the preference to update.
+  string preference_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The new sending method.
+  tap.notify.v1.NotificationSendingMethod sending_method = 2;
+}
+
+// Response message for `UpdatePreference`.
+message UpdatePreferenceResponse {
+  // The updated preference.
+  Preference preference = 1;
+}
+
+// Request message for `DeletePreference`.
+message DeletePreferenceRequest {
+  // The ID of the preference to delete.
+  string preference_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+// Response message for `DeletePreference`.
+message DeletePreferenceResponse {}
+
+
+message Preference{
+  // The ID of the preference
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The ID of the user
+  string user_id = 2 [(buf.validate.field).string.uuid = true];
+
+  // The sending method
+  tap.notify.v1.NotificationSendingMethod sending_method = 3;
+
+  // The tag
+  string tag = 4;
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 5;
+
+  // The last update timestamp
+  google.protobuf.Timestamp update_time = 6;
+
+}

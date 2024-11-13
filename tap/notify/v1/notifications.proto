@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package tap.notify.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+// The notifications service.
+service NotificationsService {
+  // Lists notifications.
+  rpc ListNotifications(ListNotificationsRequest) returns (ListNotificationsResponse);
+
+  // Send a notification.
+  rpc Notify(NotifyRequest) returns (NotifyResponse);
+
+  // Listen for notifications.
+  rpc Listen(ListenRequest) returns (stream ListenResponse);
+
+  // Notify All users
+  rpc NotifyAll(NotifyAllRequest) returns (NotifyAllResponse);
+}
+
+// Request message for the `ListNotifications` method.
+message ListNotificationsRequest {
+  // The user ID to list notifications for.
+  optional string user_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // Filter by sending method.
+  optional NotificationSendingMethod sending_method = 2;
+
+  // Filter by tag.
+  optional string tag = 3;
+
+  // Filter by subject.
+  optional string subject = 4;
+
+  // Filter by whether the notification has been sent.
+  optional bool sent = 5;
+
+  // Filter by sent_at timestamp.
+  optional google.protobuf.Timestamp sent_before_timestamp = 6;
+
+  // Creation timestamp after which to query.
+  optional google.protobuf.Timestamp before_timestamp = 7;
+
+  // The maximum number of subscriptions to return.
+  optional int32 page_size = 8;
+
+}
+
+message ListNotificationsResponse {
+  // The notifications.
+  repeated Notification notifications = 1;
+}
+
+// Request message for the `Notify` method.
+message NotifyRequest {
+  // The user ID to send the notification to.
+  string user_id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The method to send the notification with.
+  NotificationSendingMethod sending_method = 2;
+
+  // The tag of the notification.
+  string tag = 3;
+
+  // The subject of the notification.
+  string subject = 4;
+
+  // The body of the notification.
+  string body = 5;
+}
+
+// Response message for the `Notify` method.
+message NotifyResponse {
+  // The notification that was sent.
+  Notification notification = 1;
+}
+
+// Request message for the `Listen` method.
+message ListenRequest {}
+
+// Response message for the `Listen` method.
+message ListenResponse {
+  // The notification that was sent.
+  Notification notification = 1;
+}
+
+// Request message for the `NotifyAll` method.
+message NotifyAllRequest {
+  // The method to send the notification with.
+  NotificationSendingMethod sending_method = 1;
+
+  // The tag of the notification.
+  string tag = 2;
+
+  // The subject of the notification.
+  string subject = 3;
+
+  // The body of the notification.
+  string body = 4;
+}
+
+// Response message for the `SendNotification` method.
+message NotifyAllResponse {
+  //  Information about the status of the operation.
+  string info = 1;
+
+}
+enum NotificationSendingMethod {
+  UNKNOWN = 0;
+  EMAIL = 1;
+  SMS = 2;
+  PUSH = 3;
+}
+
+// A message to represent a notification.
+message Notification {
+  // The notification ID.
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // The user ID that the notification is for.
+  string user_id = 2 [(buf.validate.field).string.uuid = true];
+
+  // The method the notification was sent with.
+  NotificationSendingMethod sending_method = 3;
+
+  // The tag of the notification.
+  string tag = 4;
+
+  // The subject of the notification.
+  string subject = 5;
+
+  // The body of the notification.
+  string body = 6;
+
+  // The timestamp the notification was sent at.
+  google.protobuf.Timestamp sent_at = 7;
+
+  // The creation timestamp
+  google.protobuf.Timestamp create_time = 8;
+}
