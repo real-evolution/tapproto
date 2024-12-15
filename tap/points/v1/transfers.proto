@@ -39,26 +39,23 @@ message ListTransfersRequest {
   // Filter by the ID of the destination account.
   optional tap.points.v1.AccountID dst_account_id = 3;
 
-  // Filter by the source token code.
-  optional tap.points.v1.TokenCode src_token_code = 4;
-
-  // Filter by the destination token code.
-  optional tap.points.v1.TokenCode dst_token_code = 5;
+  // Filter by token code.
+  optional tap.points.v1.TokenCode token_code = 4;
 
   // Filter by the ID of the opening this transfer is associated with.
-  optional tap.points.v1.OpeningID opening_id = 6;
+  optional tap.points.v1.OpeningID opening_id = 5;
 
   // Filter by the amount of the transfer.
-  optional tap.types.v1.Decimal amount_less_than = 7;
+  optional tap.types.v1.Decimal amount_less_than = 6;
 
   // Filter by the amount of the transfer.
-  optional tap.types.v1.Decimal amount_greater_than = 8;
+  optional tap.types.v1.Decimal amount_greater_than = 7;
 
   // Filter by the timestamp at which the transfer was made.
-  optional google.protobuf.Timestamp made_before = 9;
+  optional google.protobuf.Timestamp made_before = 8;
 
   // Filter by the timestamp at which the transfer was made.
-  optional google.protobuf.Timestamp made_after = 10;
+  optional google.protobuf.Timestamp made_after = 9;
 
   // Pagination parameters.
   tap.types.v1.Page page = 15;
