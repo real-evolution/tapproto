@@ -12,6 +12,7 @@ import "tap/types/v1/pagination.proto";
 service CampaignsService {
   rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse);
   rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
+  rpc GetCampaignStats(GetCampaignStatsRequest) returns (GetCampaignStatsResponse);
   rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
   rpc SetCampaignState(SetCampaignStateRequest) returns (SetCampaignStateResponse);
   rpc PickAd(PickAdRequest) returns (PickAdResponse);
@@ -40,6 +41,14 @@ message GetCampaignRequest {
 
 message GetCampaignResponse {
   Campaign campaign = 1;
+}
+
+message GetCampaignStatsRequest {
+  CampaignID id = 1;
+}
+
+message GetCampaignStatsResponse {
+  CampaignStats stats = 1;
 }
 
 message CreateCampaignRequest {
@@ -155,4 +164,8 @@ message View {
   optional int64 transfer_id = 7;
 
   google.protobuf.Timestamp created_at = 15;
+}
+
+message CampaignStats {
+  int64 view_count = 1;
 }
