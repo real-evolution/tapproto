@@ -292,12 +292,9 @@ message VerifiedTicket {
 }
 
 message TicketWithTag {
-  // The ticket id
-  TicketID ticket_id = 1;
+  // The ticket
+  Ticket ticket = 1;
 
-  // The ticket title
-  string ticket_title = 2;
-
-  // The ticket tag code
-  tap.verify.v1.TagCode tag_code = 3;
+  // The ticket tag
+  TicketTag tag = 2;
 }
