@@ -16,6 +16,9 @@ service SubscriptionsService {
   // Subscribes to a provider.
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse);
 
+  // Verifies a subscription
+  rpc VerifySubscription(VerifySubscriptionRequest) returns (VerifySubscriptionResponse);
+
   // Unsubscribes from a provider.
   rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse);
 }
@@ -74,7 +77,19 @@ message SubscribeRequest {
 }
 
 // Response message for `Subscribe`.
-message SubscribeResponse {}
+message SubscribeResponse {
+   // Identifier for OTP verification
+   string otp_token = 1;
+}
+
+message VerifySubscriptionRequest {
+   // Identifier for OTP verification
+  string otp_token = 1;
+   // User-provided OTP code
+  string code = 2;
+}
+
+message VerifySubscriptionResponse {}
 
 // Request message for `Unsubscribe`.
 message UnsubscribeRequest {
