@@ -16,6 +16,9 @@ service SubscriptionsService {
   // Subscribes to a provider.
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse);
 
+  // Verifies a subscription
+  rpc VerifySubscription(VerifySubscriptionRequest) returns (VerifySubscriptionResponse);
+
   // Unsubscribes from a provider.
   rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse);
 }
@@ -75,6 +78,23 @@ message SubscribeRequest {
 
 // Response message for `Subscribe`.
 message SubscribeResponse {}
+
+message VerifySubscriptionRequest {
+  // The subscriber's phone number.
+  int64 phone = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).int64.gte = 0000000000010000,
+    (buf.validate.field).int64.lte = 9999999999999999
+  ];
+
+  // The ID of the site to subscribe to.
+  string site_id = 2 [(buf.validate.field).string.uuid = true];
+
+   // User-provided OTP code
+  string code = 3;
+}
+
+message VerifySubscriptionResponse {}
 
 // Request message for `Unsubscribe`.
 message UnsubscribeRequest {
