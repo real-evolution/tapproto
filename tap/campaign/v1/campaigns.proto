@@ -55,8 +55,11 @@ message CreateCampaignRequest {
   string title = 1;
   optional string description = 2;
   tap.campaign.v1.PackageID package_id = 3;
-  repeated string ads_ids = 4;
-  tap.points.v1.TransferID transfer_id = 5;
+  int32 unit_count = 4;
+  repeated string ads_ids = 5;
+  tap.points.v1.TransferID transfer_id = 6;
+  optional google.protobuf.Timestamp start_at = 7;
+  optional google.protobuf.Timestamp end_at = 8;
 }
 
 message CreateCampaignResponse {
@@ -148,6 +151,9 @@ message Campaign {
   tap.campaign.v1.PackageID package_id = 7;
   string advertiser_id = 8;
   repeated string ads_ids = 9;
+
+  google.protobuf.Timestamp start_at = 10;
+  google.protobuf.Timestamp end_at = 11;
 
   google.protobuf.Timestamp created_at = 14;
   google.protobuf.Timestamp updated_at = 15;
