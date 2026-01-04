@@ -4,6 +4,7 @@ package tap.sub.v1;
 
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
 
 // Subscribers' subscriptions management service.
 service SubscriptionsService {
@@ -18,6 +19,9 @@ service SubscriptionsService {
 
   // Verifies a subscription
   rpc VerifySubscription(VerifySubscriptionRequest) returns (VerifySubscriptionResponse);
+
+  // Bulk subscribe to a provider.
+  rpc BulkSubscribe(BulkSubscribeRequest) returns (BulkSubscribeResponse);
 
   // Unsubscribes from a provider.
   rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse);
@@ -95,6 +99,99 @@ message VerifySubscriptionRequest {
 }
 
 message VerifySubscriptionResponse {}
+
+// Request message for `BulkSubscribe`.
+//
+// This request supports two modes:
+//
+// 1) validate_only = true  (dry run)
+//    - The service validates each phone number (format/rules/DB constraints)
+//    - No subscriptions are created
+//    - Per-phone status is returned in the response
+//
+// 2) validate_only = false (execute)
+//    - The service validates each phone number
+//    - The service attempts to create the subscription for each phone
+//    - Per-phone status is returned in the response
+//
+// Notes:
+// - The service typically returns ONE result per input phone in the SAME order as `phones`.
+// - Implementations may deduplicate internally for efficiency, but still expand results back
+//   to match the original input list.
+message BulkSubscribeRequest {
+  // Phone numbers to validate/subscribe.
+  //
+  // Validation (buf.validate):
+  // - Must contain at least 1 phone number and at most 1000.
+  // - Each phone number must be within the allowed numeric range.
+  // - Range below effectively enforces a 16-digit span (service-specific).
+  repeated int64 phones = 1 [
+    (buf.validate.field).repeated = {
+      // List must not be empty.
+      min_items: 1
+
+      // Hard cap to protect service/DB from oversized batch requests.
+      max_items: 1000
+
+      // Validation rules applied to EACH item in the repeated field.
+      items: {
+        int64: {
+          // Minimum allowed phone number value.
+          gte: 0000000000010000
+
+          // Maximum allowed phone number value.
+          lte: 9999999999999999
+        }
+      }
+    }
+  ];
+
+  // UUID of the site to subscribe to.
+  string site_id = 2 [(buf.validate.field).string.uuid = true];
+
+  // UUID of the subscriber associated with these subscriptions.
+  string subscriber_id = 3 [(buf.validate.field).string.uuid = true];
+
+  // If true, perform validation only (dry run). No subscriptions are created.
+  //
+  // If false, the service will validate and then attempt to subscribe each phone.
+  bool validate_only = 4;
+}
+
+// Response message for `BulkSubscribe`.
+//
+// - `results` contains one entry per input phone number (typically same order as request).
+// - `succeeded` is the count of results whose status code is OK.
+// - `failed` is the count of results whose status code is NOT OK.
+//
+// Note:
+// - The RPC itself can succeed (transport OK) even if some items fail; item-level outcomes
+//   are represented in each `BulkSubscribeResult.status`.
+message BulkSubscribeResponse {
+  // Per-phone results (one per requested phone number, usually preserving request order).
+  repeated BulkSubscribeResult results = 1;
+
+  // Number of results with `status.code == OK`.
+  int32 succeeded = 2;
+
+  // Number of results with `status.code != OK`.
+  int32 failed = 3;
+}
+
+// Per-item outcome for `BulkSubscribe`.
+//
+// Each result corresponds to one phone number from the request and includes a standard
+// `google.rpc.Status` describing success or failure for that specific phone.
+message BulkSubscribeResult {
+  // The phone number this result corresponds to (copied from the request).
+  int64 phone_number = 1;
+
+  // Per-phone operation status.
+  //
+  // - `code` is a gRPC status code value (e.g., OK, INVALID_ARGUMENT, ALREADY_EXISTS, INTERNAL).
+  // - `message` is a human-readable description.
+  google.rpc.Status status = 2;
+}
 
 // Request message for `Unsubscribe`.
 message UnsubscribeRequest {
