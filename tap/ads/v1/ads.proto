@@ -12,7 +12,7 @@ import "tap/verify/v1/tickets.proto";
 service AdsService {
   rpc ListAds(ListAdsRequest) returns (ListAdsResponse);
   rpc GetAd(GetAdRequest) returns (GetAdResponse);
-  rpc GetAdContent(GetAdContentRequest) returns (GetAdContentResponse);
+  rpc GetAdUrl(GetAdUrlRequest) returns (GetAdUrlResponse);
   rpc CreateAd(CreateAdRequest) returns (CreateAdResponse);
 }
 
@@ -36,12 +36,12 @@ message GetAdResponse {
   Ad ad = 1;
 }
 
-message GetAdContentRequest {
+message GetAdUrlRequest {
   AdID id = 1;
 }
 
-message GetAdContentResponse {
-  bytes content = 1;
+message GetAdUrlResponse {
+  string url = 1;
 }
 
 message CreateAdRequest {

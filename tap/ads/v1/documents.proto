@@ -16,6 +16,9 @@ service DocumentsService {
   // Gets a document.
   rpc GetDocument(GetDocumentRequest) returns (GetDocumentResponse);
 
+  // Gets a URL to retrieve the document.
+  rpc GetDocumentUrl(GetDocumentUrlRequest) returns (GetDocumentUrlResponse);
+
   // Creates a document.
   rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse);
 }
@@ -51,6 +54,18 @@ message GetDocumentRequest {
 message GetDocumentResponse {
   // The document.
   Document document = 1;
+}
+
+// The request message for the GetDocumentUrl method.
+message GetDocumentUrlRequest {
+  // The ID of the document to retrieve.
+  DocumentID id = 1;
+}
+
+// The response message for the GetDocumentUrl method.
+message GetDocumentUrlResponse {
+  // The document URL.
+  string url = 1;
 }
 
 // The request message for the CreateDocument method.
