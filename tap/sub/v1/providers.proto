@@ -13,6 +13,9 @@ service ProvidersService {
   // Gets a provider by id.
   rpc GetProvider(GetProviderRequest) returns (GetProviderResponse);
 
+  // Gets the currently authenticated provider.
+  rpc GetCurrentProvider(GetCurrentProviderRequest) returns (GetCurrentProviderResponse);
+
   // Creates a provider.
   rpc CreateProvider(CreateProviderRequest) returns (CreateProviderResponse);
 
@@ -49,6 +52,15 @@ message GetProviderRequest {
 
 // The response message for the GetProvider method.
 message GetProviderResponse {
+  // The provider.
+  Provider provider = 1;
+}
+
+// The request message for the GetCurrentProvider method.
+message GetCurrentProviderRequest {}
+
+// The response message for the GetCurrentProvider method.
+message GetCurrentProviderResponse {
   // The provider.
   Provider provider = 1;
 }
