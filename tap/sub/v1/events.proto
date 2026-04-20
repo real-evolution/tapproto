@@ -20,7 +20,7 @@ service EventsService {
 // A request to get a batch of events.
 message GetEventBatchRequest {
   // The ID of the site to get events for.
-  string site_id = 1 [(buf.validate.field).string.uuid = true];
+  optional string site_id = 1 [(buf.validate.field).string.uuid = true];
 
   // The maximum number of events to return in the batch.
   int32 max_events = 2 [
