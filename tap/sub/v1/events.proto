@@ -80,12 +80,15 @@ message Event {
   // The ID of the event.
   int64 id = 1;
 
-  // The ID of site event occurred on.
-  int64 phone = 2;
+  // The ID of the site the event belongs to.
+  string site_id = 2;
+
+  // The phone number that triggered the event.
+  int64 phone = 3;
 
   // The event type.
-  Event.Type type = 3;
+  Event.Type type = 4;
 
   // The timestamp of the event.
-  google.protobuf.Timestamp timestamp = 4;
+  google.protobuf.Timestamp timestamp = 5;
 }
