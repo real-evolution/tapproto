@@ -38,6 +38,9 @@ message ListSubscriptionsRequest {
   // Filter by site.
   optional string site_id = 3 [(buf.validate.field).string.uuid = true];
 
+  // Filter by state
+  optional SubscriptionState state = 6;
+
   // Creation timestamp after which to query.
   optional google.protobuf.Timestamp before_timestamp = 4;
 
@@ -206,16 +209,28 @@ message UnsubscribeRequest {
 // Response message for `Unsubscribe`.
 message UnsubscribeResponse {}
 
+// An enum representing the current state of a subscription.
+enum SubscriptionState {
+  SUBSCRIPTION_STATE_UNSPECIFIED = 0;
+  SUBSCRIPTION_STATE_ACTIVATING = 1; // The subscription is pending provider's activation
+  SUBSCRIPTION_STATE_ACTIVE = 2; // The subscription is active
+  SUBSCRIPTION_STATE_DEACTIVATING = 3; // The subscription is pending provider's deactivation
+  SUBSCRIPTION_STATE_INACTIVE = 4; // The subscription is inactive
+}
+
 // A message to represent a subscription.
 message Subscription {
-  // The subscriber's phone number associated with .
+  // The subscriber's phone number associated with
   int64 phone = 1;
 
-  // The identifier of the subscriber who made the subscription.
+  // The identifier of the subscriber who made the subscription
   string subscriber_id = 2;
 
-  // The identifier of the site where the subscription was on.
+  // The identifier of the site where the subscription was on
   string site_id = 3;
+
+  // The current subscription state
+  SubscriptionState state = 6;
 
   // The creation timestamp
   google.protobuf.Timestamp create_time = 4;
