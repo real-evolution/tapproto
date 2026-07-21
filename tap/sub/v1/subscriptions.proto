@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package tap.sub.v1;
 
-import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 import "google/rpc/status.proto";
 
@@ -30,13 +29,13 @@ service SubscriptionsService {
 // Request message for `ListSubscriptions`.
 message ListSubscriptionsRequest {
   // The ID of the provider to list subscriptions for.
-  optional string provider_id = 1 [(buf.validate.field).string.uuid = true];
+  optional string provider_id = 1;
 
   // Filter by subscriber.
-  optional string subscriber_id = 2 [(buf.validate.field).string.uuid = true];
+  optional string subscriber_id = 2;
 
   // Filter by site.
-  optional string site_id = 3 [(buf.validate.field).string.uuid = true];
+  optional string site_id = 3;
 
   // Filter by state
   optional SubscriptionState state = 6;
@@ -57,11 +56,7 @@ message ListSubscriptionsResponse {
 // Request message for `GetSubscription`.
 message GetSubscriptionRequest {
   // The subscriber's phone number.
-  int64 phone = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).int64.gte = 0000000000010000,
-    (buf.validate.field).int64.lte = 9999999999999999
-  ];
+  int64 phone = 1;
 }
 
 // Response message for `GetSubscription`.
@@ -73,14 +68,10 @@ message GetSubscriptionResponse {
 // Request message for `Subscribe`.
 message SubscribeRequest {
   // The subscriber's phone number.
-  int64 phone = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).int64.gte = 0000000000010000,
-    (buf.validate.field).int64.lte = 9999999999999999
-  ];
+  int64 phone = 1;
 
   // The ID of the site to subscribe to.
-  string site_id = 2 [(buf.validate.field).string.uuid = true];
+  string site_id = 2;
 }
 
 // Response message for `Subscribe`.
@@ -88,16 +79,12 @@ message SubscribeResponse {}
 
 message VerifySubscriptionRequest {
   // The subscriber's phone number.
-  int64 phone = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).int64.gte = 0000000000010000,
-    (buf.validate.field).int64.lte = 9999999999999999
-  ];
+  int64 phone = 1;
 
   // The ID of the site to subscribe to.
-  string site_id = 2 [(buf.validate.field).string.uuid = true];
+  string site_id = 2;
 
-   // User-provided OTP code
+  // User-provided OTP code
   string code = 3;
 }
 
@@ -123,37 +110,13 @@ message VerifySubscriptionResponse {}
 //   to match the original input list.
 message BulkSubscribeRequest {
   // Phone numbers to validate/subscribe.
-  //
-  // Validation (buf.validate):
-  // - Must contain at least 1 phone number and at most 1000.
-  // - Each phone number must be within the allowed numeric range.
-  // - Range below effectively enforces a 16-digit span (service-specific).
-  repeated int64 phones = 1 [
-    (buf.validate.field).repeated = {
-      // List must not be empty.
-      min_items: 1
-
-      // Hard cap to protect service/DB from oversized batch requests.
-      max_items: 1000
-
-      // Validation rules applied to EACH item in the repeated field.
-      items: {
-        int64: {
-          // Minimum allowed phone number value.
-          gte: 0000000000010000
-
-          // Maximum allowed phone number value.
-          lte: 9999999999999999
-        }
-      }
-    }
-  ];
+  repeated int64 phones = 1;
 
   // UUID of the site to subscribe to.
-  string site_id = 2 [(buf.validate.field).string.uuid = true];
+  string site_id = 2;
 
   // UUID of the subscriber associated with these subscriptions.
-  string subscriber_id = 3 [(buf.validate.field).string.uuid = true];
+  string subscriber_id = 3;
 
   // If true, perform validation only (dry run). No subscriptions are created.
   //
@@ -199,11 +162,7 @@ message BulkSubscribeResult {
 // Request message for `Unsubscribe`.
 message UnsubscribeRequest {
   // The subscriber's phone number.
-  int64 phone = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).int64.gte = 0000000000010000,
-    (buf.validate.field).int64.lte = 9999999999999999
-  ];
+  int64 phone = 1;
 }
 
 // Response message for `Unsubscribe`.

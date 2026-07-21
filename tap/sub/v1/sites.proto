@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package tap.sub.v1;
 
-import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
 // Provider sites management service definition.
@@ -26,19 +25,16 @@ service SitesService {
 // Request message for `ListSites`.
 message ListSitesRequest {
   // The ID of the provider to list sites for.
-  optional string provider_id = 1 [(buf.validate.field).string.uuid = true];
+  optional string provider_id = 1;
 
   // Filter provider sites by their status.
-  optional string country_iso2 = 2 [(buf.validate.field).string.pattern = "[a-zA-Z]{2}"];
+  optional string country_iso2 = 2;
 
   // Filter provider sites by their status.
   optional bool is_enabled = 3;
 
   // Get only provider sites compatible with the given phone number.
-  optional int64 phone = 4 [
-    (buf.validate.field).int64.gte = 1000,
-    (buf.validate.field).int64.lte = 9999999999999999
-  ];
+  optional int64 phone = 4;
 
   // Timestamp after which to query for providers.
   optional google.protobuf.Timestamp before_timestamp = 5;
@@ -56,7 +52,7 @@ message ListSitesResponse {
 // Request message for `GetSite`.
 message GetSiteRequest {
   // The ID of the provider site to get.
-  string id = 1 [(buf.validate.field).string.uuid = true];
+  string id = 1;
 }
 
 // Response message for `GetSite`.
@@ -67,26 +63,20 @@ message GetSiteResponse {
 
 // Request message for `CreateSite`.
 message CreateSiteRequest {
-  option (buf.validate.message).cel = {
-    id: "gt_min_phone"
-    message: "max_phone must be greater than min_phone"
-    expression: "this.max_phone > this.min_phone"
-  };
-
   // The ID of the provider to create a site for.
-  string provider_id = 1 [(buf.validate.field).string.uuid = true];
+  string provider_id = 1;
 
   // The provider site's name
-  string display_name = 2 [(buf.validate.field).required = true];
+  string display_name = 2;
 
   // The minimum phone number this provider site accepts
-  int64 min_phone = 3 [(buf.validate.field).int64.gte = 0000000000001000];
+  int64 min_phone = 3;
 
   // The maximum phone number this provider site accepts
-  int64 max_phone = 4 [(buf.validate.field).int64.lte = 9999999999999999];
+  int64 max_phone = 4;
 
   // The provider site's ISO code
-  string country_iso2 = 5 [(buf.validate.field).string.pattern = "^[a-zA-Z]{2}$"];
+  string country_iso2 = 5;
 
   // The provider site's status
   bool is_enabled = 6;
@@ -101,7 +91,7 @@ message CreateSiteResponse {
 // Request message for `UpdateSite`.
 message UpdateSiteRequest {
   // The ID of the provider site to update.
-  string id = 1 [(buf.validate.field).string.uuid = true];
+  string id = 1;
 
   // The new provider site's name.
   optional string display_name = 2;
@@ -119,7 +109,7 @@ message UpdateSiteResponse {
 // Request message for `DeleteSite`.
 message DeleteSiteRequest {
   // The ID of the provider site to delete.
-  string id = 1 [(buf.validate.field).string.uuid = true];
+  string id = 1;
 }
 
 // Response message for `DeleteSite`.
