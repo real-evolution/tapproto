@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 import "tap/ads/v1/advertisers.proto";
 import "tap/ads/v1/requirements.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/verify/v1/tickets.proto";
 
 // The documents service definition.
 service DocumentsService {
@@ -107,7 +106,7 @@ message Document {
   tap.ads.v1.AdvertiserID advertiser_id = 4;
 
   // The identofier of the verification ticket of the document.
-  tap.verify.v1.TicketID ticket_id = 5;
+  string ticket_id = 5;
 
   // The identifier of the document content.
   string content_id = 6;

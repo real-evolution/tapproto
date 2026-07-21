@@ -7,7 +7,6 @@ import "tap/ads/v1/advertisers.proto";
 import "tap/ads/v1/quotas.proto";
 import "tap/types/v1/duration.proto";
 import "tap/types/v1/pagination.proto";
-import "tap/verify/v1/tickets.proto";
 
 service AdsService {
   rpc ListAds(ListAdsRequest) returns (ListAdsResponse);
@@ -69,7 +68,7 @@ message Ad {
 
   tap.ads.v1.AdvertiserID advertiser_id = 5;
   tap.ads.v1.QuotaID quota_id = 6;
-  tap.verify.v1.TicketID ticket_id = 7;
+  string ticket_id = 7;
   string content_id = 8;
 
   google.protobuf.Timestamp created_at = 9;
