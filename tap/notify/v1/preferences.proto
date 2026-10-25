@@ -87,8 +87,7 @@ message DeletePreferenceRequest {
 // Response message for `DeletePreference`.
 message DeletePreferenceResponse {}
 
-
-message Preference{
+message Preference {
   // The ID of the preference
   string id = 1 [(buf.validate.field).string.uuid = true];
 
@@ -106,5 +105,4 @@ message Preference{
 
   // The last update timestamp
   google.protobuf.Timestamp update_time = 6;
-
 }

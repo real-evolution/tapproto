@@ -45,7 +45,6 @@ message ListNotificationsRequest {
 
   // The maximum number of subscriptions to return.
   optional int32 page_size = 8;
-
 }
 
 message ListNotificationsResponse {
@@ -105,7 +104,6 @@ message NotifyAllRequest {
 message NotifyAllResponse {
   //  Information about the status of the operation.
   string info = 1;
-
 }
 enum NotificationSendingMethod {
   UNKNOWN = 0;

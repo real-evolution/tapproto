@@ -21,8 +21,7 @@ service TransfersService {
   rpc MakeTransfer(MakeTransferRequest) returns (MakeTransferResponse);
 
   // MakeTransferToHolder creates a new transfer transaction to a holder.
-  rpc MakeTransferToHolder(MakeTransferToHolderRequest)
-      returns (MakeTransferToHolderResponse);
+  rpc MakeTransferToHolder(MakeTransferToHolderRequest) returns (MakeTransferToHolderResponse);
 
   // GetReceipt returns a transfer receipt.
   rpc GetReceipt(GetReceiptRequest) returns (GetReceiptResponse);
@@ -103,7 +102,7 @@ message MakeTransferResponse {
   Transfer transfer = 1;
 }
 
-/// Request message for the MakeTransferToHolder method.
+// Request message for the MakeTransferToHolder method.
 message MakeTransferToHolderRequest {
   // The ID of the source account.
   tap.points.v1.AccountID src_account_id = 1;
@@ -140,7 +139,9 @@ message GetReceiptResponse {
 }
 
 // A message to represent a transfer ID.
-message TransferID { int64 value = 1; }
+message TransferID {
+  int64 value = 1;
+}
 
 // A message to represent a transfer transaction.
 message Transfer {
